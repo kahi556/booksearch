@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Feegle</title>
+	<meta name="description" content="Feegle">
+<?php @include("common/jquery.html"); ?>
+<script type="text/javascript">
+var nowProtocol = (("https:" == document.location.protocol) ? "https://" : "http://");
+var changeProtocol = (("https:" == nowProtocol) ? "http://" : "https://");
+var pageURL = "https://analyzer1.apps.netowl.jp/js/analyze-sv1-90798968.js";
+if( pageURL.indexOf( nowProtocol ) != 0 ){
+if( pageURL.indexOf( changeProtocol ) == 0 ){
+pageURL = pageURL.replace( changeProtocol, nowProtocol );
+}else{
+pageURL = nowProtocol + pageURL;
+}
+}
+document.write(unescape("%3Cscript src='" + pageURL + "' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+<!--
+var cid='90798968';
+set_script(cid);
+// -->
+</script>
+<noscript>
+<a href="http://www.netowl.jp/">
+<img src="https://analyzer1.apps.netowl.jp/images/analyze-sv1-90798968.gif" border="0" >
+</a>
+</noscript>
+</head>
+<body>
+
+<div data-role="page" id="page1" data-theme="c">
+	<div data-role="header" data-theme="d">
+		<h1>Feegle　マイページ</h1>
+<?php @include("common/header.html"); ?>
+	</div><!-- /header -->
+	
+	<div data-role="content" data-theme="c">
+		<p>マイページ</p>
+		<br>
+		<ul data-role="listview">
+			<li></li> 
+		</ul>
+		<br>
+	</div><!-- /content -->
+	
+	<div data-role="footer" data-theme="d">
+<?php @include("common/footer.html"); ?>
+	</div><!-- /footer -->
+</div><!-- /page1 -->
+
+<div data-role="page" id="page2" data-theme="c">
+	<div data-role="header" data-theme="d">
+		<h1></h1>
+	</div><!-- /header -->
+	
+	<div data-role="content" data-theme="c">
+		<h4>
+		</h4>
+	</div><!-- /content -->
+	
+	<div data-role="footer" data-theme="d">
+<?php @include("common/footer.html"); ?>
+	</div><!-- /footer -->
+</div><!-- /page2 -->
+
+<div data-role="page" id="page3" data-theme="c">
+	<div data-role="header" data-theme="d">
+		<h1></h1>
+		<a href="#page1" data-rel="back" data-icon="arrow-l">Back</a>
+	</div><!-- /header -->
+	
+	<div data-role="content" data-theme="c">
+		<h4>
+		</h4>
+	</div><!-- /content -->
+	
+	<div data-role="footer" data-theme="d">
+<?php @include("common/footer.html"); ?>
+	</div><!-- /footer -->
+</div><!-- /page3 -->
+
+<div data-role="page" id="page4" data-theme="c">
+	<div data-role="header" data-theme="d">
+		<h1></h1>
+		<a href="#page1" data-rel="back" data-icon="arrow-l">Back</a>
+	</div><!-- /header -->
+	
+	<div data-role="content" data-theme="c">
+		<h4>
+		</h4>
+	</div><!-- /content -->
+	
+	<div data-role="footer" data-theme="d">
+<?php @include("common/footer.html"); ?>
+	</div><!-- /footer -->
+</div><!-- /page4 -->
+
+<div data-role="page" id="page5" data-theme="c">
+	<div data-role="header" data-theme="d">
+		<h1></h1>
+		<a href="#page1" data-rel="back" data-icon="arrow-l">Back</a>
+	</div><!-- /header -->
+	
+	<div data-role="content" data-theme="c">
+		<h4>
+		</h4>
+	</div><!-- /content -->
+	
+	<div data-role="footer" data-theme="d">
+<?php @include("common/footer.html"); ?>
+	</div><!-- /footer -->
+</div><!-- /page5 -->
+
+<div data-role="page" id="page6" data-theme="c">
+	<div data-role="header" data-theme="d">
+		<h1></h1>
+		<a href="#page1" data-rel="back" data-icon="arrow-l">Back</a>
+	</div><!-- /header -->
+	
+	<div data-role="content" data-theme="c">
+		<h4>
+		</h4>
+	</div><!-- /content -->
+	
+	<div data-role="footer" data-theme="d">
+<?php @include("common/footer.html"); ?>
+	</div><!-- /footer -->
+</div><!-- /page6 -->
+
+</body>
+</html>

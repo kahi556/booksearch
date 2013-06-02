@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Feegle　ログイン</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+<?php @include("common/jquery.html"); ?>
+<script type="text/javascript">
+var nowProtocol = (("https:" == document.location.protocol) ? "https://" : "http://");
+var changeProtocol = (("https:" == nowProtocol) ? "http://" : "https://");
+var pageURL = "https://analyzer1.apps.netowl.jp/js/analyze-sv1-90798968.js";
+if( pageURL.indexOf( nowProtocol ) != 0 ){
+if( pageURL.indexOf( changeProtocol ) == 0 ){
+pageURL = pageURL.replace( changeProtocol, nowProtocol );
+}else{
+pageURL = nowProtocol + pageURL;
+}
+}
+document.write(unescape("%3Cscript src='" + pageURL + "' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+<!--
+var cid='90798968';
+set_script(cid);
+// -->
+</script>
+<noscript>
+<a href="http://www.netowl.jp/">
+<img src="https://analyzer1.apps.netowl.jp/images/analyze-sv1-90798968.gif" border="0" >
+</a>
+</noscript>
+</head>
+<body>
+
+<div data-role="page" id="page1" data-theme="c" data-add-back-btn="true">
+	<div data-role="header" data-theme="d">
+		<h1>ログイン</h1>
+<?php @include("common/header.html"); ?>
+	</div><!-- /header -->
+	
+	<div data-role="content" data-theme="d">
+		<p><?php echo $msg_info ?></p>
+		<form id="loginform" method="post" action="" class="ui-body ui-body-c"><br>
+			<div data-role="fieldcontain">
+				<label for="user_id">ログインID:</label>
+				<input type="text" name="user_id" id="user_id" autofocus required value="" maxlength="100">
+			</div><!-- /fieldcontain -->
+			<div data-role="fieldcontain">
+				<label for="password">パスワード:</label>
+				<input type="password" name="password" id="password" pattern="^[0-9A-Za-z]+$" required value="" maxlength="16">
+			</div><!-- /fieldcontain -->
+			<input type="submit" name="login" class="button_small grbtn" id="login" value="ログイン">
+		</form>
+		<input type="button" name="regist" class="button_small grbtn" id="regist" value="新規登録" onclick="location.href='registchk.php'">
+	</div><!-- /content -->
+	
+	<div data-role="footer" data-theme="d">
+<?php @include("common/footer.html"); ?>
+	</div><!-- /footer -->
+</div><!-- /page1 -->
+
+</body>
+</html>

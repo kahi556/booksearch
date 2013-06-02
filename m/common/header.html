@@ -1,0 +1,21 @@
+<?php
+if (isset($_SESSION['login'])) {
+	$linkpg = "				";
+	$linkpg.= "<li><a href=\"./\" data-ajax=\"false\">ﾎｰﾑ</a></li>\n";
+	$loginpg = "				";
+	$loginpg.= "<li><a href=\"mypage.php\" data-ajax=\"false\">ﾏｲﾍﾟｰｼﾞ</a></li>\n";
+}else{
+	$linkpg = "				";
+	$linkpg.= "<li><a href=\"./\" data-ajax=\"false\">ﾎｰﾑ</a></li>\n";
+	$loginpg = "				";
+	$loginpg.= "<li><a href=\"login.php\" data-ajax=\"false\">ﾛｸﾞｲﾝ</a></li>\n";
+}
+?>
+		<div data-role="navbar">
+			<ul>
+<?php echo $linkpg ?>
+				<li><a href="sbook.php" data-ajax="false">本を検索</a></li>
+				<li><a href="wreview.php" data-ajax="false">書評を書く</a></li>
+<?php echo $loginpg ?>
+			</ul>
+		</div><!-- /navbar -->

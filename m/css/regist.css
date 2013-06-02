@@ -1,0 +1,16 @@
+#area {
+    position: relative;
+    height: 30px;
+}
+#placeholder {
+    position: absolute;
+    color: #999999;
+    top: 14px;
+    left: 10px;
+}
+#input {
+    position: absolute;
+}
+#input input {
+    background-color: transparent;
+}

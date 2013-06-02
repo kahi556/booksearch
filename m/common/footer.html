@@ -1,0 +1,16 @@
+		<div data-role="navbar">
+			<div style="text-align: center;">
+				<small>
+<?php
+if (isset($_SESSION['login'])) {
+	$logininfo = "				";
+	$logininfo.= $_SESSION['nickname']."さん<br>\n";
+	$logininfo.= "				";
+	$logininfo.= "<a href=\"logout.php\">ﾛｸﾞｱｳﾄ</a><br>\n";
+	echo $logininfo;
+}
+?>
+					&copy; Feegle All Rights Reserved.
+				</small>
+			</div>
+		</div><!-- /navbar -->
