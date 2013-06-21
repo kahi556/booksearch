@@ -5,32 +5,48 @@
 
 session_start();
 
-// 変数初期化
-$p_book_name = "";
-$p_review = "";
-
 // ログイン状態のチェック
 if (!isset($_SESSION['login'])) {
 	header("Location: login.php?m=wr");
 	exit;
 }
 
+// 変数初期化
+$p_isbn = "";
+$p_book_name = "";
+$wk_search_key = "";
+$get_book_suu = 10;
+
 //***********************************************
-// 受信データをもとに変数の設定 POST
+// 受信データをもとに変数の設定 GET
 //***********************************************
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	// 特殊文字をHTMLエンティティに変換（セキュリティ対策）
-	if(isset($_POST["book_name"])){$p_book_name=htmlspecialchars($_POST["book_name"]);}
-	if(isset($_POST["review"])){$p_review=htmlspecialchars($_POST["review"]);}
+	if(isset($_GET["isbn"])){$p_isbn=htmlspecialchars($_GET["isbn"]);}
+	if(isset($_GET["img"])){$p_img=htmlspecialchars($_GET["img"]);}
 	// 文字のエスケープ（セキュリティ対策）
-	$p_book_name=preg_replace("/;/"," ",addslashes($p_book_name));
-	$p_review=preg_replace("/;/"," ",addslashes($p_review));
-	
-	
+	$p_isbn=preg_replace("/;/"," ",addslashes($p_isbn));
+	$p_img=preg_replace("/;/"," ",addslashes($p_img));
+	if ($p_isbn <> "") {
+		echo "isbn=".$p_isbn;
+	}elseif ($p_book_name <> "") {
+		echo "check NG";
+	}
 }
 
-
-
+// おすすめ書籍情報取得
+require("amazonaws.php");
+if (($p_isbn <> "") || ($p_book_name <> "")) {
+	$isbn10 = ISBNTran( $p_isbn );
+	$data = amazon_info($p_book_name, $isbn10);
+	for ($i=0; $i < $get_book_suu; $i++) { 
+		$arr_title[] = $data[$i]->Title;
+		$arr_author[] = $data[$i]->Author;
+		$arr_imageurl[] = $data[$i]->ImageURL;
+		$arr_linkurl[] = $data[$i]->DetailPageURL;
+	}
+	
+}
 
 include 'template/wreview.html';
 ?>

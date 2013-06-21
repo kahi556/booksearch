@@ -30,45 +30,21 @@ for ($i=0; $i < 3; $i++) {
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Feegle</title>
-	<meta name="description" content="Feegle">
+	<title>feegle</title>
+	<meta name="description" content="feegle">
 <?php @include("common/jquery.html"); ?>
-<script type="text/javascript">
-var nowProtocol = (("https:" == document.location.protocol) ? "https://" : "http://");
-var changeProtocol = (("https:" == nowProtocol) ? "http://" : "https://");
-var pageURL = "https://analyzer1.apps.netowl.jp/js/analyze-sv1-90798968.js";
-if( pageURL.indexOf( nowProtocol ) != 0 ){
-if( pageURL.indexOf( changeProtocol ) == 0 ){
-pageURL = pageURL.replace( changeProtocol, nowProtocol );
-}else{
-pageURL = nowProtocol + pageURL;
-}
-}
-document.write(unescape("%3Cscript src='" + pageURL + "' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-<!--
-var cid='90798968';
-set_script(cid);
-// -->
-</script>
-<noscript>
-<a href="http://www.netowl.jp/">
-<img src="https://analyzer1.apps.netowl.jp/images/analyze-sv1-90798968.gif" border="0" >
-</a>
-</noscript>
 </head>
 <body>
 
 <div data-role="page" id="page1" data-theme="c">
 	<div data-role="header" data-theme="d">
-		<h1>Feegle</h1>
+		<h1>feegle</h1>
 		<a rel="external" href="../" data-role="button" class="ui-btn-right">PC版</a>
 <?php @include("common/header.html"); ?>
 	</div><!-- /header -->
 	
 	<div data-role="content" data-theme="c">
-		<p>Feegleは<br>
+		<p>feegleは<br>
 		書籍検索の仕方（あり方）を変えることにより、<br>
 		必要な人に必要な物（書籍情報）を届け、<br>
 		誰かの生き方、心情、行動に好影響を与える、<br>

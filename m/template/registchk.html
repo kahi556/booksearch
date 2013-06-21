@@ -6,30 +6,6 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 <?php @include("common/jquery.html"); ?>
-<script type="text/javascript">
-var nowProtocol = (("https:" == document.location.protocol) ? "https://" : "http://");
-var changeProtocol = (("https:" == nowProtocol) ? "http://" : "https://");
-var pageURL = "https://analyzer1.apps.netowl.jp/js/analyze-sv1-90798968.js";
-if( pageURL.indexOf( nowProtocol ) != 0 ){
-if( pageURL.indexOf( changeProtocol ) == 0 ){
-pageURL = pageURL.replace( changeProtocol, nowProtocol );
-}else{
-pageURL = nowProtocol + pageURL;
-}
-}
-document.write(unescape("%3Cscript src='" + pageURL + "' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-<!--
-var cid='90798968';
-set_script(cid);
-// -->
-</script>
-<noscript>
-<a href="http://www.netowl.jp/">
-<img src="https://analyzer1.apps.netowl.jp/images/analyze-sv1-90798968.gif" border="0" >
-</a>
-</noscript>
 </head>
 <body>
 

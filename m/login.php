@@ -16,15 +16,15 @@ require("common/conf.php"); // 共通定義
 
 // ログイン後の処理振り分け、セッション情報クリア
 if (isset($_GET['m'])) {
-	if ($_GET['m'] == "sb") { // 本を検索
-		$msg_info = "本を検索するにはログインが必要です。<br>";
-		$_SESSION['link'] = "sbook.php";
-	}elseif ($_GET['m'] == "wr") { // 書評を書く
+	if ($_GET['m'] == "wr") { // 書評を書く
 		$msg_info = "書評を書くにはログインが必要です。<br>";
 		$_SESSION['link'] = "wreview.php";
 	}elseif ($_GET['m'] == "os") { // おすすめ本登録
 		$msg_info = "おすすめ本を登録するにはログインが必要です。<br>";
 		$_SESSION['link'] = "osusume.php";
+	//}elseif ($_GET['m'] == "sb") { // 本を検索
+	//	$msg_info = "本を検索するにはログインが必要です。<br>";
+	//	$_SESSION['link'] = "sbook.php";
 	}
 }elseif (isset($_POST['user_id'])) { // ユーザーID入力後
 }else{

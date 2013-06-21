@@ -30,13 +30,13 @@ function amazon_info($searchWord, $searchISBN) {
     $params['ResponseGroup'] = AWS_OPTION_RESPONSEGROUP;
     $params['ItemPage'] = 1;
     $params['Timestamp'] = gmdate('Y-m-d\TH:i:s\Z');
-	if ($searchWord <> "") {
-	    $params['Keywords'] = $searchWord ;        //検索キーワード
-    	$params['Operation'] = 'ItemSearch';
-	}elseif ($searchISBN <> "") {
+	if ($searchISBN <> "") {
     	$params['Operation'] = 'ItemLookup';
 	    $params['IdType'] = AWS_IDTYPE ;
 	    $params['ItemId'] = $searchISBN ;
+	}elseif ($searchWord <> "") {
+	    $params['Keywords'] = $searchWord ;        //検索キーワード
+    	$params['Operation'] = 'ItemSearch';
 	}else{
 		return "ERROR";
 	}
