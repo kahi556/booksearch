@@ -26,9 +26,9 @@ if (isset($_GET['m'])) {
 	if ($p_m == "wr") { // 書評を書く
 		$msg_info = "書評を書くにはログインが必要です。<br>";
 		$p_link = "wreviewsch.php";
-	}elseif ($p_m == "os") { // おすすめ本登録
-		$msg_info = "おすすめ本を登録するにはログインが必要です。<br>";
-		$p_link = "osusume.php";
+	//}elseif ($p_m == "os") { // おすすめ本登録
+	//	$msg_info = "おすすめ本を登録するにはログインが必要です。<br>";
+	//	$p_link = "osusume.php";
 	//}elseif ($_GET['m'] == "sb") { // 本を検索
 	//	$msg_info = "本を検索するにはログインが必要です。<br>";
 	//	$_SESSION['link'] = "sbook.php";

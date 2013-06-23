@@ -10,100 +10,30 @@
 
 <div data-role="page" id="page1" data-theme="c">
 	<div data-role="header" data-theme="d">
-		<h1>feegle　本を検索</h1>
+		<img src="images/logo.png">
 <?php @include("common/header.html"); ?>
 	</div><!-- /header -->
 	
 	<div data-role="content" data-theme="c">
 		<p>本を検索</p>
-		<br>
-		<br>
-		<a rel="external" href="osusume.php" data-role="button" class="">おすすめ本登録</a>
+		<div data-role="fieldcontain">
+			<p>今の気分で検索:</p>
+			<a href="sbook_feeling.php"><img src="images/xxx.gif"></a>
+		</div><!-- /fieldcontain -->
+		<div data-role="fieldcontain">
+			<form id="loginform" method="post" action="" class="ui-body ui-body-c"><br>
+				<label for="keyword">キーワードで検索:</label>
+				<input type="text" name="keyword" id="keyword" value="" maxlength="100" /><br /><br />
+				<button type="submit" name="btn_keyword" id="btn_keyword">検索</button>
+			</form>
+		</div ><!-- /fieldcontain -->
+		<!-- <a rel="external" href="osusume.php" data-role="button" class="">おすすめ本登録</a> -->
 	</div><!-- /content -->
 	
 	<div data-role="footer" data-theme="d">
 <?php @include("common/footer.html"); ?>
 	</div><!-- /footer -->
 </div><!-- /page1 -->
-
-<div data-role="page" id="page2" data-theme="c">
-	<div data-role="header" data-theme="d">
-		<h1></h1>
-	</div><!-- /header -->
-	
-	<div data-role="content" data-theme="c">
-		<h4>
-		</h4>
-	</div><!-- /content -->
-	
-	<div data-role="footer" data-theme="d">
-<?php @include("common/footer.html"); ?>
-	</div><!-- /footer -->
-</div><!-- /page2 -->
-
-<div data-role="page" id="page3" data-theme="c">
-	<div data-role="header" data-theme="d">
-		<h1></h1>
-		<a href="#page1" data-rel="back" data-icon="arrow-l">Back</a>
-	</div><!-- /header -->
-	
-	<div data-role="content" data-theme="c">
-		<h4>
-		</h4>
-	</div><!-- /content -->
-	
-	<div data-role="footer" data-theme="d">
-<?php @include("common/footer.html"); ?>
-	</div><!-- /footer -->
-</div><!-- /page3 -->
-
-<div data-role="page" id="page4" data-theme="c">
-	<div data-role="header" data-theme="d">
-		<h1></h1>
-		<a href="#page1" data-rel="back" data-icon="arrow-l">Back</a>
-	</div><!-- /header -->
-	
-	<div data-role="content" data-theme="c">
-		<h4>
-		</h4>
-	</div><!-- /content -->
-	
-	<div data-role="footer" data-theme="d">
-<?php @include("common/footer.html"); ?>
-	</div><!-- /footer -->
-</div><!-- /page4 -->
-
-<div data-role="page" id="page5" data-theme="c">
-	<div data-role="header" data-theme="d">
-		<h1></h1>
-		<a href="#page1" data-rel="back" data-icon="arrow-l">Back</a>
-	</div><!-- /header -->
-	
-	<div data-role="content" data-theme="c">
-		<h4>
-		</h4>
-	</div><!-- /content -->
-	
-	<div data-role="footer" data-theme="d">
-<?php @include("common/footer.html"); ?>
-	</div><!-- /footer -->
-</div><!-- /page5 -->
-
-<div data-role="page" id="page6" data-theme="c">
-	<div data-role="header" data-theme="d">
-		<h1></h1>
-		<a href="#page1" data-rel="back" data-icon="arrow-l">Back</a>
-	</div><!-- /header -->
-	
-	<div data-role="content" data-theme="c">
-		<h4>
-		</h4>
-	</div><!-- /content -->
-	
-	<div data-role="footer" data-theme="d">
-<?php @include("common/footer.html"); ?>
-	</div><!-- /footer -->
-</div><!-- /page6 -->
 
 </body>
 </html>

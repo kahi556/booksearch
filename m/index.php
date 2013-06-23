@@ -11,19 +11,47 @@ if (isset($_SESSION['login'])) {
 	exit;
 }
 
+// 変数初期化
+$arr_isbn = array();
+$html = "";
+
 require("common/sess_clear.php"); // セッション情報クリア
 
 // おすすめ書籍情報取得
+//***********************************************
+// DB接続
+//***********************************************
+include 'common/database.php';
+$obj = new comdb();
+mysql_set_charset('utf8');
+
+//***********************************************
+// 書籍情報検索
+//***********************************************
+$sql = "SELECT isbn";
+$sql.= " FROM book_table";
+$sql.= " ORDER BY rand() limit 0,5";
+$ret = $obj->Fetch($sql);
+if (count($ret) <> 0){
+	foreach($ret as $key => $val){
+		$arr_isbn[] = $val["isbn"];
+	}
+}
 require("amazonaws.php");
-$recom_books_keyw = "IT起業";
-$recom_books_isbn = "9784798029351";
-$isbn10 = ISBNTran( $recom_books_isbn );
-$data = amazon_info($recom_books_keyw, $isbn10);
-for ($i=0; $i < 3; $i++) { 
-	$arr_title[] = $data[$i]->Title;
-	$arr_author[] = $data[$i]->Author;
-	$arr_imageurl[] = $data[$i]->ImageURL;
-	$arr_linkurl[] = $data[$i]->DetailPageURL;
+foreach($arr_isbn as $key => $val){
+	$recom_books_keyw = "";
+	$recom_books_isbn = $val;
+	$isbn10 = ISBNTran( $recom_books_isbn );
+	$data = amazon_info($recom_books_keyw, $isbn10);
+	//$arr_title[] = $data[0]->Title;
+	//$arr_author[] = $data[0]->Author;
+	//$arr_imageurl[] = $data[0]->ImageURL;
+	//$arr_linkurl[] = $data[0]->DetailPageURL;
+	$html.="		<li><a href=\"".$data[0]->DetailPageURL."\">\n";
+	$html.="			<img src=\"".$data[0]->ImageURL."\" />\n";
+	$html.="			<h3>".$data[0]->Title."</h3> \n";
+	$html.="			<p>".$data[0]->Author."</p>\n";
+	$html.="		</a></li>\n";
 }
 ?>
 <!DOCTYPE html>
@@ -38,38 +66,21 @@ for ($i=0; $i < 3; $i++) {
 
 <div data-role="page" id="page1" data-theme="c">
 	<div data-role="header" data-theme="d">
-		<h1>feegle</h1>
+		<img src="images/logo.png">
 		<a rel="external" href="../" data-role="button" class="ui-btn-right">PC版</a>
 <?php @include("common/header.html"); ?>
 	</div><!-- /header -->
 	
 	<div data-role="content" data-theme="c">
 		<p>feegleは<br>
-		書籍検索の仕方（あり方）を変えることにより、<br>
-		必要な人に必要な物（書籍情報）を届け、<br>
-		誰かの生き方、心情、行動に好影響を与える、<br>
-		または好影響を受けることを実感できるサービスです。<br>
+		感覚的に書籍を検索できるサービスです。
 		</p>
 		<br>
 		<ul data-role="listview">
-			<li><a href="<?php echo $arr_linkurl[0] ?>">
-				<img src="<?php echo $arr_imageurl[0] ?>" />
-				<h3><?php echo $arr_title[0] ?></h3> 
-				<p><?php echo $arr_author[0] ?></p> 
-			</a></li> 
-			<li><a href="<?php echo $arr_linkurl[1] ?>">
-				<img src="<?php echo $arr_imageurl[1] ?>" />
-				<h3><?php echo $arr_title[1] ?></h3> 
-				<p><?php echo $arr_author[1] ?></p> 
-			</a></li> 
-			<li><a href="<?php echo $arr_linkurl[2] ?>">
-				<img src="<?php echo $arr_imageurl[2] ?>" />
-				<h3><?php echo $arr_title[2] ?></h3> 
-				<p><?php echo $arr_author[2] ?></p> 
-			</a></li> 
+<?php echo $html ?>
 		</ul>
 		<br>
-		<a rel="external" href="login.php?m=os" data-role="button" class="">おすすめ本登録</a>
+		<!-- <a rel="external" href="osusume.php" data-role="button" class="">おすすめ本登録</a> -->
 	</div><!-- /content -->
 	
 	<div data-role="footer" data-theme="d">

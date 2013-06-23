@@ -12,11 +12,18 @@ if (!isset($_SESSION['login'])) {
 }
 
 //***********************************************
-// 書評検索
+// DB接続
+//***********************************************
+include 'common/database.php';
+$obj = new comdb();
+mysql_set_charset('utf8');
+
+//***********************************************
+// ユーザー情報検索
 //***********************************************
 $sql = "SELECT *";
-$sql.= " FROM book_review_table";
-$sql.= " WHERE isbn = \"".$_SESSION["isbn"]."\"";
+$sql.= " FROM user_table";
+$sql.= " WHERE user_id = \"".$_SESSION['user_id']."\"";
 $ret = $obj->Fetch($sql);
 if (count($ret) <> 0){
 	foreach($ret as $key => $val){
