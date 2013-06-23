@@ -18,7 +18,7 @@ require("common/conf.php"); // 共通定義
 if (isset($_GET['m'])) {
 	if ($_GET['m'] == "wr") { // 書評を書く
 		$msg_info = "書評を書くにはログインが必要です。<br>";
-		$_SESSION['link'] = "wreview.php";
+		$_SESSION['link'] = "wreviewsch.php";
 	}elseif ($_GET['m'] == "os") { // おすすめ本登録
 		$msg_info = "おすすめ本を登録するにはログインが必要です。<br>";
 		$_SESSION['link'] = "osusume.php";

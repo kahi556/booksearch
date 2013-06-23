@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Feegle</title>
+	<meta name="description" content="Feegle">
+<?php @include("common/jquery.html"); ?>
+</head>
+<body>
+
+<div data-role="page" id="page1" data-theme="c">
+	<div data-role="header" data-theme="d">
+		<h1>feegle</h1>
+<?php @include("common/header.html"); ?>
+	</div><!-- /header -->
+	
+	<div data-role="content" data-theme="c">
+		<p>書籍検索結果</p>
+		<?php echo $message ?><br /><br />
+		<ul data-role="listview">
+<?php echo $html ?>
+		</ul>
+		<br>
+	</div><!-- /content -->
+</div><!-- /page1 -->
+
+</body>
+</html>

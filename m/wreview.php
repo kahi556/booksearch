@@ -15,7 +15,6 @@ if (!isset($_SESSION['login'])) {
 $p_isbn = "";
 $p_book_name = "";
 $wk_search_key = "";
-$get_book_suu = 10;
 
 //***********************************************
 // 受信データをもとに変数の設定 GET
@@ -27,10 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	// 文字のエスケープ（セキュリティ対策）
 	$p_isbn=preg_replace("/;/"," ",addslashes($p_isbn));
 	$p_img=preg_replace("/;/"," ",addslashes($p_img));
-	if ($p_isbn <> "") {
-		echo "isbn=".$p_isbn;
-	}elseif ($p_book_name <> "") {
-		echo "check NG";
+	if (($p_isbn == "") && ($p_img == "")){
+		$error_message = "検索キーがみつかりません";
 	}
 }
 

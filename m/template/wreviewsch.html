@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>feegle　書評を書く</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+<?php @include("common/jquery.html"); ?>
+</head>
+<body>
+
+<div data-role="page" id="page1" data-theme="c">
+	<div data-role="header" data-theme="d">
+		<h1>feegle 書評対象本検索</h1>
+<?php @include("common/header.html"); ?>
+	</div><!-- /header -->
+	
+	<div data-role="content" data-theme="c">
+		<form name="schform" id="schform" method="post" action="" class="ui-body ui-body-c">
+			<div data-role="fieldcontain">
+				<label for="book_name">書名</label>
+				<input type="text" name="book_name" id="book_name" autofocus value="<?php echo $p_book_name ?>" maxlength="200" placeholder="書名を入力して下さい">
+			</div><!-- /fieldcontain -->
+			<div data-role="fieldcontain">
+				<label for="isbn">ISBN</label>
+				<input type="text" name="isbn" id="isbn" value="<?php echo $p_isbn ?>" maxlength="200" placeholder="ISBNを入力して下さい" />
+			</div><!-- /fieldcontain -->
+			<input type="submit" name="search" id="search" class="button_small grbtn" value="検索" />
+		</form>
+	</div><!-- /content -->
+	
+	<div data-role="footer" data-theme="d">
+<?php @include("common/footer.html"); ?>
+	</div><!-- /footer -->
+</div><!-- /page1 -->
+
+</body>
+</html>

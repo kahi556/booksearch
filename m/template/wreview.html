@@ -10,54 +10,52 @@
 
 <div data-role="page" id="page1" data-theme="c">
 	<div data-role="header" data-theme="d">
-		<h1>書評対象本検索</h1>
-<?php @include("common/header.html"); ?>
-	</div><!-- /header -->
-	
-	<div data-role="content" data-theme="c">
-		<form name="schform" id="schform" method="post" action="wreviewsch.php" class="ui-body ui-body-c">
-			<div data-role="fieldcontain">
-				<label for="book_name">書名</label>
-				<input type="text" name="book_name" id="book_name" autofocus value="<?php echo $p_book_name ?>" maxlength="200"　title="書名を入力して下さい">
-			</div><!-- /fieldcontain -->
-			<div data-role="fieldcontain">
-				<label for="isbn">ISBN</label>
-				<input type="text" name="isbn" id="isbn" value="<?php echo $p_isbn ?>" maxlength="100"　title="ISBNを入力して下さい">
-			</div><!-- /fieldcontain -->
-			<input type="submit" name="search" id="search" class="button_small grbtn" value="検索">
-		</form>
-	</div><!-- /content -->
-	
-	<div data-role="footer" data-theme="d">
-<?php @include("common/footer.html"); ?>
-	</div><!-- /footer -->
-</div><!-- /page1 -->
-
-<div data-role="page" id="page2" data-theme="c">
-	<div data-role="header" data-theme="d">
-		<h1>Feegle　書評を書く</h1>
+		<h1>feegle　書評を書く</h1>
 <?php @include("common/header.html"); ?>
 	</div><!-- /header -->
 	
 	<div data-role="content" data-theme="d">
+<?php echo $message ?>
 		<form name="regform" id="regform" method="post" action="" class="ui-body ui-body-c">
-			<div data-role="fieldcontain">
-				<label for="book_name">書名</label>
-				<input type="text" name="book_name" id="book_name" autofocus required value="<?php echo $p_book_name ?>" maxlength="200"　title="書名を入力して下さい">
-			</div><!-- /fieldcontain -->
-			<div data-role="fieldcontain">
-				<label for="review">書評</label>
-				<textarea name="review" id="review" required placeholder="書評を入力して下さい">
-				</textarea>
-			</div><!-- /fieldcontain -->
-			<input type="submit" name="registchk" id="registchk" class="button_small grbtn" value="内容確認">
+		<div class="ui-grid-a">
+			<div class="ui-block-a">
+				<p>書名: <?php echo $arr_title[0] ?><br />
+					著者: <?php echo $arr_author[0] ?></p>
+			</div>
+			<div class="ui-block-b"><img src="<?php echo $arr_imageurl[0] ?>" /></div>
+		</div><!-- /ui-grid-a -->
+		<div data-role="fieldcontain">
+			<label for="review">書評</label>
+			<textarea name="review" id="review" required placeholder="書評を入力して下さい"><?php echo $p_review ?></textarea>
+		</div><!-- /fieldcontain -->
+		<div data-role="fieldcontain">
+			<label for="tag">タグ(カンマ区切り)</label>
+			<input type="text" name="tag" id="tag" required value="<?php echo $p_tag ?>" maxlength="200" placeholder="タグ(複数入力時、カンマ区切り)" />
+		</div><!-- /fieldcontain -->
+		<div data-role="fieldcontain">
+			<label for="feeling">気分</label>
+			<select name="feeling" id="feeling">
+				<option value="normal">平常</option>
+				<option value="happiness">幸せ</option>
+				<option value="interesting">面白い(楽しい、笑いたい)</option>
+				<option value="relax">リラックス(癒し、ほのぼの)</option>
+				<option value="surprise">驚き(発見)</option>
+				<option value="sad">悲しい(泣きたい)</option>
+				<option value="fear">恐怖</option>
+				<option value="anger">怒り</option>
+				<option value="wonder">不思議</option>
+				<option value="thanks">感謝</option>
+			</select>
+		</div><!-- /fieldcontain -->
+		<input type="submit" name="wreview" id="wreview" class="button_small grbtn" value="内容確認" />
+		</div><!-- /fieldcontain -->
 		</form>
 	</div><!-- /content -->
 	
 	<div data-role="footer" data-theme="d">
 		<?php @include("common/footer.html"); ?>
 	</div><!-- /footer -->
-</div><!-- /page2 -->
+</div><!-- /page1 -->
 
 </body>
 </html>
