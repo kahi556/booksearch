@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2013 年 6 月 23 日 05:35
+-- 生成日時: 2013 年 6 月 23 日 16:53
 -- サーバのバージョン: 5.5.27
 -- PHP のバージョン: 5.4.7
 
@@ -28,12 +28,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `author_table` (
   `AUTHOR_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `AUTHOR_NAME` varchar(100) DEFAULT NULL,
+  `AUTHOR_NAME` varchar(100) NOT NULL,
+  `USER_ID` char(100) NOT NULL,
   `RDATE` datetime DEFAULT NULL,
   `UDATE` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`AUTHOR_ID`),
   UNIQUE KEY `AUTHOR_NAME` (`AUTHOR_NAME`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- テーブルのデータのダンプ `author_table`
+--
+
+INSERT INTO `author_table` (`AUTHOR_ID`, `AUTHOR_NAME`, `USER_ID`, `RDATE`, `UDATE`) VALUES
+(6, '西原 理恵子', 'kahi556@gmail.com', '2013-06-23 11:04:05', '2013-06-23 09:04:06');
 
 -- --------------------------------------------------------
 
@@ -45,12 +53,21 @@ CREATE TABLE IF NOT EXISTS `book_review_table` (
   `BOOK_REVIEW_NO` int(11) NOT NULL AUTO_INCREMENT,
   `BOOK_REVIEW` longtext,
   `BOOK_ID` int(11) NOT NULL,
-  `BOOK_TAG` varchar(1000) DEFAULT NULL COMMENT 'カンマ区切りで複数指定可',
+  `TAG` varchar(1000) NOT NULL COMMENT 'カンマ区切りで複数指定可',
+  `FEELING` varchar(100) NOT NULL,
+  `USER_ID` char(100) NOT NULL,
   `RDATE` datetime DEFAULT NULL,
   `UDATE` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`BOOK_REVIEW_NO`),
   KEY `BOOK_ID` (`BOOK_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- テーブルのデータのダンプ `book_review_table`
+--
+
+INSERT INTO `book_review_table` (`BOOK_REVIEW_NO`, `BOOK_REVIEW`, `BOOK_ID`, `TAG`, `FEELING`, `USER_ID`, `RDATE`, `UDATE`) VALUES
+(1, 'いいい', 6, 'ううう', 'normal', 'kahi556@gmail.com', '2013-06-23 11:04:05', '2013-06-23 09:04:06');
 
 -- --------------------------------------------------------
 
@@ -60,14 +77,22 @@ CREATE TABLE IF NOT EXISTS `book_review_table` (
 
 CREATE TABLE IF NOT EXISTS `book_table` (
   `BOOK_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `BOOK_NAME` varchar(255) DEFAULT NULL,
+  `BOOK_NAME` varchar(255) NOT NULL,
   `ISBN` char(50) DEFAULT NULL COMMENT '国際標準図書番号（日本図書コード・書籍JANコード）',
   `AUTHOR_ID` int(11) NOT NULL,
+  `USER_ID` char(100) NOT NULL,
   `RDATE` datetime DEFAULT NULL,
   `UDATE` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`BOOK_ID`),
   KEY `AUTHOR_ID` (`AUTHOR_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- テーブルのデータのダンプ `book_table`
+--
+
+INSERT INTO `book_table` (`BOOK_ID`, `BOOK_NAME`, `ISBN`, `AUTHOR_ID`, `USER_ID`, `RDATE`, `UDATE`) VALUES
+(6, 'ああ息子', '4620317470', 6, 'kahi556@gmail.com', '2013-06-23 11:04:05', '2013-06-23 09:04:06');
 
 -- --------------------------------------------------------
 
@@ -234,9 +259,9 @@ CREATE TABLE IF NOT EXISTS `user_reg_table` (
 --
 
 CREATE TABLE IF NOT EXISTS `user_table` (
-  `USER_ID` char(24) NOT NULL,
+  `USER_ID` char(100) NOT NULL,
   `PASSWORD` char(24) DEFAULT NULL,
-  `NICKNAME` varchar(50) DEFAULT NULL,
+  `NICKNAME` varchar(100) DEFAULT NULL,
   `BIRTH` date DEFAULT NULL,
   `GENDER` char(1) DEFAULT NULL COMMENT 'M:男性、F:女性',
   `MJOB_CD` char(5) DEFAULT NULL,
