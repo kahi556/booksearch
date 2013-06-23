@@ -14,9 +14,9 @@
 <?php @include("common/header.html"); ?>
 	</div><!-- /header -->
 	
+<?php echo $msg_info ?>
 	<div data-role="content" data-theme="d">
-<?php echo $message ?>
-		<form name="regform" id="regform" method="post" action="" class="ui-body ui-body-c">
+		<form name="regform" id="regform" method="post" action="wreview.php" class="ui-body ui-body-c">
 		<div class="ui-grid-a">
 			<div class="ui-block-a">
 				<p>書名: <?php echo $arr_title[0] ?><br />
@@ -35,16 +35,16 @@
 		<div data-role="fieldcontain">
 			<label for="feeling">気分</label>
 			<select name="feeling" id="feeling">
-				<option value="normal">平常</option>
-				<option value="happiness">幸せ</option>
-				<option value="interesting">面白い(楽しい、笑いたい)</option>
-				<option value="relax">リラックス(癒し、ほのぼの)</option>
-				<option value="surprise">驚き(発見)</option>
-				<option value="sad">悲しい(泣きたい)</option>
-				<option value="fear">恐怖</option>
-				<option value="anger">怒り</option>
-				<option value="wonder">不思議</option>
-				<option value="thanks">感謝</option>
+				<option value="normal"<?php echo $arr_selected[0] ?>>平常</option>
+				<option value="happiness"<?php echo $arr_selected[1] ?>>幸せ</option>
+				<option value="interesting"<?php echo $arr_selected[2] ?>>面白い(楽しい、笑いたい)</option>
+				<option value="relax"<?php echo $arr_selected[3] ?>>リラックス(癒し、ほのぼの)</option>
+				<option value="surprise"<?php echo $arr_selected[4] ?>>驚き(発見)</option>
+				<option value="sad"<?php echo $arr_selected[5] ?>>悲しい(泣きたい)</option>
+				<option value="fear"<?php echo $arr_selected[6] ?>>恐怖</option>
+				<option value="anger"<?php echo $arr_selected[7] ?>>怒り</option>
+				<option value="wonder"<?php echo $arr_selected[8] ?>>不思議</option>
+				<option value="thanks"<?php echo $arr_selected[9] ?>>感謝</option>
 			</select>
 		</div><!-- /fieldcontain -->
 		<input type="submit" name="wreview" id="wreview" class="button_small grbtn" value="内容確認" />

@@ -14,13 +14,16 @@ $p_feeling = "";
 $get_book_cnt = 10;
 $link_url = "wreviewsch.php?isbn=";
 $html = "";
-$message = 0;
+$message = "";
+$arr_selected = array();
 
 // ログイン状態のチェック
 if (!isset($_SESSION['login'])) {
 	header("Location: login.php?m=wr");
 	exit;
 }
+
+require("common/conf.php"); // 共通定義
 
 //***********************************************
 // 受信データをもとに変数の設定 GET
@@ -68,6 +71,23 @@ if (($p_isbn <> "") || ($p_book_name <> "")) {
 			$arr_title[] = $data[0]->Title;
 			$arr_author[] = $data[0]->Author;
 			$arr_imageurl[] = $data[0]->ImageURL;
+			$_SESSION["isbn"] = $p_isbn;
+			$_SESSION["title"] = $data[0]->Title;
+			$_SESSION["author"] = $data[0]->Author;
+			$_SESSION["imageurl"] = $data[0]->ImageURL;
+			if(isset($_SESSION["review"])){$p_review=$_SESSION["review"];}
+			if(isset($_SESSION["tag"])){$p_tag=$_SESSION["tag"];}
+			$cnt = 0;
+			if(isset($_SESSION["feeling"])){
+				foreach ($arr_feeling as $key => $val) {
+					if ($key == $_SESSION["feeling"]) {
+						$arr_selected[$cnt] = " selected";
+					}else{
+						$arr_selected[$cnt] = "";
+					}
+					$cnt++;
+				}
+			}
 			include 'template/wreview.html';
 			exit;
 			
@@ -91,6 +111,8 @@ if (($p_isbn <> "") || ($p_book_name <> "")) {
 	include 'template/wreviewhyo.html';
 	exit;
 	
+}else{
+	require("common/sess_clear_review.php"); // 書評関連セッション情報クリア
 }
 
 include 'template/wreviewsch.html';

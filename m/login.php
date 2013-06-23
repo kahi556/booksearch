@@ -5,6 +5,10 @@
 
 session_start();
 
+// 変数初期化
+$p_m = "";
+$p_link = "";
+
 $viewUserId = "";
 // ログイン状態のチェック(ログイン済ならログイン後トップページ)
 if (isset($_SESSION['login'])) {
@@ -14,14 +18,17 @@ if (isset($_SESSION['login'])) {
 
 require("common/conf.php"); // 共通定義
 
+//***********************************************
 // ログイン後の処理振り分け、セッション情報クリア
+//***********************************************
 if (isset($_GET['m'])) {
-	if ($_GET['m'] == "wr") { // 書評を書く
+	$p_m = $_GET['m'];
+	if ($p_m == "wr") { // 書評を書く
 		$msg_info = "書評を書くにはログインが必要です。<br>";
-		$_SESSION['link'] = "wreviewsch.php";
-	}elseif ($_GET['m'] == "os") { // おすすめ本登録
+		$p_link = "wreviewsch.php";
+	}elseif ($p_m == "os") { // おすすめ本登録
 		$msg_info = "おすすめ本を登録するにはログインが必要です。<br>";
-		$_SESSION['link'] = "osusume.php";
+		$p_link = "osusume.php";
 	//}elseif ($_GET['m'] == "sb") { // 本を検索
 	//	$msg_info = "本を検索するにはログインが必要です。<br>";
 	//	$_SESSION['link'] = "sbook.php";
@@ -34,6 +41,7 @@ if (isset($_GET['m'])) {
 // エラーメッセージを格納する変数を初期化
 $errorMessage = "";
 if (isset($_POST['user_id'])) {
+	if(isset($_POST['link'])){$p_link=$_POST['link'];}
 	$viewUserId = htmlspecialchars($_POST['user_id'], ENT_QUOTES);
 	$viewPassword = crypt(sha1($_POST['password']),TANE);
 	include 'common/database.php';
@@ -64,8 +72,8 @@ if (isset($_POST['user_id'])) {
 		$_SESSION['ljob_cd'] = $ret['LJOB_CD'];
 		$_SESSION['login'] = "y";
 		
-		if (isset($_SESSION['link'])) {
-			header('Location: '.$_SESSION['link']);
+		if ($p_link <> "") {
+			header('Location: '.$p_link);
 		}else{
 			//ログイン後トップページへ
 			header('Location: top.php');

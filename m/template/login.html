@@ -20,13 +20,14 @@
 		<form id="loginform" method="post" action="" class="ui-body ui-body-c"><br>
 			<div data-role="fieldcontain">
 				<label for="user_id">ログインID:</label>
-				<input type="text" name="user_id" id="user_id" autofocus required value="" maxlength="100">
+				<input type="text" name="user_id" id="user_id" autofocus required value="" maxlength="100" />
 			</div><!-- /fieldcontain -->
 			<div data-role="fieldcontain">
 				<label for="password">パスワード:</label>
-				<input type="password" name="password" id="password" pattern="^[0-9A-Za-z]+$" required value="" maxlength="16">
+				<input type="password" name="password" id="password" pattern="^[0-9A-Za-z]+$" required value="" maxlength="16" />
 			</div><!-- /fieldcontain -->
-			<input type="submit" name="login" class="button_small grbtn" id="login" value="ログイン">
+			<input type="hidden" name="link" value="<?php echo $p_link ?>" />
+			<input type="submit" name="login" class="button_small grbtn" id="login" value="ログイン" />
 		</form>
 		<input type="button" name="regist" class="button_small grbtn" id="regist" value="新規登録" onclick="location.href='registchk.php'">
 	</div><!-- /content -->

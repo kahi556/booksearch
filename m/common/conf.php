@@ -5,6 +5,14 @@
 //   本番、テスト環境の切り替えは「ドメイン,MySQL」の設定を変更
 //
 
+// 気分
+$arr_feeling = array('normal' => '平常', 'happiness' => '幸せ'
+, 'interesting' => '面白い(楽しい、笑いたい)', 'relax' => 'リラックス(癒し、ほのぼの)'
+, 'surprise' => '驚き(発見)', 'sad' => '悲しい(泣きたい)'
+, 'fear' => '恐怖', 'anger' => '怒り'
+, 'wonder' => '不思議', 'thanks' => '感謝'
+);
+
 // GMAIL
 define("YOUR_GMAIL_REFADDRESS","info@xxxxx.com");
 define("YOUR_GMAIL_ADDRESS","send@xxxxxx.com");
