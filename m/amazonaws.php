@@ -77,7 +77,7 @@ function amazon_info($searchWord, $searchISBN) {
         $data->PublicationDate = (string) $item->ItemAttributes->PublicationDate; 
         $data->DetailPageURL = (string) $item->DetailPageURL; 
         $data->ImageURL = (string) $item->MediumImage->URL; 
-		$data->EditorialReview = (string) $item->EditorialReviews->EditorialReview[1]->Content; 
+		//$data->EditorialReview = (string) $item->EditorialReviews->EditorialReview[1]->Content; 
         
         $dataList[] = $data;
     }

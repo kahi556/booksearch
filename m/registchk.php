@@ -5,8 +5,6 @@
 //  仮登録メール送信を行う
 //
 
-require("common/conf.php"); // 共通定義
-
 session_start();
 
 // ログイン状態のチェック(ログイン済ならログイン後トップページ)
@@ -29,6 +27,8 @@ $p_gender = "";
 $p_selectjob = "";
 $p_consent = "";
 $p_new = "";
+
+require("common/conf.php"); // 共通定義
 
 //***********************************************
 // DB接続

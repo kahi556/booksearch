@@ -5,9 +5,6 @@
 //  仮登録に送信されたメールのリンククリックより実行される
 //
 
-require("common/conf.php"); // 共通定義
-require("common/PHPMailer_5.2.1/class.phpmailer.php"); // メール送信
-
 //session_start();
 
 // ログイン状態のチェック(ログイン済ならログイン後トップページ)
@@ -21,6 +18,9 @@ $chk_msg = "";
 $msg_info = "";
 $wk_selectjob = "";
 $time = date("Y-m-d H:i:s"); // 日時取得
+
+require("common/conf.php"); // 共通定義
+require("common/PHPMailer_5.2.1/class.phpmailer.php"); // メール送信
 
 //***********************************************
 // 受信データをもとに変数の設定 GET

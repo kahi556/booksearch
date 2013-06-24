@@ -5,16 +5,17 @@
 
 session_start();
 
-// 変数初期化
-$p_m = "";
-$p_link = "";
-
-$viewUserId = "";
 // ログイン状態のチェック(ログイン済ならログイン後トップページ)
 if (isset($_SESSION['login'])) {
 	header("Location: top.php");
 	exit;
 }
+
+// 変数初期化
+$p_m = "";
+$p_link = "";
+$msg_info = "";
+$viewUserId = "";
 
 require("common/conf.php"); // 共通定義
 
@@ -24,13 +25,13 @@ require("common/conf.php"); // 共通定義
 if (isset($_GET['m'])) {
 	$p_m = $_GET['m'];
 	if ($p_m == "wr") { // 書評を書く
-		$msg_info = "書評を書くにはログインが必要です。<br>";
+		$msg_info.= "書評を書くにはログインが必要です。<br>";
 		$p_link = "wreviewsch.php";
 	//}elseif ($p_m == "os") { // おすすめ本登録
-	//	$msg_info = "おすすめ本を登録するにはログインが必要です。<br>";
+	//	$msg_info.= "おすすめ本を登録するにはログインが必要です。<br>";
 	//	$p_link = "osusume.php";
 	//}elseif ($_GET['m'] == "sb") { // 本を検索
-	//	$msg_info = "本を検索するにはログインが必要です。<br>";
+	//	$msg_info.= "本を検索するにはログインが必要です。<br>";
 	//	$_SESSION['link'] = "sbook.php";
 	}
 }elseif (isset($_POST['user_id'])) { // ユーザーID入力後
@@ -51,7 +52,7 @@ if (isset($_POST['user_id'])) {
 	// 会員ログイン
 	$ret = $obj->Login($viewUserId, $viewPassword);
 	if(!$ret){
-		$msg_info = $obj->errmsg;
+		$msg_info.= $obj->errmsg;
 		include 'template/login.html';
 		exit;
 		
