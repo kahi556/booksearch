@@ -1,40 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html laang="ja">
 <head>
+	<meta http-equiv="content-language" content="ja">
 	<meta charset="utf-8">
-	<title>feegle</title>
+	<title>feegle | 感覚的に書籍を検索</title>
 	<meta name="description" content="feegle">
 <?php @include("common/jquery.html"); ?>
 </head>
 <body>
 
 <div data-role="page" id="page1" data-theme="c">
-	<div data-role="header" data-theme="d">
-		<img src="images/logo.png">
-		<a rel="external" href="../" data-role="button" class="ui-btn-right">PC版</a>
 <?php @include("common/header.html"); ?>
-	</div><!-- /header -->
-	
 	<div data-role="content" data-theme="c">
-		<p>login</p>
-		<br>
-		<ul data-role="listview">
-			<li><a href="<?php echo $arr_linkurl[0] ?>">
-				<img src="<?php echo $arr_imageurl[0] ?>" />
-				<h3><?php echo $arr_title[0] ?></h3> 
-				<p><?php echo $arr_author[0] ?></p> 
-			</a></li> 
-			<li><a href="<?php echo $arr_linkurl[1] ?>">
-				<img src="<?php echo $arr_imageurl[1] ?>" />
-				<h3><?php echo $arr_title[1] ?></h3> 
-				<p><?php echo $arr_author[1] ?></p> 
-			</a></li> 
-			<li><a href="<?php echo $arr_linkurl[2] ?>">
-				<img src="<?php echo $arr_imageurl[2] ?>" />
-				<h3><?php echo $arr_title[2] ?></h3> 
-				<p><?php echo $arr_author[2] ?></p> 
-			</a></li> 
+		<div class="ui-body ui-body-c">
+			<h3><?php echo $p_nickname ?>さん</h3>
+			<p>Review: <?php echo $p_review_posts_cnt ?></p>
+			<p>Thanks: <?php echo $p_thanks_cnt ?></p>
+			<p>KeyWord: <?php echo $wk_keyword ?></p>
+		<ul data-role="listview" data-inset="true" data-theme="d">
+			<li data-role="list-divider">書評を登録した本</li>
+<?php echo $html ?>
 		</ul>
+		</div>
 		<br>
 		<!-- <a rel="external" href="osusume.php" data-role="button" class="">おすすめ本登録</a> -->
 	</div><!-- /content -->
@@ -43,6 +30,16 @@
 <?php @include("common/footer.html"); ?>
 	</div><!-- /footer -->
 </div><!-- /page1 -->
+
+<div data-role="page" id="page2" data-theme="c">
+<?php @include("common/header.html"); ?>
+	<div data-role="content" data-theme="c">
+		<p>page2!</p>
+	</div><!-- /content -->
+	<div data-role="footer" data-theme="d">
+<?php @include("common/footer.html"); ?>
+	</div><!-- /footer -->
+</div><!-- /page2 -->
 
 </body>
 </html>

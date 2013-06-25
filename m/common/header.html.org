@@ -19,13 +19,8 @@ if (isset($_SESSION['login'])) {
 	$linkpg.= "<li><a rel=\"external\" href=\"login.php\">ﾛｸﾞｲﾝ</a></li>\n";
 }
 ?>
-	<div data-role="panel" id="mypanel">
-		<ul data-role="listview" data-theme="a">
+		<div data-role="navbar">
+			<ul>
 <?php echo $linkpg ?>
-		</ul>
-	</div><!-- /panel -->
-	<div data-role="header" data-theme="d">
-		<a href="#mypanel" data-role="button" data-icon="grid" data-iconpos="notext"></a>
-		<div align="center"><img src="images/logo.png"></div>
-		<!-- <a rel="external" href="../" data-role="button" class="ui-btn-right">PC版</a> -->
-	</div><!-- /header -->
+			</ul>
+		</div><!-- /navbar -->

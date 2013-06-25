@@ -65,12 +65,7 @@ foreach($arr_isbn as $key => $val){
 <body>
 
 <div data-role="page" id="page1" data-theme="c">
-	<div data-role="header" data-theme="d">
-		<img src="images/logo.png">
-		<a rel="external" href="../" data-role="button" class="ui-btn-right">PC版</a>
 <?php @include("common/header.html"); ?>
-	</div><!-- /header -->
-	
 	<div data-role="content" data-theme="c">
 		<p>feegleは<br>
 		感覚的に書籍を検索できるサービスです。
