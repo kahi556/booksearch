@@ -1,16 +1,14 @@
-		<div data-role="navbar">
 			<div style="text-align: center;">
 				<small>
 <?php
 if (isset($_SESSION['login'])) {
 	$logininfo = "				";
-	$logininfo.= $_SESSION['nickname']."さん<br>\n";
-	$logininfo.= "				";
-	$logininfo.= "<a href=\"logout.php\">ﾛｸﾞｱｳﾄ</a><br>\n";
+	$logininfo.= $_SESSION['nickname']." さん<br>\n";
+	//$logininfo.= "				";
+	//$logininfo.= "<a href=\"logout.php\" data-role=\"button\" data-mini=\"true\">ﾛｸﾞｱｳﾄ</a><br>\n";
 	echo $logininfo;
 }
 ?>
 					&copy; feegle All Rights Reserved.
 				</small>
 			</div>
-		</div><!-- /navbar -->

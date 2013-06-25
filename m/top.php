@@ -48,7 +48,7 @@ $sql.= " WHERE user_id = \"".$_SESSION["user_id"]."\"";
 $ret = $obj->Fetch($sql);
 if (count($ret) <> 0){
 	foreach($ret as $key => $val){
-		$p_nickname = $val["nickname"];
+		$p_nickname = $val["nickname"]." さん";
 		$p_review_posts_cnt = $val["review_posts_cnt"];
 		$p_thanks_cnt = $val["thanks_cnt"];
 		$p_tag = $val["tag"];
@@ -58,7 +58,7 @@ if (count($ret) <> 0){
 if ($p_tag <> "") {
 	$arr_keyword = explode(",", $p_tag);
 	foreach($arr_keyword as $key => $val){
-		$wk_keyword.= "<a href=\"#page2?m=1\">".$val."</a> ";
+		$wk_keyword.= "<a href=\"top.php#page2?m=1\">".$val."</a> ";
 	}
 }
 

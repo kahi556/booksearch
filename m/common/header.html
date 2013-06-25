@@ -1,22 +1,24 @@
 <?php
 if (isset($_SESSION['login'])) {
 	$linkpg = "				";
-	$linkpg.= "<li><a rel=\"external\" href=\"./\">ﾎｰﾑ</a></li>\n";
+	$linkpg.= "<li><a rel=\"external\" href=\"./\">ホーム</a></li>\n";
 	$linkpg.= "				";
 	$linkpg.= "<li><a rel=\"external\" href=\"sbook.php\">本を検索</a></li>\n";
 	$linkpg.= "				";
 	$linkpg.= "<li><a rel=\"external\" href=\"wreviewsch.php\">書評を書く</a></li>\n";
 	$linkpg.= "				";
-	$linkpg.= "<li><a rel=\"external\" href=\"mypage.php\">ﾏｲﾍﾟｰｼﾞ</a></li>\n";
+	$linkpg.= "<li><a rel=\"external\" href=\"mypage.php\">マイページ</a></li>\n";
+	$linkpg.= "				";
+	$linkpg.= "<li><a rel=\"external\" href=\"logout.php\">ログアウト</a></li>\n";
 }else{
 	$linkpg = "				";
-	$linkpg.= "<li><a rel=\"external\" href=\"./\">ﾎｰﾑ</a></li>\n";
+	$linkpg.= "<li><a rel=\"external\" href=\"./\">ホーム</a></li>\n";
 	$linkpg.= "				";
 	$linkpg.= "<li><a rel=\"external\" href=\"sbook.php\">本を検索</a></li>\n";
 	$linkpg.= "				";
 	$linkpg.= "<li><a rel=\"external\" href=\"login.php?m=wr\">書評を書く</a></li>\n";
 	$linkpg.= "				";
-	$linkpg.= "<li><a rel=\"external\" href=\"login.php\">ﾛｸﾞｲﾝ</a></li>\n";
+	$linkpg.= "<li><a rel=\"external\" href=\"login.php\">ログイン</a></li>\n";
 }
 ?>
 	<div data-role="panel" id="mypanel">
