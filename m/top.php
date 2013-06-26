@@ -28,6 +28,7 @@ $p_book_name = "";
 $p_isbn = "";
 $p_book_review = "";
 $p_feeling = "";
+$p_word = "";
 $p_author_name = "";
 $html = "";
 $wk_keyword  = "";
@@ -40,7 +41,7 @@ $obj = new comdb();
 mysql_set_charset('utf8');
 
 //***********************************************
-// ユーザー情報検索
+// ユーザー情報検索(ログインユーザー)
 //***********************************************
 $sql = "SELECT nickname,review_posts_cnt,thanks_cnt,tag";
 $sql.= " FROM user_table";
@@ -54,19 +55,20 @@ if (count($ret) <> 0){
 		$p_tag = $val["tag"];
 	}
 }
-// タグを各リンクに分割
+// タグをキーワードとして各リンクに分割
 if ($p_tag <> "") {
 	$arr_keyword = explode(",", $p_tag);
 	foreach($arr_keyword as $key => $val){
-		$wk_keyword.= "<a href=\"top.php#page2?m=1\">".$val."</a> ";
+		$wk_keyword.= "<a href=\"sbook.php#page2?w=".urlencode($val)."\">".$val."</a> ";
 	}
 }
 
 //***********************************************
-// 書評を登録した本検索
+// 書評を登録した本検索(ログインユーザー)
 //***********************************************
-$sql = "SELECT bt.book_name,bt.isbn,bt.imageurl";
-$sql.= ",brt.book_review,brt.tag,brt.feeling,at.author_name";
+$sql = "SELECT brt.book_id,brt.thanks_cnt";
+$sql.= ",bt.book_name,bt.imageurl";
+$sql.= ",at.author_name";
 $sql.= " FROM book_review_table brt";
 $sql.= " INNER JOIN book_table bt ON bt.book_id = brt.book_id";
 $sql.= " LEFT JOIN author_table at ON at.author_id = bt.author_id";
@@ -80,15 +82,14 @@ if (count($ret) <> 0){
 		//$arr_book_review = $val["book_review"];
 		//$arr_feeling = $val["feeling"];
 		//$arr_author_name = $val["author_name"];
-		$html.="		<li><a href=\"\">\n";
+		$html.="		<li><a href=\"sreview.php?id=".$val["book_id"]."\">\n";
 		$html.="			<img src=\"".$val["imageurl"]."\" />\n";
 		$html.="			<h3>".$val["book_name"]."</h3> \n";
-		$html.="			<p>".$val["author_name"]."</p>\n";
+		$html.="			<p>".$val["author_name"]."<br />";
+		$html.="Thanks: ".$val["thanks_cnt"]."</p>\n";
 		$html.="		</a></li>\n";
 	}
 }
-
-
 
 include 'template/top.html';
 ?>

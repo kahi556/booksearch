@@ -12,16 +12,20 @@
 <div data-role="page" id="page1" data-theme="c">
 <?php @include("common/header.html"); ?>
 	
-	<div data-role="content" data-theme="c">
-			<h3><?php echo $p_nickname ?></h3>
-			<p>Review: <?php echo $p_review_posts_cnt ?></p>
-			<p>Thanks: <?php echo $p_thanks_cnt ?></p>
-			<p>KeyWord: <?php echo $wk_keyword ?></p>
-			<ul data-role="listview" data-inset="true" data-theme="d">
-				<li data-role="list-divider" data-theme="e">書評を登録した本</li>
-<?php echo $html ?>
-			</ul>
-		<!-- <a rel="external" href="osusume.php" data-role="button" class="">おすすめ本登録</a> -->
+	<div data-role="content">
+		<div class="ui-grid-d">
+			<div class="ui-block-a">
+				<a href="<?php echo $wk_linkurl ?>">
+				<img src="<?php echo $wk_imageurl ?>"></a>
+			</div>
+			<div class="ui-block-b"><h3><?php echo $wk_title ?></h3>
+			<p><?php echo $wk_author ?></p>
+			<p>Thanks: <?php echo $val["thanks_cnt"] ?></p></div>
+			<div class="ui-block-c"><p>イメージスタンプ<br />
+			<?php echo $wk_feeling_image ?></p></div>
+			<div class="ui-block-d"><p>キーワード<br />
+			<?php echo $wk_keyword ?></p></div>
+		</div>
 	</div><!-- /content -->
 	
 <?php @include("common/footer.html"); ?>

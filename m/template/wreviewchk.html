@@ -10,6 +10,7 @@
 
 <div data-role="page" id="page1" data-theme="c">
 <?php @include("common/header.html"); ?>
+	
 <?php echo $msg_info ?>
 	<div data-role="content" data-theme="d">
 		<p>書評確認</p>
@@ -31,13 +32,10 @@
 		<input type="hidden" name="chk" id="chk" value="ok" />
 		<input type="submit" name="wreview" id="wreview" class="button_small grbtn" value="　登　録　" />
 		<input type="button" name="back" id="back" class="button_small grbtn" value="　戻　る　" onclick="location.href='wreviewsch.php?isbn=<?php echo $_SESSION["isbn"] ?>';" />
-		</div><!-- /fieldcontain -->
 		</form>
 	</div><!-- /content -->
 	
-	<div data-role="footer" data-theme="d">
-		<?php @include("common/footer.html"); ?>
-	</div><!-- /footer -->
+<?php @include("common/footer.html"); ?>
 </div><!-- /page1 -->
 
 </body>

@@ -1,6 +1,6 @@
 <?php
 //
-// マイページ
+// 設定
 //
 
 session_start();
@@ -31,5 +31,5 @@ if (count($ret) <> 0){
 	}
 }
 
-include 'template/mypage.html';
+include 'template/settei.html';
 ?>

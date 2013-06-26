@@ -39,6 +39,7 @@ if (count($ret) <> 0){
 }
 require("amazonaws.php");
 foreach($arr_isbn as $key => $val){
+	// amazon情報取得
 	$recom_books_keyw = "";
 	$recom_books_isbn = $val;
 	$isbn10 = ISBNTran( $recom_books_isbn );

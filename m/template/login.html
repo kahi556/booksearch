@@ -11,6 +11,7 @@
 
 <div data-role="page" id="page1" data-theme="c" data-add-back-btn="true">
 <?php @include("common/header.html"); ?>
+	
 	<div data-role="content" data-theme="d">
 		<p><?php echo $msg_info ?></p>
 		<form id="loginform" method="post" action="" class="ui-body ui-body-c"><br>
@@ -28,9 +29,7 @@
 		<input type="button" name="regist" class="button_small grbtn" id="regist" value="新規登録" onclick="location.href='registchk.php'">
 	</div><!-- /content -->
 	
-	<div data-role="footer" data-theme="d">
 <?php @include("common/footer.html"); ?>
-	</div><!-- /footer -->
 </div><!-- /page1 -->
 
 </body>

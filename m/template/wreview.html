@@ -10,6 +10,7 @@
 
 <div data-role="page" id="page1" data-theme="c">
 <?php @include("common/header.html"); ?>
+	
 <?php echo $msg_info ?>
 	<div data-role="content" data-theme="d">
 		<p>書評を書く</p>
@@ -45,13 +46,10 @@
 			</select>
 		</div><!-- /fieldcontain -->
 		<input type="submit" name="wreview" id="wreview" class="button_small grbtn" value="内容確認" />
-		</div><!-- /fieldcontain -->
 		</form>
 	</div><!-- /content -->
 	
-	<div data-role="footer" data-theme="d">
-		<?php @include("common/footer.html"); ?>
-	</div><!-- /footer -->
+<?php @include("common/footer.html"); ?>
 </div><!-- /page1 -->
 
 </body>
