@@ -48,6 +48,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			exit;
 		}
 		$_SESSION["review"] = $p_review;
+		$p_tag = str_replace("、", ",", $p_tag); // カンマ区切りを半角に統一
+		$p_tag = str_replace("，", ",", $p_tag); // カンマ区切りを半角に統一
 		$_SESSION["tag"] = $p_tag;
 		$_SESSION["feeling"] = $p_feeling;
 		foreach ($arr_feeling as $key => $val) {
@@ -125,9 +127,9 @@ if (count($ret) <> 0){
 	// 既存書籍がないため登録
 	//***********************************************
 	$sql = "INSERT INTO book_table";
-	$sql.= " (book_name,isbn,author_id,user_id,rdate) VALUES";
+	$sql.= " (book_name,isbn,imageurl,author_id,user_id,rdate) VALUES";
 	$sql.= "(\"".$_SESSION["title"]."\",\"".$_SESSION["isbn"]."\"";
-	$sql.= ",\"".$p_author_id."\"";
+	$sql.= ",\"".$_SESSION["imageurl"]."\",\"".$p_author_id."\"";
 	$sql.= ",\"".$_SESSION["user_id"]."\",\"".$time."\")";
 	$ret = $obj->Execute($sql);
 	if (!$ret){

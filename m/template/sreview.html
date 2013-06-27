@@ -13,19 +13,15 @@
 <?php @include("common/header.html"); ?>
 	
 	<div data-role="content">
-		<div class="ui-grid-d">
-			<div class="ui-block-a">
-				<a href="<?php echo $wk_linkurl ?>">
-				<img src="<?php echo $wk_imageurl ?>"></a>
-			</div>
-			<div class="ui-block-b"><h3><?php echo $wk_title ?></h3>
+			<a href="<?php echo $wk_linkurl ?>">
+			<img src="<?php echo $wk_imageurl ?>"></a>
+			<h3><?php echo $wk_title ?></h3>
 			<p><?php echo $wk_author ?></p>
-			<p>Thanks: <?php echo $val["thanks_cnt"] ?></p></div>
-			<div class="ui-block-c"><p>イメージスタンプ<br />
-			<?php echo $wk_feeling_image ?></p></div>
-			<div class="ui-block-d"><p>キーワード<br />
-			<?php echo $wk_keyword ?></p></div>
-		</div>
+			<p>Thanks: <?php echo $wk_thanks_cnt ?></p>
+			<p>イメージスタンプ: <br />
+			<?php echo $wk_feeling_image ?></p>
+			<p>キーワード: <?php echo $wk_keyword ?></p>
+			<p>書評: <?php echo $wk_book_review ?></p>
 	</div><!-- /content -->
 	
 <?php @include("common/footer.html"); ?>

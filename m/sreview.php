@@ -14,6 +14,7 @@ if (!isset($_SESSION['login'])) {
 // 変数初期化
 $p_book_id = "";
 $wk_feeling_image = "";
+$wk_book_review = "";
 $wk_title = "";
 $wk_author = "";
 $wk_imageurl = "";
@@ -35,6 +36,7 @@ if ($p_book_id == "") {
 	require("err.html"); // エラー画面テンプレート呼び出し
 	exit;
 }
+
 //***********************************************
 // DB接続
 //***********************************************
@@ -45,7 +47,7 @@ mysql_set_charset('utf8');
 //***********************************************
 // 書評を登録した本検索
 //***********************************************
-$sql = "SELECT brt.thanks_cnt,brt.tag,brt.feeling";
+$sql = "SELECT brt.book_review,brt.thanks_cnt,brt.tag,brt.feeling";
 $sql.= ",bt.book_name,bt.imageurl";
 $sql.= ",at.author_name";
 $sql.= " FROM book_review_table brt";
@@ -55,18 +57,19 @@ $sql.= " WHERE brt.user_id = \"".$_SESSION["user_id"]."\"";
 $sql.= " AND brt.book_id = \"".$p_book_id."\"";
 $ret = $obj->Fetch($sql);
 if (count($ret) <> 0){
-	require("amazonaws.php");
 	foreach($ret as $key => $val){
 		// タグをキーワードとして各リンクに分割
 		if ($val["tag"] <> "") {
 			$arr_keyword = explode(",", $val["tag"]);
-			foreach($arr_keyword as $key => $val){
-				$wk_keyword.= "<a href=\"sbook.php#page2?m=1\">".$val."</a> ";
+			foreach($arr_keyword as $key1 => $val1){
+				$wk_keyword.= "<a href=\"sbook.php#page2?m=1\">".$val1."</a> ";
 			}
 		}
 		// イメージ
 		$wk_feeling_image = "<img src=\"images/".$val["feeling"].".gif\"";
 		// 
+		$wk_book_review = $val["book_review"];
+		$wk_thanks_cnt = $val["thanks_cnt"];
 		$wk_title = $val["book_name"];
 		$wk_author = $val["author_name"];
 		$wk_imageurl = $val["imageurl"];
