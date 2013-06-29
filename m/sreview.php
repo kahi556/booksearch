@@ -14,6 +14,7 @@ session_start();
 // 変数初期化
 $p_book_id = "";
 $p_wk = "";
+$p_word_j = "";
 $wk_feeling_image = "";
 $wk_book_review = "";
 $wk_title = "";
@@ -78,7 +79,7 @@ if (count($ret) <> 0){
 		if ($val["tag"] <> "") {
 			$arr_keyword = explode(",", $val["tag"]);
 			foreach($arr_keyword as $key1 => $val1){
-				$wk_keyword.= "<a rel=\"external\" href=\"./sbook.php?wk=w&wd=".urlencode($val1)."#page2\">".$val1."</a> ";
+				$wk_keyword.= "<a rel=\"external\" href=\"./sbook.php?wk=w&wd=".urlencode($val1)."\">".$val1."</a> ";
 			}
 		}
 		// セッションに設定
@@ -104,7 +105,7 @@ if (isset($_SESSION['login'])) {
 if ($p_wk == "mod") {
 	// 内容変更表示
 	if(isset($_SESSION["feeling"])){
-		foreach ($arr_feeling as $key => $val) {
+		foreach ($ARR_FEELING as $key => $val) {
 			if ($key == $_SESSION["feeling"]) {
 				$arr_selected[$cnt] = " selected";
 			}else{
@@ -116,6 +117,14 @@ if ($p_wk == "mod") {
 	include 'template/wreview.html';
 }else{
 	// 検索結果表示
+	if(isset($_SESSION["feeling"])){
+		foreach ($ARR_FEELING as $key => $val) {
+			if ($key == $_SESSION["feeling"]) {
+				$p_word_j = $val;
+				break;
+			}
+		}
+	}
 	include 'template/sreview.html';
 }
 ?>

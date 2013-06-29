@@ -18,7 +18,7 @@ $arr_imageurl = array();
 $arr_title = array();
 $arr_author_name = array();
 $arr_book_review = array();
-$arr_feeling = array();
+$ARR_FEELING = array();
 $arr_keyword = array();
 $p_nickname = "";
 $p_review_posts_cnt = "";
@@ -75,7 +75,7 @@ if (count($ret) <> 0){
 		//$arr_isbn = $val["isbn"];
 		//$arr_imageurl = $val["imageurl"];
 		//$arr_book_review = $val["book_review"];
-		//$arr_feeling = $val["feeling"];
+		//$ARR_FEELING = $val["feeling"];
 		//$arr_author_name = $val["author_name"];
 		// タグをキーワードとして各リンクに分割
 		if ($val["tag"] <> "") {

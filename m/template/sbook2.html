@@ -40,24 +40,9 @@
 <?php @include("common/header.html"); ?>
 	
 	<div data-role="content" data-theme="c">
-		<p>本を検索</p>
-		<div data-role="fieldcontain">
-			<p>今の気分で検索:</p>
-			<div class="viewport">
-    			<div class="flipsnap">
-<?php echo $html_image ?>
-    			</div>
-			</div>
-		</div><!-- /fieldcontain -->
-		<div data-role="fieldcontain">
-			<form id="loginform" method="post" action="" class="ui-body ui-body-c"><br>
-				<label for="keyword">キーワードで検索:</label>
-				<input type="text" name="wd" id="wd" value="" maxlength="100" /><br /><br />
-				<input type="hidden" name="wk" id="wk" value="w" />
-				<button type="submit" name="btn_keyword" id="btn_keyword">検索</button>
-			</form>
-		</div ><!-- /fieldcontain -->
-		<!-- <a rel="external" href="osusume.php" data-role="button" class="">おすすめ本登録</a> -->
+		<p>キーワード：<?php echo $p_word_j ?></p>
+<?php echo $html ?>
+		</div>
 	</div><!-- /content -->
 	
 <?php @include("common/footer.html"); ?>

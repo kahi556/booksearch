@@ -75,7 +75,7 @@ if (($p_isbn <> "") || ($p_book_name <> "")) {
 			$_SESSION["imageurl"] = $data[0]->ImageURL;
 			$cnt = 0;
 			if(isset($_SESSION["feeling"])){
-				foreach ($arr_feeling as $key => $val) {
+				foreach ($ARR_FEELING as $key => $val) {
 					if ($key == $_SESSION["feeling"]) {
 						$arr_selected[$cnt] = " selected";
 					}else{

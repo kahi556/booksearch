@@ -6,7 +6,7 @@
 //
 
 // 気分
-$arr_feeling = array('normal' => '平常', 'happiness' => '幸せ'
+$ARR_FEELING = array('normal' => '平常', 'happiness' => '幸せ'
 , 'interesting' => '面白い(楽しい、笑いたい)', 'relax' => 'リラックス(癒し、ほのぼの)'
 , 'surprise' => '驚き(発見)', 'sad' => '悲しい(泣きたい)'
 , 'fear' => '恐怖', 'anger' => '怒り'

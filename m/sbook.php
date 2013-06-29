@@ -18,7 +18,7 @@ $arr_imageurl = array();
 $arr_title = array();
 $arr_author_name = array();
 $arr_book_review = array();
-$arr_feeling = array();
+$ARR_FEELING = array();
 $arr_keyword = array();
 $p_nickname = "";
 $p_review_posts_cnt = "";
@@ -31,6 +31,7 @@ $p_feeling = "";
 $p_author_name = "";
 $p_wk = "";
 $p_word = "";
+$p_word_j = "";
 $html = "";
 $wk_keyword  = "";
 $feeling_image = "";
@@ -50,6 +51,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 }
 
 //***********************************************
+// 受信データをもとに変数の設定 POST
+//***********************************************
+if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+	// 特殊文字をHTMLエンティティに変換（セキュリティ対策）
+	if(isset($_POST["wk"])){$p_wk=htmlspecialchars($_POST["wk"]);}
+	if(isset($_POST["wd"])){$p_word=htmlspecialchars($_POST["wd"]);}
+	// 文字のエスケープ（セキュリティ対策）
+	$p_wk=preg_replace("/;/"," ",addslashes($p_wk));
+	$p_word=preg_replace("/;/"," ",addslashes($p_word));
+}
+
+//***********************************************
 // DB接続
 //***********************************************
 include 'common/database.php';
@@ -60,7 +73,19 @@ mysql_set_charset('utf8');
 // キーワード検索(ログインユーザー)
 //***********************************************
 if ($p_word <> "") {
-	$p_word = urldecode($p_word);
+	if ($p_wk == "f") {
+		// 気分検索
+		$p_word = urldecode($p_word);
+		// 気分日本語
+		foreach($ARR_FEELING as $key => $val){
+			if ($key == $p_word) {
+				$p_word_j = $val;
+				break;
+			}
+		}
+	}else{
+		$p_word_j = $p_word;
+	}
 	
 	$sql = "SELECT brt.book_review,brt.book_id";
 	$sql.= ",brt.tag,brt.thanks_cnt,brt.feeling";
@@ -92,19 +117,21 @@ if ($p_word <> "") {
 			$html.= "		<a href=\"\">\n";
 			$html.= "		<img src=\"".$val["imageurl"]."\"></a>\n";
 			$html.= "		<p>Thanks: ".$val["thanks_cnt"]."</p>\n";
-			$html.= "		<p>イメージスタンプ: <br />\n";
+			$html.= "		<p>イメージ: 【 ".$p_word_j." 】<br />\n";
 			$html.= "		<img src=\"images/".$val["feeling"].".gif\"</p>\n";
 			$html.= "		<p>書評: ".$val["book_review"]."</p>\n";
 			$html.= "	</div>\n";
 		}
 		$html.= "</div>\n";
 	}
+	include 'template/sbook2.html';
+	exit;
 }else{
 	// 気分画像編集
-	foreach ($arr_feeling as $key => $val) {
+	foreach ($ARR_FEELING as $key => $val) {
         $html_image.= "			";
         $html_image.= "<div class=\"item\">";
-		$html_image.= "<a rel=\"external\" href=\"sbook.php?wk=f&wd=".$key."#page2\">\n";
+		$html_image.= "<a rel=\"external\" href=\"sbook.php?wk=f&wd=".$key."\">\n";
         $html_image.= "			";
 		$html_image.= "<img src=\"images/".$key.".gif\"></a></div>\n";
 	}

@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$p_tag = str_replace("，", ",", $p_tag); // カンマ区切りを半角に統一
 		$_SESSION["tag"] = $p_tag;
 		$_SESSION["feeling"] = $p_feeling;
-		foreach ($arr_feeling as $key => $val) {
+		foreach ($ARR_FEELING as $key => $val) {
 			if ($key == $p_feeling) {
 				$sel_feeling = $val;
 				break;
