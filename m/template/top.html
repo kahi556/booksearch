@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html laang="ja">
+<html lang="ja">
 <head>
 	<meta http-equiv="content-language" content="ja">
 	<meta charset="utf-8">
@@ -13,15 +13,18 @@
 <?php @include("common/header.html"); ?>
 	
 	<div data-role="content" data-theme="c">
-			<h3><?php echo $p_nickname ?></h3>
-			<p>Review: <?php echo $p_review_posts_cnt ?></p>
-			<p>Thanks: <?php echo $p_thanks_cnt ?></p>
-			<p>KeyWord: <?php echo $wk_keyword ?></p>
-			<ul data-role="listview" data-inset="true" data-theme="d">
-				<li data-role="list-divider" data-theme="e">書評を登録した本</li>
+		<h3><?php echo $p_nickname ?></h3>
+		<p>Review: <?php echo $p_review_posts_cnt ?></p>
+		<p>Thanks: <?php echo $p_thanks_cnt ?></p>
+		<p>KeyWord: <?php echo $wk_keyword ?></p>
+		<ul data-role="listview" data-inset="true" data-theme="d">
+			<li data-role="list-divider" data-theme="e">書評を登録した本</li>
 <?php echo $html ?>
-			</ul>
+		</ul>
 		<!-- <a rel="external" href="osusume.php" data-role="button" class="">おすすめ本登録</a> -->
+
+
+
 	</div><!-- /content -->
 	
 <?php @include("common/footer.html"); ?>

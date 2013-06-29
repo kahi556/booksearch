@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Feegle</title>
+	<title>feegle</title>
 	<meta name="description" content="Feegle">
 <?php @include("common/jquery.html"); ?>
 </head>
@@ -34,19 +34,8 @@
 <?php @include("common/header.html"); ?>
 	
 	<div data-role="content" data-theme="c">
-		<p>キーワード：<?php $p_word ?></p>
-		<div class="ui-grid-d">
-			<div class="ui-block-a">
-				<a href="<?php echo $wk_linkurl ?>">
-				<img src="<?php echo $wk_imageurl ?>"></a>
-			</div>
-			<div class="ui-block-b"><h3><?php echo $wk_title ?></h3>
-			<p><?php echo $wk_author ?></p>
-			<p>Thanks: <?php echo $val["thanks_cnt"] ?></p></div>
-			<div class="ui-block-c"><p>イメージスタンプ<br />
-			<?php echo $wk_feeling_image ?></p></div>
-			<div class="ui-block-d"><p>キーワード<br />
-			<?php echo $wk_keyword ?></p></div>
+		<p>キーワード：<?php echo $p_word ?></p>
+<?php echo $html ?>
 		</div>
 	</div><!-- /content -->
 	

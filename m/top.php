@@ -88,10 +88,10 @@ if (count($ret) <> 0){
 		if ($val["tag"] <> "") {
 			$arr_keyword = explode(",", $val["tag"]);
 			foreach($arr_keyword as $key1 => $val1){
-				$wk_keyword.= "<a href=\"sbook.php#page2?w=".urlencode($val1)."\">".$val1."</a> ";
+				$wk_keyword.= "<a rel=\"external\" href=\"./sbook.php?w=".urlencode($val1)."#page2\">".$val1."</a> ";
 			}
 		}
-		$html.="		<li><a href=\"sreview.php?id=".$val["book_id"]."\">\n";
+		$html.="		<li><a rel=\"external\" href=\"sreview.php?id=".$val["book_id"]."\">\n";
 		$html.="			<img src=\"".$val["imageurl"]."\" />\n";
 		$html.="			<h3>".$val["book_name"]."</h3> \n";
 		$html.="			<p>".$val["author_name"]."<br />";

@@ -14,6 +14,7 @@ if (isset($_SESSION['login'])) {
 // 変数初期化
 $arr_isbn = array();
 $html = "";
+$max_disp_suu = 5; // 書籍最大表示数
 
 require("common/sess_clear.php"); // セッション情報クリア
 
@@ -28,60 +29,96 @@ mysql_set_charset('utf8');
 //***********************************************
 // 書籍情報検索
 //***********************************************
-$sql = "SELECT isbn";
+$sql = "SELECT book_id,imageurl";
 $sql.= " FROM book_table";
-$sql.= " ORDER BY rand() limit 0,5";
+$sql.= " ORDER BY rand() limit 0,".$max_disp_suu;
 $ret = $obj->Fetch($sql);
 if (count($ret) <> 0){
 	foreach($ret as $key => $val){
 		$arr_isbn[] = $val["isbn"];
+        $html.= "			";
+        $html.= "<div class=\"item\"><a href=\"sreview.php?id=".$val["book_id"]."\">";
+        $html.= "			";
+        $html.= "<img src=\"".$val["imageurl"]."\"></a></div>\n";
 	}
 }
-require("amazonaws.php");
-foreach($arr_isbn as $key => $val){
-	// amazon情報取得
-	$recom_books_keyw = "";
-	$recom_books_isbn = $val;
-	$isbn10 = ISBNTran( $recom_books_isbn );
-	$data = amazon_info($recom_books_keyw, $isbn10);
-	//$arr_title[] = $data[0]->Title;
-	//$arr_author[] = $data[0]->Author;
-	//$arr_imageurl[] = $data[0]->ImageURL;
-	//$arr_linkurl[] = $data[0]->DetailPageURL;
-	$html.="		<li><a href=\"".$data[0]->DetailPageURL."\">\n";
-	$html.="			<img src=\"".$data[0]->ImageURL."\" />\n";
-	$html.="			<h3>".$data[0]->Title."</h3> \n";
-	$html.="			<p>".$data[0]->Author."</p>\n";
-	$html.="		</a></li>\n";
-}
+
+//require("amazonaws.php");
+//foreach($arr_isbn as $key => $val){
+//	// amazon情報取得
+//	$recom_books_keyw = "";
+//	$recom_books_isbn = $val;
+//	$isbn10 = ISBNTran( $recom_books_isbn );
+//	$data = amazon_info($recom_books_keyw, $isbn10);
+//	//$arr_title[] = $data[0]->Title;
+//	//$arr_author[] = $data[0]->Author;
+//	//$arr_imageurl[] = $data[0]->ImageURL;
+//	//$arr_linkurl[] = $data[0]->DetailPageURL;
+//	$html.="		<li><a href=\"".$data[0]->DetailPageURL."\">\n";
+//	$html.="			<img src=\"".$data[0]->ImageURL."\" />\n";
+//	$html.="			<h3>".$data[0]->Title."</h3> \n";
+//	$html.="			<p>".$data[0]->Author."</p>\n";
+//	$html.="		</a></li>\n";
+//}
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
+	<meta http-equiv="content-language" content="ja">
 	<meta charset="utf-8">
-	<title>feegle</title>
+	<title>feegle | 感覚的に書籍を検索</title>
 	<meta name="description" content="feegle">
 <?php @include("common/jquery.html"); ?>
+	<script type="text/javascript" src="scripts/flipsnap.js"></script>
+<script>
+$(function(){
+	Flipsnap('.flipsnap');
+})
+</script>
+
 </head>
 <body>
 
+<style>
+.viewport {
+    width: 600px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.flipsnap {
+    width: 1000px; /* 200px(item width) * 5(item count) */
+}
+.item {
+    float: left;
+    width: 190px;
+    font-size: 50px;
+    text-align: center;
+    padding: 5px 0;
+    background: #EFEFEF;
+    border: 1px solid #999;
+    color: #666;
+    cursor: pointer;
+}
+</style>
+
 <div data-role="page" id="page1" data-theme="c">
 <?php @include("common/header.html"); ?>
+
 	<div data-role="content" data-theme="c">
 		<p>feegleは<br>
 		感覚的に書籍を検索できるサービスです。
 		</p>
 		<br>
-		<ul data-role="listview">
+		<div class="viewport">
+    		<div class="flipsnap">
 <?php echo $html ?>
-		</ul>
+    		</div>
+		</div>
 		<br>
 		<!-- <a rel="external" href="osusume.php" data-role="button" class="">おすすめ本登録</a> -->
 	</div><!-- /content -->
 	
-	<div data-role="footer" data-theme="d">
 <?php @include("common/footer.html"); ?>
-	</div><!-- /footer -->
 </div><!-- /page1 -->
 
 </body>

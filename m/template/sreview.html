@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html laang="ja">
+<html lang="ja">
 <head>
 	<meta http-equiv="content-language" content="ja">
 	<meta charset="utf-8">
@@ -12,16 +12,17 @@
 <div data-role="page" id="page1" data-theme="c">
 <?php @include("common/header.html"); ?>
 	
-	<div data-role="content">
-			<a href="<?php echo $wk_linkurl ?>">
-			<img src="<?php echo $wk_imageurl ?>"></a>
-			<h3><?php echo $wk_title ?></h3>
-			<p><?php echo $wk_author ?></p>
-			<p>Thanks: <?php echo $wk_thanks_cnt ?></p>
-			<p>イメージスタンプ: <br />
-			<?php echo $wk_feeling_image ?></p>
-			<p>キーワード: <?php echo $wk_keyword ?></p>
-			<p>書評: <?php echo $wk_book_review ?></p>
+	<div data-role="content" data-theme="d">
+		<a href="<?php echo $wk_linkurl ?>">
+		<img src="<?php echo $_SESSION["imageurl"] ?>"></a>
+		<h3><?php echo $_SESSION["title"] ?></h3>
+		<p><?php echo $_SESSION["author"] ?></p>
+		<p>Thanks: <?php echo $_SESSION["thanks_cnt"] ?></p>
+		<p>イメージスタンプ: <br />
+		<?php echo $_SESSION["feeling_image"] ?></p>
+		<p>キーワード: <?php echo $wk_keyword ?></p>
+		<p>書評: <?php echo $_SESSION["review"] ?></p>
+<?php echo $btn_mod ?>
 	</div><!-- /content -->
 	
 <?php @include("common/footer.html"); ?>

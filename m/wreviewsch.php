@@ -8,8 +8,6 @@ session_start();
 // 変数初期化
 $p_isbn = "";
 $p_book_name = "";
-$p_review = "";
-$p_tag = "";
 $p_feeling = "";
 $get_book_cnt = 10;
 $link_url = "wreviewsch.php?isbn=";
@@ -75,8 +73,6 @@ if (($p_isbn <> "") || ($p_book_name <> "")) {
 			$_SESSION["title"] = $data[0]->Title;
 			$_SESSION["author"] = $data[0]->Author;
 			$_SESSION["imageurl"] = $data[0]->ImageURL;
-			if(isset($_SESSION["review"])){$p_review=$_SESSION["review"];}
-			if(isset($_SESSION["tag"])){$p_tag=$_SESSION["tag"];}
 			$cnt = 0;
 			if(isset($_SESSION["feeling"])){
 				foreach ($arr_feeling as $key => $val) {
@@ -99,7 +95,7 @@ if (($p_isbn <> "") || ($p_book_name <> "")) {
 				$arr_imageurl[] = $data[$i]->ImageURL;
 				$arr_linkurl[] = $link_url.$data[$i]->ISBN;
 				//$html.= "			<form name=\"form1\" method=\"post\" action=\"\">\n";
-				$html.= "			<li><a href=\"".$arr_linkurl[$i]."&img=".$arr_imageurl[$i]."\">\n";
+				$html.= "			<li><a href=\"".$arr_linkurl[$i]."\">\n";
 				$html.= "				<img src=\"".$arr_imageurl[$i]."\" />\n";
 				$html.= "				<h3>".$arr_title[$i]."</h3>\n";
 				$html.= "				<p>".$arr_author[$i]."</p>\n";

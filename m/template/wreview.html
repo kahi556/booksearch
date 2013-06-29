@@ -20,15 +20,15 @@
 				<p>書名: <?php echo $arr_title[0] ?><br />
 					著者: <?php echo $arr_author[0] ?></p>
 			</div>
-			<div class="ui-block-b"><img src="<?php echo $arr_imageurl[0] ?>" /></div>
+			<div class="ui-block-b"><img src="<?php echo $_SESSION["imageurl"] ?>" /></div>
 		</div><!-- /ui-grid-a -->
 		<div data-role="fieldcontain">
 			<label for="review">書評</label>
-			<textarea name="review" id="review" required placeholder="書評を入力して下さい"><?php echo $p_review ?></textarea>
+			<textarea name="review" id="review" required placeholder="書評を入力して下さい"><?php echo $_SESSION["review"] ?></textarea>
 		</div><!-- /fieldcontain -->
 		<div data-role="fieldcontain">
 			<label for="tag">タグ(カンマ区切り)</label>
-			<input type="text" name="tag" id="tag" required value="<?php echo $p_tag ?>" maxlength="200" placeholder="タグ(複数入力時、カンマ区切り)" />
+			<input type="text" name="tag" id="tag" required value="<?php echo $_SESSION["tag"] ?>" maxlength="200" placeholder="タグ(複数入力時、カンマ区切り)" />
 		</div><!-- /fieldcontain -->
 		<div data-role="fieldcontain">
 			<label for="feeling">気分</label>

@@ -42,11 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	// 文字のエスケープ（セキュリティ対策）
 	$p_word=preg_replace("/;/"," ",addslashes($p_word));
 }
-if ($p_word <> "") {
-	$msg_info = "不正な処理です。";
-	require("err.html"); // エラー画面テンプレート呼び出し
-	exit;
-}
 
 //***********************************************
 // DB接続
@@ -61,28 +56,33 @@ mysql_set_charset('utf8');
 if ($p_word <> "") {
 	$p_word = urldecode($p_word);
 	
-	$sql = "SELECT brt.thanks_cnt,brt.tag,brt.feeling,brt.thanks_cnt";
-	$sql.= ",bt.isbn";
+	$sql = "SELECT brt.book_review,brt.book_id,brt.tag,brt.thanks_cnt,brt.feeling";
+	$sql.= ",bt.book_name,bt.imageurl";
+	$sql.= ",at.author_name";
 	$sql.= " FROM book_review_table brt";
 	$sql.= " INNER JOIN book_table bt ON bt.book_id = brt.book_id";
+	$sql.= " LEFT JOIN author_table at ON at.author_id = bt.author_id";
 	$sql.= " WHERE brt.user_id = \"".$_SESSION["user_id"]."\"";
 	$sql.= " AND brt.tag LIKE \"%".$p_word."%\"";
 	$ret = $obj->Fetch($sql);
 	if (count($ret) <> 0){
-		require("amazonaws.php");
+		$html.= "<div data-role=\"collapsible-set\" data-theme=\"e\" data-content-theme=\"d\">\n";
 		foreach($ret as $key => $val){
-			// イメージ
-			$wk_feeling_image = "<img src=\"images/".$val["feeling"].".gif\"";
-			// amazon情報取得
-			$recom_books_keyw = "";
-			$recom_books_isbn = $val["isbn"];
-			$isbn10 = ISBNTran( $recom_books_isbn );
-			$data = amazon_info($recom_books_keyw, $isbn10);
-			$wk_title = $data[0]->Title;
-			$wk_author = $data[0]->Author;
-			$wk_imageurl = $data[0]->ImageURL;
-			$wk_linkurl = $data[0]->DetailPageURL;
+			if ($key == 0) {
+				$html.= "	<div data-role=\"collapsible\" data-collapsed=\"false\">\n";
+			}else{
+				$html.= "	<div data-role=\"collapsible\">\n";
+			}
+			$html.= "		<h3>".$val["book_name"]."[".$val["author_name"]."]</h3>\n";
+			$html.= "		<a href=\"\">\n";
+			$html.= "		<img src=\"".$val["imageurl"]."\"></a>\n";
+			$html.= "		<p>Thanks: ".$val["thanks_cnt"]."</p>\n";
+			$html.= "		<p>イメージスタンプ: <br />\n";
+			$html.= "		<img src=\"images/".$val["feeling"].".gif\"</p>\n";
+			$html.= "		<p>書評: ".$val["book_review"]."</p>\n";
+			$html.= "	</div>\n";
 		}
+		$html.= "</div>\n";
 	}
 }
 
