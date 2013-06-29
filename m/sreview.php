@@ -5,6 +5,12 @@
 
 session_start();
 
+// ログイン状態のチェック
+//if (!isset($_SESSION['login'])) {
+//	header("Location: login.php?m=sb");
+//	exit;
+//}
+
 // 変数初期化
 $p_book_id = "";
 $p_wk = "";
@@ -39,7 +45,7 @@ if ($p_book_id == "") {
 }
 
 // ログイン状態のチェック(ログイン未で書評変更ならログインページ)
-if (!(isset($_SESSION['login'])) && ($p_wk == "")) {
+if (!isset($_SESSION['login']) && ($p_wk == "mod")) {
 	header("Location: login.php");
 	exit;
 }
@@ -60,8 +66,11 @@ $sql.= ",at.author_name";
 $sql.= " FROM book_review_table brt";
 $sql.= " INNER JOIN book_table bt ON bt.book_id = brt.book_id";
 $sql.= " LEFT JOIN author_table at ON at.author_id = bt.author_id";
-$sql.= " WHERE brt.user_id = \"".$_SESSION["user_id"]."\"";
-$sql.= " AND brt.book_id = \"".$p_book_id."\"";
+$sql.= " WHERE brt.book_id = \"".$p_book_id."\"";
+if (isset($_SESSION['login'])) {
+	// ログイン中のみの条件
+	$sql.= " AND brt.user_id = \"".$_SESSION["user_id"]."\"";
+}
 $ret = $obj->Fetch($sql);
 if (count($ret) <> 0){
 	foreach($ret as $key => $val){
@@ -69,10 +78,10 @@ if (count($ret) <> 0){
 		if ($val["tag"] <> "") {
 			$arr_keyword = explode(",", $val["tag"]);
 			foreach($arr_keyword as $key1 => $val1){
-				$wk_keyword.= "<a href=\"sbook.php#page2?m=1\">".$val1."</a> ";
+				$wk_keyword.= "<a rel=\"external\" href=\"./sbook.php?wk=w&wd=".urlencode($val1)."#page2\">".$val1."</a> ";
 			}
 		}
-		// 
+		// セッションに設定
 		$_SESSION["review"] = $val["book_review"];
 		$_SESSION["thanks_cnt"] = $val["thanks_cnt"];
 		$_SESSION["title"] = $val["book_name"];
@@ -89,13 +98,10 @@ if (count($ret) <> 0){
 // ログイン状態のチェック(ログイン済なら内容変更ボタン表示)
 if (isset($_SESSION['login'])) {
 	$btn_mod.= "		";
-	$btn_mod.= "<a href=\"sreview.php?id=".$p_book_id."&wk=u\" data-role=\"button\">内容変更</a>\n";
+	$btn_mod.= "<a rel=\"external\" href=\"sreview.php?id=".$p_book_id."&wk=mod\" data-role=\"button\">内容変更</a>\n";
 }
 
-if ($p_wk == "") {
-	// 検索結果表示
-	include 'template/sreview.html';
-}else{
+if ($p_wk == "mod") {
 	// 内容変更表示
 	if(isset($_SESSION["feeling"])){
 		foreach ($arr_feeling as $key => $val) {
@@ -108,5 +114,8 @@ if ($p_wk == "") {
 		}
 	}
 	include 'template/wreview.html';
+}else{
+	// 検索結果表示
+	include 'template/sreview.html';
 }
 ?>

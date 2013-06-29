@@ -13,7 +13,7 @@ if (isset($_SESSION['login'])) {
 
 // 変数初期化
 $arr_isbn = array();
-$html = "";
+$html_image = "";
 $max_disp_suu = 5; // 書籍最大表示数
 
 require("common/sess_clear.php"); // セッション情報クリア
@@ -36,10 +36,10 @@ $ret = $obj->Fetch($sql);
 if (count($ret) <> 0){
 	foreach($ret as $key => $val){
 		$arr_isbn[] = $val["isbn"];
-        $html.= "			";
-        $html.= "<div class=\"item\"><a href=\"sreview.php?id=".$val["book_id"]."\">";
-        $html.= "			";
-        $html.= "<img src=\"".$val["imageurl"]."\"></a></div>\n";
+        $html_image.= "			";
+        $html_image.= "<div class=\"item\"><a rel=\"external\" href=\"sreview.php?id=".$val["book_id"]."\">";
+        $html_image.= "			";
+        $html_image.= "<img src=\"".$val["imageurl"]."\"></a></div>\n";
 	}
 }
 
@@ -70,36 +70,35 @@ if (count($ret) <> 0){
 	<meta name="description" content="feegle">
 <?php @include("common/jquery.html"); ?>
 	<script type="text/javascript" src="scripts/flipsnap.js"></script>
-<script>
-$(function(){
+	<script>
+		$(function(){
 	Flipsnap('.flipsnap');
-})
-</script>
-
+	})
+	</script>
+	
+	<style>
+	.viewport {
+	    width: 600px;
+	    overflow: hidden;
+	    margin: 0 auto;
+	}
+	.flipsnap {
+	    width: 1000px; /* 200px(item width) * 5(item count) */
+	}
+	.item {
+	    float: left;
+	    width: 190px;
+	    font-size: 50px;
+	    text-align: center;
+	    padding: 5px 0;
+	    background: #efefef;
+	    border: 1px solid #ffc753;
+	    color: #666666;
+	    cursor: pointer;
+	}
+	</style>
 </head>
 <body>
-
-<style>
-.viewport {
-    width: 600px;
-    overflow: hidden;
-    margin: 0 auto;
-}
-.flipsnap {
-    width: 1000px; /* 200px(item width) * 5(item count) */
-}
-.item {
-    float: left;
-    width: 190px;
-    font-size: 50px;
-    text-align: center;
-    padding: 5px 0;
-    background: #EFEFEF;
-    border: 1px solid #999;
-    color: #666;
-    cursor: pointer;
-}
-</style>
 
 <div data-role="page" id="page1" data-theme="c">
 <?php @include("common/header.html"); ?>
@@ -111,7 +110,7 @@ $(function(){
 		<br>
 		<div class="viewport">
     		<div class="flipsnap">
-<?php echo $html ?>
+<?php echo $html_image ?>
     		</div>
 		</div>
 		<br>

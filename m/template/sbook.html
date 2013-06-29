@@ -5,6 +5,34 @@
 	<title>feegle</title>
 	<meta name="description" content="Feegle">
 <?php @include("common/jquery.html"); ?>
+	<script type="text/javascript" src="scripts/flipsnap.js"></script>
+	<script>
+	$(function(){
+		Flipsnap('.flipsnap');
+	})
+	</script>
+	
+	<style>
+	.viewport {
+	    width: 535px;
+	    overflow: hidden;
+	    margin: 0 auto;
+	}
+	.flipsnap {
+	    width: 1800px; /* 180px(item width) * 10(item count) */
+	}
+	.item {
+	    float: left;
+	    width: 175px;
+	    font-size: 50px;
+	    text-align: center;
+	    padding: 5px 0;
+	    background: #efefef;
+	    border: 1px solid #ffc753;
+	    color: #666666;
+	    cursor: pointer;
+	}
+	</style>
 </head>
 <body>
 
@@ -15,7 +43,11 @@
 		<p>本を検索</p>
 		<div data-role="fieldcontain">
 			<p>今の気分で検索:</p>
-			<a href="sbook_feeling.php"><img src="images/xxx.gif"></a>
+			<div class="viewport">
+    			<div class="flipsnap">
+<?php echo $html_image ?>
+    			</div>
+			</div>
 		</div><!-- /fieldcontain -->
 		<div data-role="fieldcontain">
 			<form id="loginform" method="post" action="" class="ui-body ui-body-c"><br>

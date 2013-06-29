@@ -56,13 +56,6 @@ if (count($ret) <> 0){
 		//$p_tag = $val["tag"];
 	}
 }
-// タグをキーワードとして各リンクに分割
-//if ($p_tag <> "") {
-//	$arr_keyword = explode(",", $p_tag);
-//	foreach($arr_keyword as $key => $val){
-//		$wk_keyword.= "<a href=\"sbook.php#page2?w=".urlencode($val)."\">".$val."</a> ";
-//	}
-//}
 
 //***********************************************
 // 書評を登録した本検索(ログインユーザー)
@@ -88,7 +81,7 @@ if (count($ret) <> 0){
 		if ($val["tag"] <> "") {
 			$arr_keyword = explode(",", $val["tag"]);
 			foreach($arr_keyword as $key1 => $val1){
-				$wk_keyword.= "<a rel=\"external\" href=\"./sbook.php?w=".urlencode($val1)."#page2\">".$val1."</a> ";
+				$wk_keyword.= "<a rel=\"external\" href=\"./sbook.php?wk=w&wd=".urlencode($val1)."#page2\">".$val1."</a> ";
 			}
 		}
 		$html.="		<li><a rel=\"external\" href=\"sreview.php?id=".$val["book_id"]."\">\n";
