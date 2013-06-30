@@ -109,6 +109,7 @@ if (count($ret) <> 0){
 		</p>
 		<br>
 		<div class="viewport">
+			<p>おすすめ</p>
     		<div class="flipsnap">
 <?php echo $html_image ?>
     		</div>

@@ -265,74 +265,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$_SESSION["new"] = $p_new;
 	
 	//***********************************************
-	// 新規登録確認画面
+	// 新規登録確認
 	//***********************************************
-?>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>Feegle　新規登録</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
-<?php @include("common/jquery.html"); ?>
-</head>
-<body>
-
-<div data-role="page" id="page1" data-theme="c">
-	<div data-role="header" data-theme="d">
-		<h1>入力内容確認</h1>
-		<a href="" data-rel="back">戻る</a>
-	</div><!-- /header -->
-	
-	<div data-role="content" data-theme="d">
-		<p>
-<?php echo $chk_msg ?>
-		</p>
-		<form id="loginform" method="post" action="registchk.php" data-ajax="false">
-			<input type="hidden" name="user_id" value="<?php echo $p_user_id ?>">
-			<input type="hidden" name="password" value="<?php echo $p_password ?>">
-			<input type="hidden" name="nickname" value="<?php echo $p_nickname ?>">
-			<input type="hidden" name="birth" value="<?php echo $p_birth ?>">
-			<input type="hidden" name="gender" value="<?php echo $p_gender ?>">
-			<input type="hidden" name="selectjob" value="<?php echo $p_selectjob ?>">
-			<input type="submit" name="regist" value="登録">
-    	</form>
-    </div><!--end content-->
-	
-	<div data-role="footer" data-theme="d">
-<?php @include("common/footer.html"); ?>
-	</div><!-- /footer -->
-</div><!-- /page1 -->
-</body>
-</html>
-<?php
+	include 'template/registconf.html';
 	exit;
-}else{
-	//***********************************************
-	// 職業選択ボックス生成
-	//***********************************************
-	$wk_ljob_cd = "";
-	$sql = "SELECT mt.mjob_name,mt.mjob_cd,mt.ljob_cd,lt.ljob_name";
-	$sql.= " FROM mjob_table mt";
-	$sql.= " INNER JOIN ljob_table lt ON lt.ljob_cd = mt.ljob_cd";
-	$sql.= " ORDER BY mt.ljob_cd,mt.mjob_cd";
-	$ret = $obj->Fetch($sql);
-	if (count($ret) <> 0){
-		foreach($ret as $key => $val){
-			if ($wk_ljob_cd <> $val["ljob_cd"]) {
-				$wk_selectjob.= "					";
-				$wk_selectjob.= "<optgroup label=\"".$val["ljob_name"]."\">\n";
-				$wk_ljob_cd = $val["ljob_cd"];
-			}
-			$wk_selectjob.= "						";
-			$wk_selectjob.= "<option value=\"".$val["mjob_cd"].":".$val["ljob_cd"];
-			$wk_selectjob.= ":".$val["mjob_name"]."\">";
-			$wk_selectjob.= $val["mjob_name"]."</option>\n";
-		}
-	}
 }
 
+//***********************************************
+// 職業選択ボックス生成
+//***********************************************
+$wk_ljob_cd = "";
+$sql = "SELECT mt.mjob_name,mt.mjob_cd,mt.ljob_cd,lt.ljob_name";
+$sql.= " FROM mjob_table mt";
+$sql.= " INNER JOIN ljob_table lt ON lt.ljob_cd = mt.ljob_cd";
+$sql.= " ORDER BY mt.ljob_cd,mt.mjob_cd";
+$ret = $obj->Fetch($sql);
+if (count($ret) <> 0){
+	foreach($ret as $key => $val){
+		if ($wk_ljob_cd <> $val["ljob_cd"]) {
+			$wk_selectjob.= "					";
+			$wk_selectjob.= "<optgroup label=\"".$val["ljob_name"]."\">\n";
+			$wk_ljob_cd = $val["ljob_cd"];
+		}
+		$wk_selectjob.= "						";
+		$wk_selectjob.= "<option value=\"".$val["mjob_cd"].":".$val["ljob_cd"];
+		$wk_selectjob.= ":".$val["mjob_name"]."\">";
+		$wk_selectjob.= $val["mjob_name"]."</option>\n";
+	}
+}
 
 include 'template/registchk.html';
 ?>

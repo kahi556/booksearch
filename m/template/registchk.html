@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Feegle　新規登録</title>
+	<title>feegle | 新規登録</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 <?php @include("common/jquery.html"); ?>
@@ -33,10 +33,16 @@
 			<div data-role="fieldcontain">
 				<fieldset data-role="controlgroup">
 					<legend>性別</legend>
+						<select name="gender" id="gender" data-role="slider">
+							<option value="M">男性</option>
+							<option value="F">女性</option>
+						</select>
+<!--
 				     	<input type="radio" name="gender" id="gender1" value="M" checked="checked" />
 				     	<label for="gender1">男性</label>
 				     	<input type="radio" name="gender" id="gender2" value="F"  />
 				     	<label for="gender2">女性</label>
+-->
 				</fieldset>
 			</div><!-- /fieldcontain -->
 			<div data-role="fieldcontain">

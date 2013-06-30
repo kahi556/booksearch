@@ -32,6 +32,7 @@ $p_word = "";
 $p_author_name = "";
 $html = "";
 $wk_keyword  = "";
+$arr_temp_keyword = array();
 
 //***********************************************
 // DB接続
@@ -78,10 +79,22 @@ if (count($ret) <> 0){
 		//$ARR_FEELING = $val["feeling"];
 		//$arr_author_name = $val["author_name"];
 		// タグをキーワードとして各リンクに分割
+		// 重複したキーワードは除く
 		if ($val["tag"] <> "") {
 			$arr_keyword = explode(",", $val["tag"]);
 			foreach($arr_keyword as $key1 => $val1){
-				$wk_keyword.= "<a rel=\"external\" href=\"./sbook.php?wk=w&wd=".urlencode($val1)."#page2\">".$val1."</a> ";
+				$flg_match = false;
+				for($i=0; $i<count($arr_temp_keyword); $i++){
+					if ($val1 == $arr_temp_keyword[$i]) { // 重複キーワードがあるかチェック
+						$flg_match = true;
+						break;
+					}
+				}
+				if (!$flg_match) {
+					// 重複キーワードがなかった場合
+					$wk_keyword.= "<a rel=\"external\" href=\"./sbook.php?wk=w&wd=".urlencode($val1)."#page2\">".$val1."</a> ";
+					$arr_temp_keyword[] = $val1;
+				}
 			}
 		}
 		$html.="		<li><a rel=\"external\" href=\"sreview.php?id=".$val["book_id"]."\">\n";
