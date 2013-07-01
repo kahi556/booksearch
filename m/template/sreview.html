@@ -13,18 +13,35 @@
 <?php @include("common/header.html"); ?>
 	
 	<div data-role="content" data-theme="d">
-		<a href="<?php echo $wk_linkurl ?>">
-		<img src="<?php echo $_SESSION["imageurl"] ?>"></a>
-		<h3><?php echo $_SESSION["title"] ?></h3>
-		<p><?php echo $_SESSION["author"] ?></p>
-		<p>Thanks: <?php echo $_SESSION["thanks_cnt"] ?></p>
-		<p>イメージ: 【 <?php echo $p_word_j ?> 】<br />
-		<?php echo $_SESSION["feeling_image"] ?></p>
-		<p>キーワード: <?php echo $wk_keyword ?></p>
-		<p>書評: <?php echo $_SESSION["review"] ?></p>
-<?php echo $btn_mod ?>
+		<table data-role="table" id="book-table" data-mode="reflow" class="ui-responsive table-stroke">
+			<thead>
+				<tr>
+					<th>表紙</th>
+					<th>書籍名</th>
+					<th>著者</th>
+					<th>Thanks</th>
+					<th>イメージ</th>
+					<th>Keyword</th>
+					<th>書評</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<a href="<?php echo $wk_linkurl ?>">
+						<img src="<?php echo $_SESSION["imageurl"] ?>"></a>
+					</td>
+					<td><h3><?php echo $_SESSION["title"] ?></h3></td>
+					<td><?php echo $_SESSION["author"] ?></td>
+					<td><?php echo $_SESSION["thanks_cnt"] ?></td>
+					<td>【 <?php echo $p_word_j ?> 】<br /><?php echo $_SESSION["feeling_image"] ?></td>
+					<td><?php echo $wk_keyword ?></td>
+					<td><?php echo $_SESSION["review"] ?></td>
+				</tr>
+			</tbody>
+		</table>
 	</div><!-- /content -->
-	
+
 <?php @include("common/footer.html"); ?>
 </div><!-- /page1 -->
 

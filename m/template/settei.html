@@ -12,6 +12,7 @@
 <?php @include("common/header.html"); ?>
 	
 	<div data-role="content" data-theme="d">
+		<p>会員情報更新</p>
 		<form name="regform" id="regform" method="post" action="" data-ajax="false" class="ui-body ui-body-c">
 			<div data-role="fieldcontain">
 				<label for="user_id">メールアドレス<br>（ユーザーID）</label>
@@ -32,9 +33,9 @@
 			<div data-role="fieldcontain">
 				<fieldset data-role="controlgroup">
 					<legend>性別</legend>
-						<select name="gender" id="gender" data-role="slider">
+					<select name="gender" id="gender" data-role="slider">
 <?php echo $wk_gender ?>
-						</select>
+					</select>
 				</fieldset>
 			</div><!-- /fieldcontain -->
 			<div data-role="fieldcontain">
@@ -50,6 +51,19 @@
 	
 <?php @include("common/footer.html"); ?>
 </div><!-- /page1 -->
+
+<div data-role="page" id="page2" data-theme="c" data-add-back-btn="false">
+<?php @include("common/header.html"); ?>
+	
+	<div data-role="content" data-theme="d">
+		<p>
+    	会員情報更新が完了しました。<br>
+    	引き続きサービスをご利用下さい。
+		</p>
+	</div><!-- /content -->
+	
+<?php @include("common/footer.html"); ?>
+</div><!-- /page2 -->
 
 </body>
 </html>

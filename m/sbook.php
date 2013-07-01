@@ -75,11 +75,11 @@ mysql_set_charset('utf8');
 if ($p_word <> "") {
 	if ($p_wk == "f") {
 		// 気分検索
-		$p_word = urldecode($p_word);
+		$wk_feeling = $val["feeling"];
 		// 気分日本語
 		foreach($ARR_FEELING as $key => $val){
-			if ($key == $p_word) {
-				$p_word_j = $val;
+			if ($key == $wk_feeling) {
+				$wk_feeling_j = $val;
 				break;
 			}
 		}
@@ -98,7 +98,7 @@ if ($p_word <> "") {
 		// 気分検索
 		$sql.= " WHERE brt.feeling = \"".$p_word."\"";
 	}else{
-		$sql.= " WHERE brt.tag LIKE \"%".$p_word."%\"";
+		$sql.= " WHERE brt.tag LIKE \"%".urldecode($p_word)."%\"";
 	}
 	if (isset($_SESSION['login'])) {
 		// ログイン中のみの条件
@@ -113,13 +113,40 @@ if ($p_word <> "") {
 			}else{
 				$html.= "	<div data-role=\"collapsible\">\n";
 			}
-			$html.= "		<h3>".$val["book_name"]."[".$val["author_name"]."]</h3>\n";
-			$html.= "		<a href=\"\">\n";
-			$html.= "		<img src=\"".$val["imageurl"]."\"></a>\n";
-			$html.= "		<p>Thanks: ".$val["thanks_cnt"]."</p>\n";
-			$html.= "		<p>イメージ: 【 ".$p_word_j." 】<br />\n";
-			$html.= "		<img src=\"images/".$val["feeling"].".gif\"</p>\n";
-			$html.= "		<p>書評: ".$val["book_review"]."</p>\n";
+			
+			// 気分を日本語変換
+			$wk_feeling = $val["feeling"];
+			foreach($ARR_FEELING as $key1 => $val1){
+				if ($key1 == $wk_feeling) {
+					$wk_feeling_j = $val1;
+					break;
+				}
+			}
+			
+			$html.= "		<h3>".$val["book_name"]."</h3>\n";
+			$html.= "		<table data-role=\"table\" id=\"book-table\" data-mode=\"reflow\" class=\"ui-responsive table-stroke\">\n";
+			$html.= "			<thead>\n";
+			$html.= "				<tr>\n";
+			$html.= "					<th>表紙</th>\n";
+			$html.= "					<th>著者</th>\n";
+			$html.= "					<th>Thanks</th>\n";
+			$html.= "					<th>イメージ</th>\n";
+			$html.= "					<th>書評</th>\n";
+			$html.= "				</tr>\n";
+			$html.= "			</thead>\n";
+			$html.= "			<tbody>\n";
+			$html.= "				<tr>\n";
+			$html.= "					<td>\n";
+			$html.= "						<a href=\"\">\n";
+			$html.= "						<img src=\"".$val["imageurl"]."\"></a>\n";
+			$html.= "					</td>\n";
+			$html.= "					<td>".$val["author_name"]."</td>\n";
+			$html.= "					<td>".$val["thanks_cnt"]."</td>\n";
+			$html.= "					<td>【 ".$wk_feeling_j." 】<br /><img src=\"images/".$val["feeling"].".gif\"</p></td>\n";
+			$html.= "					<td>".$val["book_review"]."</td>\n";
+			$html.= "				</tr>\n";
+			$html.= "			</tbody>\n";
+			$html.= "		</table>\n";
 			$html.= "	</div>\n";
 		}
 		$html.= "</div>\n";

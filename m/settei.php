@@ -1,6 +1,6 @@
 <?php
 //
-// 設定
+// 会員情報更新
 //
 
 session_start();
@@ -23,6 +23,8 @@ $p_nickname = "";
 $p_birth = "";
 $p_gender = "";
 $p_selectjob = "";
+
+require("common/conf.php"); // 共通定義
 
 //***********************************************
 // 受信データをもとに変数の設定 POST
@@ -74,15 +76,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$err = true;
 	}
 	if (!$err) {
+		//***********************************************
+		// DB接続
+		//***********************************************
+		include 'common/database.php';
+		$obj = new comdb();
+		mysql_set_charset('utf8');
+		
 		// メールアドレス（ユーザーID）既存登録チェック
 		$sql = "SELECT user_id";
 		//$sql.= " FROM user_reg_table";
 		$sql.= " FROM user_table";
 		$sql.= " WHERE user_id = \"".$p_user_id."\"";
 		$ret = $obj->Fetch($sql);
-		if (count($ret) > 0){
+		if (count($ret) == 0){
 			$err = true;
-			$msg_info.= "メールアドレス（ユーザーID） [ ".$p_user_id." ] ".ERR_DUPL;
+			$msg_info.= "メールアドレス（ユーザーID） [ ".$p_user_id." ] が見つかりません";
 		}
 	}
 	
@@ -91,30 +100,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$msg_info = $ERR_S.$msg_info.$ERR_E;
 		$err_title = "変更";
 		require("template/err.html"); // エラー画面テンプレート呼び出し
-		exit;
-	}
-	
-	if ($_POST["regist"]) {
-		//***********************************************
-		// 会員登録変更
-		//***********************************************
-		$arr_selectjob = explode(":", $p_selectjob);
-		$sql = "UPDATE user_table SET";
-		$sql.= " password = \"".crypt(sha1($p_password),TANE)."\"";
-		$sql.= ",nickname = \"".$p_nickname."\"";
-		$sql.= ",birth = \"".$p_birth."\"";
-		$sql.= ",gender = \"".$p_gender."\"";
-		$sql.= ",mjob_cd = \"".$arr_selectjob[0]."\"";
-		$sql.= ",ljob_cd = \"".$arr_selectjob[1]."\"";
-		$sql.= " WHERE user_id = ".$p_user_id;
-		$ret = $obj->Execute($sql);
-		if (!$ret){
-			//echo "sql=".$sql;
-			$err = true;
-			$msg_info.= ERR_UPD."[user_table]\n";
-		}
-		header("Location: #page4");
-		
 		exit;
 	}
 	
@@ -142,10 +127,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$_SESSION["gender"] = $p_gender;
 	$_SESSION["selectjob"] = $p_selectjob;
 	
-	//***********************************************
-	// 登録変更確認
-	//***********************************************
-	include 'template/registconf.html';
+	if ($_POST["regist"]) {
+		//***********************************************
+		// 会員情報更新
+		//***********************************************
+		$arr_selectjob = explode(":", $p_selectjob);
+		$sql = "UPDATE user_table SET";
+		$sql.= " password = \"".crypt(sha1($p_password),TANE)."\"";
+		$sql.= ",nickname = \"".$p_nickname."\"";
+		$sql.= ",birth = \"".$p_birth."\"";
+		$sql.= ",gender = \"".$p_gender."\"";
+		$sql.= ",mjob_cd = \"".$arr_selectjob[0]."\"";
+		$sql.= ",ljob_cd = \"".$arr_selectjob[1]."\"";
+		$sql.= " WHERE user_id = \"".$p_user_id."\"";
+		$ret = $obj->Execute($sql);
+		if (!$ret){
+			//echo "sql=".$sql;
+			$err = true;
+			$msg_info.= ERR_UPD."[user_table]\n";
+		}
+		header("Location: #page2");
+		
+	}else{
+		//***********************************************
+		// 変更内容確認
+		//***********************************************
+		include 'template/registconf.html';
+	}
 	exit;
 }
 
@@ -182,9 +190,9 @@ if ($val["gender"] == "M") {
 }else{
 	$wk_selected_f = " selected";
 }
-	$wk_gender.= " 							";
+	$wk_gender.= " 						";
 	$wk_gender.= "<option value=\"M\"".$wk_selected_m.">男性</option>\n";
-	$wk_gender.= " 							";
+	$wk_gender.= " 						";
 	$wk_gender.= "<option value=\"F\"".$wk_selected_f.">女性</option>\n";
 
 //***********************************************

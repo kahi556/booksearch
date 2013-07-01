@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>feegle｜登録確認</title>
+	<title>feegle｜会員情報更新</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 <?php @include("common/jquery.html"); ?>
@@ -10,12 +10,11 @@
 <body>
 
 <div data-role="page" id="page1" data-theme="c">
-	<div data-role="header" data-theme="d">
-		<h1>入力内容確認</h1>
-		<a href="" data-rel="back">戻る</a>
-	</div><!-- /header -->
+<?php @include("common/header.html"); ?>
+	<a href="" data-rel="back">戻る</a>
 	
 	<div data-role="content" data-theme="d">
+		<p>更新内容確認</p>
 		<p>
 <?php echo $chk_msg ?>
 		</p>
@@ -26,7 +25,7 @@
 			<input type="hidden" name="birth" value="<?php echo $p_birth ?>">
 			<input type="hidden" name="gender" value="<?php echo $p_gender ?>">
 			<input type="hidden" name="selectjob" value="<?php echo $p_selectjob ?>">
-			<input type="submit" name="regist" value="登録">
+			<input type="submit" name="regist" value="更新">
     	</form>
     </div><!--end content-->
 	
@@ -34,5 +33,19 @@
 <?php @include("common/footer.html"); ?>
 	</div><!-- /footer -->
 </div><!-- /page1 -->
+
+<div data-role="page" id="page2" data-theme="c" data-add-back-btn="false">
+<?php @include("common/header.html"); ?>
+	
+	<div data-role="content" data-theme="d">
+		<p>
+		会員情報更新が完了しました。<br>
+		ログイン後、サービスをご利用下さい。
+		</p>
+	</div><!-- /content -->
+	
+<?php @include("common/footer.html"); ?>
+</div><!-- /page2 -->
+
 </body>
 </html>
