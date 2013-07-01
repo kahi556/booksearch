@@ -3,19 +3,15 @@
 データベース接続＆ログイン
 ---------------------------------*/
 class database{
-	Protected $SVN = 'mysql526.phy.lolipop.jp';
-	//Protected $SVN = 'localhost';
+	Protected $SVN = 'localhost';
 	//Protected $SVN = 'mysql1.webcrow-php.netowl.jp';
 
-	Protected $UNM = 'LA12986929';//
-	Protected $PW = 'vPHTdeF6';//
-	//Protected $UNM = 'feegmanage';//
-	//Protected $PW = 'G7at54DqahA';//
+	Protected $UNM = 'feegmanage';//
+	Protected $PW = 'G7at54DqahA';//
 	//Protected $UNM = 'feegle_conc';//
 	//Protected $PW = 'snJ78Kdf';//
 
-	Protected $DBN = 'LA12986929-w476ne';
-	//Protected $DBN = 'feegle';
+	Protected $DBN = 'feegle';
 	//Protected $DBN = 'feegle_booksearch';
 
 	//オブジェクトが生成される際、自動的に呼ばれるメソッド「コンストラクタ」

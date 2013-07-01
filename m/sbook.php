@@ -82,7 +82,9 @@ if ($p_word <> "") {
 		// 気分検索
 		$sql.= " WHERE brt.feeling = \"".$p_word."\"";
 	}else{
+		// キーワード検索
 		$sql.= " WHERE brt.tag LIKE \"%".urldecode($p_word)."%\"";
+		$wk_word_j = urldecode($p_word);
 	}
 	if (isset($_SESSION['login'])) {
 		// ログイン中のみの条件
@@ -103,6 +105,10 @@ if ($p_word <> "") {
 			foreach($ARR_FEELING as $key1 => $val1){
 				if ($key1 == $wk_feeling) {
 					$wk_feeling_j = $val1;
+					if ($p_wk == "f") {
+						// 気分検索
+						$wk_word_j = $val1;
+					}
 					break;
 				}
 			}
