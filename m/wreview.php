@@ -76,7 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //***********************************************
 include 'common/database.php';
 $obj = new comdb();
-mysql_set_charset('utf8');
 
 //***********************************************
 // トランザクション開始

@@ -81,7 +81,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		//***********************************************
 		include 'common/database.php';
 		$obj = new comdb();
-		mysql_set_charset('utf8');
 		
 		// メールアドレス（ユーザーID）既存登録チェック
 		$sql = "SELECT user_id";
@@ -162,7 +161,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //***********************************************
 include 'common/database.php';
 $obj = new comdb();
-mysql_set_charset('utf8');
 
 //***********************************************
 // ユーザー情報検索

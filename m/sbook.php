@@ -31,7 +31,6 @@ $p_feeling = "";
 $p_author_name = "";
 $p_wk = "";
 $p_word = "";
-$p_word_j = "";
 $html = "";
 $wk_keyword  = "";
 $feeling_image = "";
@@ -67,26 +66,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //***********************************************
 include 'common/database.php';
 $obj = new comdb();
-mysql_set_charset('utf8');
 
 //***********************************************
 // キーワード検索(ログインユーザー)
 //***********************************************
 if ($p_word <> "") {
-	if ($p_wk == "f") {
-		// 気分検索
-		$wk_feeling = $val["feeling"];
-		// 気分日本語
-		foreach($ARR_FEELING as $key => $val){
-			if ($key == $wk_feeling) {
-				$wk_feeling_j = $val;
-				break;
-			}
-		}
-	}else{
-		$p_word_j = $p_word;
-	}
-	
 	$sql = "SELECT brt.book_review,brt.book_id";
 	$sql.= ",brt.tag,brt.thanks_cnt,brt.feeling";
 	$sql.= ",bt.book_name,bt.imageurl";

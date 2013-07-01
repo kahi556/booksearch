@@ -56,7 +56,6 @@ if (!isset($_SESSION['login']) && ($p_wk == "mod")) {
 //***********************************************
 include 'common/database.php';
 $obj = new comdb();
-mysql_set_charset('utf8');
 
 //***********************************************
 // 書評を登録した本検索

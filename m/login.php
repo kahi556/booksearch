@@ -71,6 +71,8 @@ if (isset($_POST['user_id'])) {
 		}
 		$_SESSION['mjob_cd'] = $ret['MJOB_CD'];
 		$_SESSION['ljob_cd'] = $ret['LJOB_CD'];
+		$_SESSION['review_posts_cnt'] = $ret['REVIEW_POSTS_CNT'];
+		$_SESSION['thanks_cnt'] = $ret['THANKS_CNT'];
 		$_SESSION['login'] = "y";
 		
 		if ($p_link <> "") {

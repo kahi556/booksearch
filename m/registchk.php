@@ -35,7 +35,6 @@ require("common/conf.php"); // 共通定義
 //***********************************************
 include 'common/database.php';
 $obj = new comdb();
-mysql_set_charset('utf8');
 
 //***********************************************
 // 前画面からの戻り

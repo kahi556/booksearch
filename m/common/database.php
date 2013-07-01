@@ -28,6 +28,7 @@ class database{
 		if (!$db_selected){
 		    die('DB接続に失敗しました。(select_db)'.mysql_error());
 		}
+		mysql_set_charset('utf8');
 
 	}
 	//オブジェクトが消滅するときに自動的に呼ばれるメソッド「デストラクタ」
@@ -149,8 +150,10 @@ class comdb extends database {
 				return false;
 			}
 
-			$sql ="";
-			$sql.="SELECT * FROM user_table";
+			//$sql ="SELECT nickname,birth,gender,mjob_cd";
+			//$sql.= ",ljob_cd,review_posts_cnt,thanks_cnt";
+			$sql ="SELECT *";
+			$sql.= " FROM user_table";
 			$sql.=" WHERE user_id = '".$uid."'";
 			$sql.=" AND password = '".$pw."'";
 

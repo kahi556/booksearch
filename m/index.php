@@ -24,7 +24,6 @@ require("common/sess_clear.php"); // セッション情報クリア
 //***********************************************
 include 'common/database.php';
 $obj = new comdb();
-mysql_set_charset('utf8');
 
 //***********************************************
 // 書籍情報検索

@@ -39,24 +39,28 @@ $arr_temp_keyword = array();
 //***********************************************
 include 'common/database.php';
 $obj = new comdb();
-mysql_set_charset('utf8');
 
 //***********************************************
 // ユーザー情報検索(ログインユーザー)
 //***********************************************
-//$sql = "SELECT nickname,review_posts_cnt,thanks_cnt,tag";
-$sql = "SELECT nickname,review_posts_cnt,thanks_cnt";
-$sql.= " FROM user_table";
-$sql.= " WHERE user_id = \"".$_SESSION["user_id"]."\"";
-$ret = $obj->Fetch($sql);
-if (count($ret) <> 0){
-	foreach($ret as $key => $val){
-		$p_nickname = $val["nickname"]." さん";
-		$p_review_posts_cnt = $val["review_posts_cnt"];
-		$p_thanks_cnt = $val["thanks_cnt"];
-		//$p_tag = $val["tag"];
-	}
-}
+//$sql = "SELECT nickname,review_posts_cnt,thanks_cnt";
+//$sql.= " FROM user_table";
+//$sql.= " WHERE user_id = \"".$_SESSION["user_id"]."\"";
+//$ret = $obj->Fetch($sql);
+//if (count($ret) <> 0){
+//	foreach($ret as $key => $val){
+//		$p_nickname = $val["nickname"]." さん";
+//		$p_review_posts_cnt = $val["review_posts_cnt"];
+//		$p_thanks_cnt = $val["thanks_cnt"];
+//		//$p_tag = $val["tag"];
+//	}
+//}
+//***********************************************
+// ユーザー情報(ログインユーザー)
+//***********************************************
+$p_nickname = $_SESSION["nickname"]." さん";
+$p_review_posts_cnt = $_SESSION["review_posts_cnt"];
+$p_thanks_cnt = $_SESSION["thanks_cnt"];
 
 //***********************************************
 // 書評を登録した本検索(ログインユーザー)
