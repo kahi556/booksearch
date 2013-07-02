@@ -43,7 +43,7 @@ if ($p_rkey == "") {
 //***********************************************
 // ユーザー仮登録のキーチェック
 //***********************************************
-$sql = "SELECT * FROM user_reg_table";
+$sql = "SELECT * FROM fg_user_reg_table";
 $sql.= " WHERE rkey = \"".$p_rkey."\"";
 $ret = $obj->Fetch($sql);
 if (count($ret) == 1){
@@ -76,7 +76,7 @@ if (!$err) {
 	// ユーザー本登録
 	//***********************************************
 	// ユーザーテーブル新規登録
-	$sql_1 = "INSERT INTO user_table";
+	$sql_1 = "INSERT INTO fg_user_table";
 	$sql_1.= " (";
 	$sql_2 = " VALUES(";
 	// ユーザーID
@@ -114,7 +114,7 @@ if (!$err) {
 	}
 	
 	// ユーザ登録テーブル更新
-	$sql = "UPDATE user_reg_table SET";
+	$sql = "UPDATE fg_user_reg_table SET";
 	$sql.= " status = 1";
 	$sql.= " WHERE user_id = \"".$p_user_id."\"";
 	$ret = $obj->Execute($sql);
@@ -134,7 +134,7 @@ if (!$err) {
 	// 本登録ご案内メール送信
 	//***********************************************
 	$wk_fileinfo = "common/txt/info_reg.txt"; // textファイルはsjis-win
-	$wk_subject.= "【Feegle】へのご登録ありがとうございます。";
+	$wk_subject.= "【feegle】へのご登録ありがとうございます。";
 	$wk_body = str_replace("%email%", $p_user_id, file_get_contents($wk_fileinfo)); // メールテキストを取得後、メールアドレス（ログインID）を設定
 	$wk_body = str_replace("%name_kanji%", mb_convert_encoding($p_nickname, "sjis-win", "UTF-8"), $wk_body); // 氏名漢字を設定
 	

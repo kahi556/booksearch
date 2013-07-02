@@ -68,9 +68,9 @@ $p_thanks_cnt = $_SESSION["thanks_cnt"];
 $sql = "SELECT brt.book_id,brt.tag,brt.thanks_cnt";
 $sql.= ",bt.book_name,bt.imageurl";
 $sql.= ",at.author_name";
-$sql.= " FROM book_review_table brt";
-$sql.= " INNER JOIN book_table bt ON bt.book_id = brt.book_id";
-$sql.= " LEFT JOIN author_table at ON at.author_id = bt.author_id";
+$sql.= " FROM fg_book_review_table brt";
+$sql.= " INNER JOIN fg_book_table bt ON bt.book_id = brt.book_id";
+$sql.= " LEFT JOIN fg_author_table at ON at.author_id = bt.author_id";
 $sql.= " WHERE brt.user_id = \"".$_SESSION["user_id"]."\"";
 $sql.= " ORDER BY brt.book_review_no DESC";
 $ret = $obj->Fetch($sql);
@@ -101,13 +101,15 @@ if (count($ret) <> 0){
 				}
 			}
 		}
-		$html.="		<li><a rel=\"external\" href=\"sreview.php?id=".$val["book_id"]."\">\n";
+		$html.="		<li><a rel=\"external\" href=\"creview.php?id=".$val["book_id"]."\">\n";
 		$html.="			<img src=\"".$val["imageurl"]."\" />\n";
 		$html.="			<h3>".$val["book_name"]."</h3> \n";
 		$html.="			<p>".$val["author_name"]."<br />";
 		$html.="Thanks: ".$val["thanks_cnt"]."</p>\n";
 		$html.="		</a></li>\n";
 	}
+}else{
+	$html.="				<li>見つかりませんでした</li>\n";
 }
 
 include 'template/top.html';

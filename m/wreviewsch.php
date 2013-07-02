@@ -73,6 +73,7 @@ if (($p_isbn <> "") || ($p_book_name <> "")) {
 			$_SESSION["title"] = $data[0]->Title;
 			$_SESSION["author"] = $data[0]->Author;
 			$_SESSION["imageurl"] = $data[0]->ImageURL;
+			$_SESSION["detailpageurl"] = $data[0]->DetailPageURL;
 			$cnt = 0;
 			if(isset($_SESSION["feeling"])){
 				foreach ($ARR_FEELING as $key => $val) {

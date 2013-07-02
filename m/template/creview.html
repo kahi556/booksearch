@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta http-equiv="content-language" content="ja">
+	<meta charset="utf-8">
+	<title>feegle | 感覚的に書籍を検索</title>
+	<meta name="description" content="feegle">
+<?php @include("common/jquery.html"); ?>
+</head>
+<body>
+
+<div data-role="page" id="page1" data-theme="c">
+<?php @include("common/header.html"); ?>
+	
+	<div data-role="content" data-theme="d">
+		<table data-role="table" id="book-table" data-mode="reflow" class="ui-responsive table-stroke">
+			<thead>
+				<tr>
+					<th>&nbsp;</th>
+					<th>書籍名</th>
+					<th>著者</th>
+					<th>Thanks</th>
+					<th>イメージ</th>
+					<th>Keyword</th>
+					<th>愛称</th>
+					<th>書評</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<a href="<?php echo $_SESSION["detailpageurl"] ?>" target="_blank">
+						<img src="<?php echo $_SESSION["imageurl"] ?>"></a>
+					</td>
+					<td><h3><?php echo $_SESSION["title"] ?></h3></td>
+					<td><?php echo $_SESSION["author"] ?></td>
+					<td><?php echo $_SESSION["thanks_cnt"] ?></td>
+					<td>【 <?php echo $p_word_j ?> 】<br /><?php echo $_SESSION["feeling_image"] ?></td>
+					<td><?php echo $wk_keyword ?></td>
+					<td><?php echo $_SESSION["nickname"] ?></td>
+					<td><?php echo $_SESSION["review"] ?></td>
+				</tr>
+			</tbody>
+		</table>
+<?php echo $btn_mod ?>
+	</div><!-- /content -->
+
+<?php @include("common/footer.html"); ?>
+</div><!-- /page1 -->
+
+<div data-role="page" id="page2" data-theme="c">
+<?php @include("common/header.html"); ?>
+	
+	<div data-role="content" data-theme="c">
+		<p>page2!</p>
+	</div><!-- /content -->
+	
+<?php @include("common/footer.html"); ?>
+</div><!-- /page2 -->
+
+</body>
+</html>

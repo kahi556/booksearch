@@ -86,7 +86,7 @@ $obj->BeginTran();
 // 既存著者検索
 //***********************************************
 $sql = "SELECT author_id";
-$sql.= " FROM author_table";
+$sql.= " FROM fg_author_table";
 $sql.= " WHERE author_name = \"".$_SESSION["author"]."\"";
 $ret = $obj->Fetch($sql);
 if (count($ret) <> 0){
@@ -97,7 +97,7 @@ if (count($ret) <> 0){
 	//***********************************************
 	// 既存著者がないため登録
 	//***********************************************
-	$sql = "INSERT INTO author_table";
+	$sql = "INSERT INTO fg_author_table";
 	$sql.= " (author_name,user_id,rdate) VALUES";
 	$sql.= "(\"".$_SESSION["author"]."\"";
 	$sql.= ",\"".$_SESSION["user_id"]."\",\"".$time."\")";
@@ -105,7 +105,7 @@ if (count($ret) <> 0){
 	if (!$ret){
 		//$msg_info.= "sql=".$sql;
 		$err = true;
-		$msg_info.= ERR_REG."[author_table]\n";
+		$msg_info.= ERR_REG."[fg_author_table]\n";
 	}else{
 		$p_author_id = mysql_insert_id();
 	}
@@ -114,7 +114,7 @@ if (count($ret) <> 0){
 // 既存書籍検索
 //***********************************************
 $sql = "SELECT book_id";
-$sql.= " FROM book_table";
+$sql.= " FROM fg_book_table";
 $sql.= " WHERE isbn = \"".$_SESSION["isbn"]."\"";
 $ret = $obj->Fetch($sql);
 if (count($ret) <> 0){
@@ -125,43 +125,76 @@ if (count($ret) <> 0){
 	//***********************************************
 	// 既存書籍がないため登録
 	//***********************************************
-	$sql = "INSERT INTO book_table";
-	$sql.= " (book_name,isbn,imageurl,author_id,user_id,rdate) VALUES";
+	$sql = "INSERT INTO fg_book_table";
+	$sql.= " (book_name,isbn,imageurl,author_id,detailpageurl,user_id,rdate) VALUES";
 	$sql.= "(\"".$_SESSION["title"]."\",\"".$_SESSION["isbn"]."\"";
 	$sql.= ",\"".$_SESSION["imageurl"]."\",\"".$p_author_id."\"";
+	$sql.= ",\"".$_SESSION["detailpageurl"]."\"";
 	$sql.= ",\"".$_SESSION["user_id"]."\",\"".$time."\")";
 	$ret = $obj->Execute($sql);
 	if (!$ret){
 		//$msg_info.= "sql=".$sql;
 		$err = true;
-		$msg_info.= ERR_REG."[book_table]\n";
+		$msg_info.= ERR_REG."[fg_book_table]\n";
 	}else{
 		$p_book_id = mysql_insert_id();
 	}
 }
 //***********************************************
-// 書評登録
+// 既存書評検索
 //***********************************************
-$sql = "INSERT INTO book_review_table";
-$sql.= " (book_review,book_id,tag,feeling,user_id,rdate) VALUES";
-$sql.= "(\"".$_SESSION["review"]."\",\"".$p_book_id."\"";
-$sql.= ",\"".$_SESSION["tag"]."\",\"".$_SESSION["feeling"]."\"";
-$sql.= ",\"".$_SESSION["user_id"]."\",\"".$time."\")";
-$ret = $obj->Execute($sql);
-if (!$ret){
-	//$msg_info.= "sql=".$sql;
-	$err = true;
-	$msg_info.= ERR_REG."[book_review_table]\n";
+$sql = "SELECT book_review_no";
+$sql.= " FROM fg_book_review_table";
+$sql.= " WHERE book_id = \"".$p_book_id."\"";
+$sql.= " AND user_id = \"".$_SESSION["user_id"]."\"";
+$ret = $obj->Fetch($sql);
+if (count($ret) <> 0){
+	//***********************************************
+	// 書評更新
+	//***********************************************
+	$sql = "UPDATE fg_book_review_table SET";
+	$sql.= " book_review = \"".$_SESSION["review"]."\"";
+	$sql.= ",tag = \"".$_SESSION["tag"]."\"";
+	$sql.= ",feeling = \"".$_SESSION["feeling"]."\"";
+	$sql.= " WHERE book_id = \"".$p_book_id."\"";
+	$sql.= " AND user_id = \"".$_SESSION["user_id"]."\"";
+	$ret = $obj->Execute($sql);
+	if (!$ret){
+		//$msg_info.= "sql=".$sql;
+		$err = true;
+		$msg_info.= ERR_UPD."[fg_book_review_table]\n";
+	}else{
+		$msg = "更新";
+	}
 }else{
-	$p_book_id = mysql_insert_id();
+	//***********************************************
+	// 書評登録
+	//***********************************************
+	$sql = "INSERT INTO fg_book_review_table";
+	$sql.= " (book_review,book_id,tag,feeling,user_id,rdate) VALUES";
+	$sql.= "(\"".$_SESSION["review"]."\",\"".$p_book_id."\"";
+	$sql.= ",\"".$_SESSION["tag"]."\",\"".$_SESSION["feeling"]."\"";
+	$sql.= ",\"".$_SESSION["user_id"]."\",\"".$time."\")";
+	$ret = $obj->Execute($sql);
+	if (!$ret){
+		//$msg_info.= "sql=".$sql;
+		$err = true;
+		$msg_info.= ERR_REG."[fg_book_review_table]\n";
+	}else{
+		$p_book_id = mysql_insert_id();
+		$msg = "登録";
+	}
+	
 }
 
 if ($err) {
 	$obj->RollBack();
+	$msg_info.= "書評の".$msg."に失敗しました\n";
 }else{
 	$obj->Commit();
-	$msg_info.= "書評を登録しました\n";
+	$msg_info.= "書評を".$msg."しました\n";
 }
+
 require("common/sess_clear_review.php"); // 書評関連セッション情報クリア
 include 'template/wreviewend.html';
 ?>

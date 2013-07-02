@@ -20,7 +20,7 @@
 				<h3>書名: <?php echo $_SESSION["title"] ?></h3>
 				<p>著者: <?php echo $_SESSION["author"] ?></p>
 			</div>
-			<div class="ui-block-b"><img src="<?php echo $_SESSION["imageurl"] ?>" /></div>
+			<div class="ui-block-b"><a href="<?php echo $_SESSION["detailpageurl"] ?>" target="_blank"><img src="<?php echo $_SESSION["imageurl"] ?>" /></a></div>
 		</div><!-- /ui-grid-a -->
 		<div data-role="fieldcontain">
 			<label for="review">書評</label>

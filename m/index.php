@@ -29,7 +29,7 @@ $obj = new comdb();
 // 書籍情報検索
 //***********************************************
 $sql = "SELECT book_id,imageurl";
-$sql.= " FROM book_table";
+$sql.= " FROM fg_book_table";
 $sql.= " ORDER BY rand() limit 0,".$max_disp_suu;
 $ret = $obj->Fetch($sql);
 if (count($ret) <> 0){

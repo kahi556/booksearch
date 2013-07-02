@@ -70,9 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	//	$msg_info.= "パスワードとパスワード(確認)が一致しません。\n";
 	//	$err = true;
 	}
-	// ニックネーム[必須チェック]
+	// 愛称[必須チェック]
 	if ($p_nickname == "") {
-		$msg_info.= "ニックネームは必須です。\n";
+		$msg_info.= "愛称は必須です。\n";
 		$err = true;
 	}
 	if (!$err) {
@@ -84,8 +84,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		
 		// メールアドレス（ユーザーID）既存登録チェック
 		$sql = "SELECT user_id";
-		//$sql.= " FROM user_reg_table";
-		$sql.= " FROM user_table";
+		//$sql.= " FROM fg_user_reg_table";
+		$sql.= " FROM fg_user_table";
 		$sql.= " WHERE user_id = \"".$p_user_id."\"";
 		$ret = $obj->Fetch($sql);
 		if (count($ret) == 0){
@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 	$chk_msg.= "メールアドレス（ユーザーID）：".$p_user_id."<br>\n";
 	$chk_msg.= "パスワード：".$p_password."<br>\n";
-	$chk_msg.= "ニックネーム：".$p_nickname."<br>\n";
+	$chk_msg.= "愛称：".$p_nickname."<br>\n";
 	$wk_birth = str_replace("-", "/", $p_birth);
 	$chk_msg.= "生年月日：".$wk_birth."<br>\n";
 	if ($p_gender == "M") {
@@ -131,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		// 会員情報更新
 		//***********************************************
 		$arr_selectjob = explode(":", $p_selectjob);
-		$sql = "UPDATE user_table SET";
+		$sql = "UPDATE fg_user_table SET";
 		$sql.= " password = \"".crypt(sha1($p_password),TANE)."\"";
 		$sql.= ",nickname = \"".$p_nickname."\"";
 		$sql.= ",birth = \"".$p_birth."\"";
@@ -166,7 +166,7 @@ $obj = new comdb();
 // ユーザー情報検索
 //***********************************************
 $sql = "SELECT user_id,nickname,birth,gender,mjob_cd,ljob_cd";
-$sql.= " FROM user_table";
+$sql.= " FROM fg_user_table";
 $sql.= " WHERE user_id = \"".$_SESSION['user_id']."\"";
 $ret = $obj->Fetch($sql);
 if (count($ret) <> 0){
@@ -198,8 +198,8 @@ if ($val["gender"] == "M") {
 //***********************************************
 $wk_ljob_cd = "";
 $sql1 = "SELECT mt.mjob_name,mt.mjob_cd,mt.ljob_cd,lt.ljob_name";
-$sql1.= " FROM mjob_table mt";
-$sql1.= " INNER JOIN ljob_table lt ON lt.ljob_cd = mt.ljob_cd";
+$sql1.= " FROM fg_mjob_table mt";
+$sql1.= " INNER JOIN fg_ljob_table lt ON lt.ljob_cd = mt.ljob_cd";
 $sql1.= " ORDER BY mt.ljob_cd,mt.mjob_cd";
 $ret1 = $obj->Fetch($sql1);
 if (count($ret1) <> 0){
