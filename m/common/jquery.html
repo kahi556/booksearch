@@ -2,4 +2,9 @@
 	<meta name="viewport" content="width=device-width,minimum-scale=1,maxmum-scale=1">
 	<link rel="stylesheet" href="common/jquery.mobile-1.3.1.min.css" />
 	<script src="common/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+    $(document).bind("mobileinit", function() {
+        $.mobile.page.prototype.options.addBackBtn = true;
+    });
+	</script>
 	<script src="common/jquery.mobile-1.3.1.min.js"></script>

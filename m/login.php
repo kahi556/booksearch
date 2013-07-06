@@ -41,12 +41,17 @@ if (isset($_GET['m'])) {
 
 // エラーメッセージを格納する変数を初期化
 $errorMessage = "";
+
 if (isset($_POST['user_id'])) {
+	// ログインボタンを押した後
 	if(isset($_POST['link'])){$p_link=$_POST['link'];}
 	$viewUserId = htmlspecialchars($_POST['user_id'], ENT_QUOTES);
 	$viewPassword = crypt(sha1($_POST['password']),TANE);
-	include 'common/database.php';
 	
+	//***********************************************
+	// DB接続
+	//***********************************************
+	include 'common/database.php';
 	$obj = new comdb();
 	
 	// 会員ログイン
@@ -76,6 +81,7 @@ if (isset($_POST['user_id'])) {
 		$_SESSION['login'] = "y";
 		
 		if ($p_link <> "") {
+			// ログイン先が設定されていればそこへ
 			header('Location: '.$p_link);
 		}else{
 			//ログイン後トップページへ

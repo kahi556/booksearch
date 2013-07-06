@@ -10,6 +10,8 @@ $p_isbn = "";
 $p_book_name = "";
 $p_wk = "";
 $p_feeling = "";
+$p_review = "";
+$p_tag = "";
 $wk_get_book_cnt = 0;
 $link_url = "wreviewsch.php?isbn=";
 $html = "";
@@ -30,12 +32,8 @@ require("common/conf.php"); // 共通定義
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	// 特殊文字をHTMLエンティティに変換（セキュリティ対策）
 	if(isset($_GET["isbn"])){$p_isbn=htmlspecialchars($_GET["isbn"]);}
-	if(isset($_GET["wk"])){$p_wk=htmlspecialchars($_GET["wk"]);}
-	if(isset($_GET["wd"])){$p_feeling=htmlspecialchars($_GET["wd"]);}
 	// 文字のエスケープ（セキュリティ対策）
 	$p_isbn=preg_replace("/;/"," ",addslashes($p_isbn));
-	$p_wk=preg_replace("/;/"," ",addslashes($p_wk));
-	$p_feeling=preg_replace("/;/"," ",addslashes($p_feeling));
 }
 
 //***********************************************
@@ -45,18 +43,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	// 特殊文字をHTMLエンティティに変換（セキュリティ対策）
 	if(isset($_POST["isbn"])){$p_isbn=htmlspecialchars($_POST["isbn"]);}
 	if(isset($_POST["book_name"])){$p_book_name=htmlspecialchars($_POST["book_name"]);}
+	if(isset($_POST["wk"])){$p_wk=htmlspecialchars($_POST["wk"]);}
+	if(isset($_POST["feeling"])){$p_feeling=htmlspecialchars($_POST["feeling"]);}
+	if(isset($_POST["review"])){$p_review=htmlspecialchars($_POST["review"]);}
+	if(isset($_POST["tag"])){$p_tag=htmlspecialchars($_POST["tag"]);}
 	// 文字のエスケープ（セキュリティ対策）
 	$p_isbn=preg_replace("/;/"," ",addslashes($p_isbn));
 	$p_book_name=preg_replace("/;/"," ",addslashes($p_book_name));
+	$p_wk=preg_replace("/;/"," ",addslashes($p_wk));
+	$p_feeling=preg_replace("/;/"," ",addslashes($p_feeling));
+	$p_review=preg_replace("/;/"," ",addslashes($p_review));
+	$p_tag=preg_replace("/;/"," ",addslashes($p_tag));
+	
+	$_SESSION["review"] = $p_review;
+	$_SESSION["tag"] = $p_tag;
 }
 
 if ($p_wk == "f") {
 	// 気分画像選択
+	foreach ($ARR_FEELING as $key => $val) {
+		if ($key == $p_feeling) {
+			$sel_feeling = $val;
+			break;
+		}
+	}
 	$html_image.= "			<div class=\"ui-grid-a\">\n";
 	$html_image.= "				<div class=\"ui-block-a\">\n";
-	$html_image.= "					<p>気分</p>\n";
+	$html_image.= "					<p>気分: </p>\n";
 	$html_image.= "				</div><!-- /ui-block-a -->\n";
 	$html_image.= "				<div class=\"ui-block-b\">\n";
+	$html_image.= "					【 ".$sel_feeling." 】<br />\n";
 	$html_image.= "					<img src=\"images/".$p_feeling.".gif\">\n";
 	$html_image.= "				</div><!-- /ui-block-b -->\n";
 	$html_image.= "			</div><!-- /ui-grid-a -->\n";
@@ -81,9 +97,6 @@ if ($p_wk == "f") {
 		$message = $wk_book_cnt."件見つかりました。";
 		if ($p_isbn <> "") {
 			// 特定の書籍あり
-			//$arr_title[] = $data[0]->Title;
-			//$arr_author[] = $data[0]->Author;
-			//$arr_imageurl[] = $data[0]->ImageURL;
 			$_SESSION["isbn"] = $p_isbn;
 			$_SESSION["title"] = $data[0]->Title;
 			$_SESSION["author"] = $data[0]->Author;
@@ -94,27 +107,30 @@ if ($p_wk == "f") {
 				// 気分画像特定済
 				$html_image.= "			<div class=\"ui-grid-a\">\n";
 				$html_image.= "				<div class=\"ui-block-a\">\n";
-				$html_image.= "					<p>気分</p>\n";
+				$html_image.= "					<p>気分: </p>\n";
 				$html_image.= "				</div><!-- /ui-block-a -->\n";
 				$html_image.= "				<div class=\"ui-block-b\">\n";
 				$html_image.= "					<img src=\"images/".$_SESSION["feeling"].".gif\">\n";
 				$html_image.= "				</div><!-- /ui-block-b -->\n";
 				$html_image.= "			</div><!-- /ui-grid-a -->\n";
+				$html_image.= "		<input type=\"hidden\" name=\"feeling\" value=\"".$_SESSION["feeling"]."\">\n";
 				
 			}else{
 				// 気分画像編集
 				$html_image.= "		<div data-role=\"fieldcontain\">\n";
-				$html_image.= "			<p>気分</p>\n";
+				$html_image.= "			<p>気分: </p>\n";
 				$html_image.= "			<div class=\"viewport\">\n";
 				$html_image.= "				<div class=\"flipsnap\">\n";
 				foreach ($ARR_FEELING as $key => $val) {
 					$html_image.= "					<div class=\"item\">";
-					$html_image.= "<a rel=\"external\" href=\"wreviewsch.php?wk=f&wd=".$key."\">\n";
+					$html_image.= "<a href=\"javascript:feelingsch('".$key."');\">\n";
 					$html_image.= "					<img src=\"images/".$key.".gif\"></a></div>\n";
 				}
 				$html_image.= "				</div><!-- /flipsnap -->\n";
 				$html_image.= "			</div><!-- /viewport -->\n";
 				$html_image.= "		</div><!-- /fieldcontain -->\n";
+				$html_image.= "		<input type=\"hidden\" name=\"wk\" value=\"f\">\n";
+				$html_image.= "		<input type=\"hidden\" name=\"feeling\" value=\"\">\n";
 			}
 			include 'template/wreview.html';
 			exit;

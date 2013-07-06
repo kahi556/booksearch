@@ -58,6 +58,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				break;
 			}
 		}
+		$html_image.= "			<div class=\"ui-grid-a\">\n";
+		$html_image.= "				<div class=\"ui-block-a\">\n";
+		$html_image.= "					<h3>気分: </h3>\n";
+		$html_image.= "				</div><!-- /ui-block-a -->\n";
+		$html_image.= "				<div class=\"ui-block-b\">\n";
+		$html_image.= "					【 ".$sel_feeling." 】<br />\n";
+		$html_image.= "					<img src=\"images/".$p_feeling.".gif\">\n";
+		$html_image.= "				</div><!-- /ui-block-b -->\n";
+		$html_image.= "			</div><!-- /ui-grid-a -->\n";
+		$html_image.= "			<input type=\"hidden\" name=\"feeling\" value=\"".$p_feeling."\">\n";
+		
 		include 'template/wreviewchk.html';
 		exit;
 	}

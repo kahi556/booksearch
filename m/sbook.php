@@ -32,6 +32,7 @@ $p_author_name = "";
 $p_wk = "";
 $p_word = "";
 $p_brno = "";
+$p_user_id = "";
 $html = "";
 $wk_lkeyword  = "";
 $feeling_image = "";
@@ -47,10 +48,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	if(isset($_GET["wk"])){$p_wk=htmlspecialchars($_GET["wk"]);}
 	if(isset($_GET["wd"])){$p_word=htmlspecialchars($_GET["wd"]);}
 	if(isset($_GET["brno"])){$p_brno=htmlspecialchars($_GET["brno"]);}
+	if(isset($_GET["uid"])){$p_user_id=htmlspecialchars($_GET["uid"]);}
 	// 文字のエスケープ（セキュリティ対策）
 	$p_wk=preg_replace("/;/"," ",addslashes($p_wk));
 	$p_word=preg_replace("/;/"," ",addslashes($p_word));
 	$p_brno=preg_replace("/;/"," ",addslashes($p_brno));
+	$p_user_id=preg_replace("/;/"," ",addslashes($p_user_id));
 }
 
 //***********************************************
@@ -89,7 +92,7 @@ if ($p_wk == "th") {
 	$ret = $obj->Execute($sql);
 	if (!$ret){
 		$err = true;
-		$msg_info.= ERR_REG."[fg_thanks_history_table]\n";
+		$msg_info.= "既に登録済です\n";
 	}
 	//***********************************************
 	// 書評更新（サンクス）
@@ -101,6 +104,17 @@ if ($p_wk == "th") {
 	if (!$ret){
 		$err = true;
 		$msg_info.= ERR_UPD."[fg_book_review_table]\n";
+	}
+	//***********************************************
+	// ユーザー更新（サンクス）
+	//***********************************************
+	$sql = "UPDATE fg_user_table SET";
+	$sql.= " thanks_cnt = thanks_cnt + 1";
+	$sql.= " WHERE user_id = \"".$p_user_id."\"";
+	$ret = $obj->Execute($sql);
+	if (!$ret){
+		$err = true;
+		$msg_info.= ERR_UPD."[fg_user_table]\n";
 	}
 	
 	if ($err) {
@@ -119,7 +133,7 @@ if ($p_wk == "th") {
 //***********************************************
 if (($p_wk <> "th") && ($p_word <> "")) {
 	$sql = "SELECT brt.book_review_no,brt.book_review,brt.book_id";
-	$sql.= ",brt.tag,brt.thanks_cnt,brt.feeling";
+	$sql.= ",brt.tag,brt.thanks_cnt,brt.feeling,brt.user_id";
 	$sql.= ",bt.book_name,bt.imageurl,bt.detailpageurl";
 	$sql.= ",at.author_name,ut.nickname";
 	$sql.= ",tht.book_review_no as thtbook_review_no";
@@ -213,8 +227,14 @@ if (($p_wk <> "th") && ($p_word <> "")) {
 			$html.= "					<td>".$wk_mkeyword."</td>\n";
 			$html.= "					<td>".$val["nickname"]."</td>\n";
 			$html.= "					<td>".$val["book_review"];
-			if ($val["thtbook_review_no"] == "") {
-				$html.= "<br /><a rel=\"external\" href=\"./sbook.php?wk=th&brno=".$val["book_review_no"]."#page2\" data-role=\"button\">Thanks!</a>";
+			if ((isset($_SESSION["login"])) && 
+					($val["thtbook_review_no"] == "") && 
+					($val["user_id"] <> $_SESSION["user_id"])) {
+				// ログイン後で、
+				// Thanksボタンが１度も押されてなく、
+				// 自身が投稿していなかった場合のみ
+				// Thanksボタンを表示
+				$html.= "<br /><a rel=\"external\" href=\"./sbook.php?wk=th&brno=".$val["book_review_no"]."&uid=".$val["user_id"]."#page2\" data-role=\"button\">Thanks!</a>";
 			}
 			$html.= "</td>\n";
 			$html.= "				</tr>\n";
