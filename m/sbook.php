@@ -231,13 +231,21 @@ if (($p_wk <> "th") && ($p_word <> "")) {
 }else{
 	if ($p_word == "") {
 		// 気分画像編集
+		$html_image.= "			";
+		$html_image.= "<div class=\"viewport\">\n";
+		$html_image.= "				";
+		$html_image.= "<div class=\"flipsnap\">\n";
 		foreach ($ARR_FEELING as $key => $val) {
-			$html_image.= "			";
+			$html_image.= "					";
 			$html_image.= "<div class=\"item\">";
 			$html_image.= "<a rel=\"external\" href=\"sbook.php?wk=f&wd=".$key."\">\n";
-			$html_image.= "			";
+			$html_image.= "					";
 			$html_image.= "<img src=\"images/".$key.".gif\"></a></div>\n";
 		}
+		$html_image.= "				";
+		$html_image.= "</div><!-- /flipsnap -->\n";
+		$html_image.= "			";
+		$html_image.= "</div><!-- /viewport -->\n";
 	}
 }
 

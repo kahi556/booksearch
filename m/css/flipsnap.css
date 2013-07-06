@@ -1,0 +1,19 @@
+/* スワイプしてスライドするようなUI */
+.viewport {
+    width: 535px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.flipsnap {
+    width: 1800px; /* 180px(item width) * 10(item count) */
+}
+.item {
+    float: left;
+    width: 175px;
+    font-size: 50px;
+    text-align: center;
+    padding: 5px 0;
+    background: #ffffff;
+    border: 1px solid #ffc753;
+    cursor: pointer;
+}

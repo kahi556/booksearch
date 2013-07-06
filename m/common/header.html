@@ -1,23 +1,23 @@
 <?php
 if (isset($_SESSION['login'])) {
-	$linkpg = "				";
+	$linkpg = "			";
 	$linkpg.= "<li><a rel=\"external\" href=\"./\">ホーム</a></li>\n";
-	$linkpg.= "				";
+	$linkpg.= "			";
 	$linkpg.= "<li><a rel=\"external\" href=\"sbook.php\">本を検索</a></li>\n";
-	$linkpg.= "				";
+	$linkpg.= "			";
 	$linkpg.= "<li><a rel=\"external\" href=\"wreviewsch.php\">書評を書く</a></li>\n";
-	$linkpg.= "				";
+	$linkpg.= "			";
 	$linkpg.= "<li><a rel=\"external\" href=\"settei.php\">会員情報更新</a></li>\n";
-	$linkpg.= "				";
+	$linkpg.= "			";
 	$linkpg.= "<li><a rel=\"external\" href=\"logout.php\">ログアウト</a></li>\n";
 }else{
-	$linkpg = "				";
+	$linkpg = "			";
 	$linkpg.= "<li><a rel=\"external\" href=\"./\">ホーム</a></li>\n";
-	$linkpg.= "				";
+	$linkpg.= "			";
 	$linkpg.= "<li><a rel=\"external\" href=\"sbook.php\">本を検索</a></li>\n";
-	$linkpg.= "				";
+	$linkpg.= "			";
 	$linkpg.= "<li><a rel=\"external\" href=\"login.php?m=wr\">書評を書く</a></li>\n";
-	$linkpg.= "				";
+	$linkpg.= "			";
 	$linkpg.= "<li><a rel=\"external\" href=\"login.php\">ログイン</a></li>\n";
 }
 ?>
@@ -27,7 +27,7 @@ if (isset($_SESSION['login'])) {
 		</ul>
 	</div><!-- /panel -->
 	<div data-role="header" data-theme="c">
-		<a href="#mypanel" data-role="button" data-icon="grid" data-iconpos="notext"></a>
+		<a href="#mypanel" data-role="button" data-icon="grid" data-iconpos="notext">メニュー</a>
 		<div align="center"><img src="images/logo.png"></div>
 		<!-- <a rel="external" href="../" data-role="button" class="ui-btn-right">PC版</a> -->
 	</div><!-- /header -->
