@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if(isset($_POST["chk"])){$p_chk=htmlspecialchars($_POST["chk"]);}
 	if ($p_chk == "") {
 		//***********************************************
-		// これから確認
+		// 入力内容確認
 		//***********************************************
 		if(isset($_POST["review"])){$p_review=htmlspecialchars($_POST["review"]);}
 		if(isset($_POST["tag"])){$p_tag=htmlspecialchars($_POST["tag"]);}
@@ -42,6 +42,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$p_review=preg_replace("/;/"," ",addslashes($p_review));
 		$p_tag=preg_replace("/;/"," ",addslashes($p_tag));
 		$p_feeling=preg_replace("/;/"," ",addslashes($p_feeling));
+		// 気分が未選択の場合、「普通」とする
+		if ($p_feeling == "") {
+			$p_feeling = "normal";
+		}
+		// レビューが未入力の場合、エラーとする
 		if ($p_review == "") {
 			$msg_info = "入力内容にエラーがあります";
 			include 'template/wreview.html';
@@ -52,6 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$p_tag = str_replace("，", ",", $p_tag); // カンマ区切りを半角に統一
 		$_SESSION["tag"] = $p_tag;
 		$_SESSION["feeling"] = $p_feeling;
+		// 気分画像名の取り出し
 		foreach ($ARR_FEELING as $key => $val) {
 			if ($key == $p_feeling) {
 				$sel_feeling = $val;
@@ -64,10 +70,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$html_image.= "				</div><!-- /ui-block-a -->\n";
 		$html_image.= "				<div class=\"ui-block-b\">\n";
 		$html_image.= "					【 ".$sel_feeling." 】<br />\n";
-		$html_image.= "					<img src=\"images/".$p_feeling.".gif\">\n";
+		$html_image.= "					<img src=\"images/".$p_feeling.".gif\" alt=\"".$sel_feeling."\" />\n";
 		$html_image.= "				</div><!-- /ui-block-b -->\n";
 		$html_image.= "			</div><!-- /ui-grid-a -->\n";
-		$html_image.= "			<input type=\"hidden\" name=\"feeling\" value=\"".$p_feeling."\">\n";
+		$html_image.= "			<input type=\"hidden\" name=\"feeling\" value=\"".$p_feeling."\" />\n";
 		
 		include 'template/wreviewchk.html';
 		exit;
@@ -195,7 +201,18 @@ if (count($ret) <> 0){
 		$p_book_id = mysql_insert_id();
 		$msg = "登録";
 	}
-	
+	//***********************************************
+	// 書評登録数更新
+	//***********************************************
+	$sql = "UPDATE fg_user_table SET";
+	$sql.= " review_posts_cnt = review_posts_cnt + 1";
+	$sql.= " WHERE user_id = \"".$_SESSION["user_id"]."\"";
+	$ret = $obj->Execute($sql);
+	if (!$ret){
+		//$msg_info.= "sql=".$sql;
+		$err = true;
+		$msg_info.= ERR_UPD."[fg_user_table]\n";
+	}
 }
 
 if ($err) {

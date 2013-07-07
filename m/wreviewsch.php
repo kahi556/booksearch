@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 if ($p_wk == "f") {
-	// 気分画像選択
+	// 気分画像名の取り出し
 	foreach ($ARR_FEELING as $key => $val) {
 		if ($key == $p_feeling) {
 			$sel_feeling = $val;
@@ -73,10 +73,10 @@ if ($p_wk == "f") {
 	$html_image.= "				</div><!-- /ui-block-a -->\n";
 	$html_image.= "				<div class=\"ui-block-b\">\n";
 	$html_image.= "					【 ".$sel_feeling." 】<br />\n";
-	$html_image.= "					<img src=\"images/".$p_feeling.".gif\">\n";
+	$html_image.= "					<img src=\"images/".$p_feeling.".gif\" alt=\"".$sel_feeling."\" />\n";
 	$html_image.= "				</div><!-- /ui-block-b -->\n";
 	$html_image.= "			</div><!-- /ui-grid-a -->\n";
-	$html_image.= "			<input type=\"hidden\" name=\"feeling\" value=\"".$p_feeling."\">\n";
+	$html_image.= "			<input type=\"hidden\" name=\"feeling\" value=\"".$p_feeling."\" />\n";
 	
 	include 'template/wreview.html';
 	exit;
@@ -104,16 +104,23 @@ if ($p_wk == "f") {
 			$_SESSION["detailpageurl"] = $data[0]->DetailPageURL;
 			$cnt = 0;
 			if(isset($_SESSION["feeling"])){
+				// 気分画像名の取り出し
+				foreach ($ARR_FEELING as $key => $val) {
+					if ($key == $_SESSION["feeling"]) {
+						$sel_feeling = $val;
+						break;
+					}
+				}
 				// 気分画像特定済
 				$html_image.= "			<div class=\"ui-grid-a\">\n";
 				$html_image.= "				<div class=\"ui-block-a\">\n";
 				$html_image.= "					<p>気分: </p>\n";
 				$html_image.= "				</div><!-- /ui-block-a -->\n";
 				$html_image.= "				<div class=\"ui-block-b\">\n";
-				$html_image.= "					<img src=\"images/".$_SESSION["feeling"].".gif\">\n";
+				$html_image.= "					<img src=\"images/".$_SESSION["feeling"].".gif\" alt=\"".$sel_feeling."\" />\n";
 				$html_image.= "				</div><!-- /ui-block-b -->\n";
 				$html_image.= "			</div><!-- /ui-grid-a -->\n";
-				$html_image.= "		<input type=\"hidden\" name=\"feeling\" value=\"".$_SESSION["feeling"]."\">\n";
+				$html_image.= "		<input type=\"hidden\" name=\"feeling\" value=\"".$_SESSION["feeling"]."\" />\n";
 				
 			}else{
 				// 気分画像編集
@@ -124,13 +131,13 @@ if ($p_wk == "f") {
 				foreach ($ARR_FEELING as $key => $val) {
 					$html_image.= "					<div class=\"item\">";
 					$html_image.= "<a href=\"javascript:feelingsch('".$key."');\">\n";
-					$html_image.= "					<img src=\"images/".$key.".gif\"></a></div>\n";
+					$html_image.= "					<img src=\"images/".$key.".gif\" alt=\"".$val."\" /></a></div>\n";
 				}
 				$html_image.= "				</div><!-- /flipsnap -->\n";
 				$html_image.= "			</div><!-- /viewport -->\n";
 				$html_image.= "		</div><!-- /fieldcontain -->\n";
-				$html_image.= "		<input type=\"hidden\" name=\"wk\" value=\"f\">\n";
-				$html_image.= "		<input type=\"hidden\" name=\"feeling\" value=\"\">\n";
+				$html_image.= "		<input type=\"hidden\" name=\"wk\" value=\"f\" />\n";
+				$html_image.= "		<input type=\"hidden\" name=\"feeling\" value=\"\" />\n";
 			}
 			include 'template/wreview.html';
 			exit;
