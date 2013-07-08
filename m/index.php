@@ -70,9 +70,41 @@ if (count($ret) <> 0){
 <?php @include("common/jquery.html"); ?>
 	<script type="text/javascript" src="scripts/flipsnap.js"></script>
 	<script>
-		$(function(){
-	Flipsnap('.flipsnap');
-	})
+	$(function(){
+		Flipsnap('.flipsnap');
+		// SNSボタン
+		$('#facebook_like').socialbutton('facebook_like', {
+			button: 'button_count'
+		});
+		$('#facebook_share').socialbutton('facebook_share', {
+			text: 'feegle - 感覚的に書籍を検索できます。'
+		});
+		$('#twitter').socialbutton('twitter',{
+			button: 'none',
+			text: 'ツイートする',
+			lang: 'ja',
+			related: 'twitter'
+		});
+		$('#evernote').socialbutton('evernote', {
+			button: 'article-clipper-jp',
+			styling: 'full'
+		});
+		$('#hatena').socialbutton('hatena');
+		$('#pinterest').socialbutton('pinterest', {
+			media: 'http://itra.jp/images/logo_notrans.png'
+		});
+		$('#gree').socialbutton('gree_sf', {
+			button: 0
+		});
+		//$('#google_plusone').socialbutton('google_plusone', {
+		//	lang: 'ja',
+		//	size: 'medium'
+		//});
+	});
+	</script>
+	<!--Google +1ボタン-->
+	<script type="text/javascript" src="http://apis.google.com/js/plusone.js">
+	{lang: 'ja'}
 	</script>
 	
 	<style>
@@ -95,6 +127,29 @@ if (count($ret) <> 0){
 	    color: #666666;
 	    cursor: pointer;
 	}
+	.clearfix:after {
+		content: ".";
+		display: block;
+		height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+	.clearfix {
+		display: inline-block;
+	}
+	/* Hides from IE-mac \*/
+	* html .clearfix {
+		height: 1%;
+	}
+	.clearfix {
+		display: block;
+	}
+	/* End hide from IE-mac */
+	
+	.block div {
+		margin-right: 15px;
+		float: left;
+	}
 	</style>
 </head>
 <body>
@@ -115,6 +170,20 @@ if (count($ret) <> 0){
 		</div>
 		<br>
 		<!-- <a rel="external" href="osusume.php" data-role="button" class="">おすすめ本登録</a> -->
+		<!--Social Button-->
+		<div class="block clearfix">
+			<div id="facebook_like"></div>
+			<div id="facebook_share"></div>
+			<div id="twitter"></div>
+			<div id="evernote"></div>
+			<div id="hatena"></div>
+			<div id="pinterest"></div>
+			<div id="gree"></div>
+			<div style="width:60px;">
+				<g:plusone size="medium"></g:plusone>
+			</div>
+		</div><!-- /block clearfix -->
+		<!--/Social Button-->
 	</div><!-- /content -->
 	
 <?php @include("common/footer.html"); ?>

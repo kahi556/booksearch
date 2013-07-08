@@ -6,6 +6,30 @@
 	<meta name="description" content="Feegle">
 <?php @include("common/jquery.html"); ?>
 	<script type="text/javascript" src="scripts/flipsnap.js"></script>
+	<script type="text/javascript">
+	<!--
+		function funcThanks() {
+		    $.ajax({
+		        type     : 'POST',
+		        dataType : 'text',
+		        url      : 'sample_110.txt',
+		        data     : {
+		                     id   : '00001',
+		                     Flg  : true
+		                   }
+		    }).done(function(data) {
+		        // ajax ok
+		        $("#disp_area").html(data);
+		    }).fail(function(data) {
+		        // ajax error
+		        $("#disp_area").html('Error');
+		    }).always(function(data) {
+		        // ajax complete
+		    });
+		}
+	-->
+	</script>
+
 	<script>
 	$(function(){
 		Flipsnap('.flipsnap');

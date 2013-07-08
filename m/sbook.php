@@ -234,7 +234,10 @@ if (($p_wk <> "th") && ($p_word <> "")) {
 				// Thanksボタンが１度も押されてなく、
 				// 自身が投稿していなかった場合のみ
 				// Thanksボタンを表示
-				$html.= "<br /><a rel=\"external\" href=\"./sbook.php?wk=th&brno=".$val["book_review_no"]."&uid=".$val["user_id"]."#page2\" data-role=\"button\">Thanks!</a>";
+				//$html.= "<br /><a rel=\"external\" href=\"./sbook.php?wk=th&brno=".$val["book_review_no"]."&uid=".$val["user_id"]."#page2\" data-role=\"button\">Thanks!</a>";
+				$html.= "<input type=\"button\" onclick=\"funcThanks();\" value=\"Thanks!\">\n";
+				$html.= "<p id=\"disp_area\"></p>\n";
+
 			}
 			$html.= "</td>\n";
 			$html.= "				</tr>\n";
