@@ -132,11 +132,13 @@ if ($p_wk == "th") {
 // 気分orキーワード検索
 //***********************************************
 if (($p_wk <> "th") && ($p_word <> "")) {
-	$sql = "SELECT brt.book_review_no,brt.book_review,brt.book_id";
+	$sql = "SELECT brt.book_review_no as brtbook_review_no";
+	$sql.= ",brt.book_review,brt.book_id";
 	$sql.= ",brt.tag,brt.thanks_cnt,brt.feeling,brt.user_id";
 	$sql.= ",bt.book_name,bt.imageurl,bt.detailpageurl";
 	$sql.= ",at.author_name,ut.nickname";
 	$sql.= ",tht.book_review_no as thtbook_review_no";
+	$sql.= ",tht.delete_flg as thtdelete_flg";
 	$sql.= " FROM fg_book_review_table brt";
 	$sql.= " INNER JOIN fg_book_table bt ON bt.book_id = brt.book_id";
 	$sql.= " INNER JOIN fg_user_table ut ON ut.user_id = brt.user_id";
@@ -226,20 +228,23 @@ if (($p_wk <> "th") && ($p_word <> "")) {
 			$html.= "					<td>【 ".$wk_feeling_j." 】<br /><a rel=\"external\" href=\"./sbook.php?wk=f&wd=".$val["feeling"]."\"><img src=\"images/".$val["feeling"].".gif\"></a></td>\n";
 			$html.= "					<td>".$wk_mkeyword."</td>\n";
 			$html.= "					<td>".$val["nickname"]."</td>\n";
-			$html.= "					<td>".$val["book_review"];
+			$html.= "					<td>".$val["book_review"]."\n";
 			if ((isset($_SESSION["login"])) && 
-					($val["thtbook_review_no"] == "") && 
 					($val["user_id"] <> $_SESSION["user_id"])) {
 				// ログイン後で、
-				// Thanksボタンが１度も押されてなく、
-				// 自身が投稿していなかった場合のみ
-				// Thanksボタンを表示
-				//$html.= "<br /><a rel=\"external\" href=\"./sbook.php?wk=th&brno=".$val["book_review_no"]."&uid=".$val["user_id"]."#page2\" data-role=\"button\">Thanks!</a>";
-				$html.= "<input type=\"button\" onclick=\"funcThanks();\" value=\"Thanks!\">\n";
-				$html.= "<p id=\"disp_area\"></p>\n";
-
+				// 自身が投稿していなかった場合
+				if (($val["thtbook_review_no"] == "") ||
+						($val["thtdelete_flg"] == 1)) {
+					// Thanks!リンククリック未、またはThanks!取り消し済
+					// Thanks!リンクを表示
+					$html.= "					<div id=\"thanks".$val["brtbook_review_no"]."\"><a href=\"javascript:cThanks_y('".$val["brtbook_review_no"]."','".$val["user_id"]."')\">Thanks!</a></div>\n";
+				}else{
+					// Thanks!リンククリック済
+					// Thanks!取り消しリンクを表示
+					$html.= "					<div id=\"thanks".$val["brtbook_review_no"]."\"><a href=\"javascript:cThanks_n('".$val["brtbook_review_no"]."','".$val["user_id"]."')\">Thanks!取り消し</a></div>\n";
+				}
 			}
-			$html.= "</td>\n";
+			$html.= "					</td>\n";
 			$html.= "				</tr>\n";
 			$html.= "			</tbody>\n";
 			$html.= "		</table>\n";

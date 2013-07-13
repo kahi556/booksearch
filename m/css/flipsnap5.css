@@ -1,0 +1,20 @@
+/* スワイプしてスライドするようなUI 5項目用 */
+.viewport {
+    width: 600px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.flipsnap {
+    width: 1000px; /* 200px(item width) * 5(item count) */
+}
+.item {
+    float: left;
+    width: 190px;
+    font-size: 50px;
+    text-align: center;
+    padding: 5px 0;
+    background: #efefef;
+    border: 1px solid #ffc753;
+    color: #666666;
+    cursor: pointer;
+}

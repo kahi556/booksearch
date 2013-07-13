@@ -35,10 +35,10 @@ $ret = $obj->Fetch($sql);
 if (count($ret) <> 0){
 	foreach($ret as $key => $val){
 		$arr_isbn[] = $val["isbn"];
-        $html_image.= "			";
-        $html_image.= "<div class=\"item\"><a rel=\"external\" href=\"sreview.php?id=".$val["book_id"]."\">";
-        $html_image.= "			";
-        $html_image.= "<img src=\"".$val["imageurl"]."\"></a></div>\n";
+		$html_image.= "			";
+		$html_image.= "<div class=\"item\"><a rel=\"external\" href=\"sreview.php?id=".$val["book_id"]."\">";
+		$html_image.= "			";
+		$html_image.= "<img src=\"".$val["imageurl"]."\"></a></div>\n";
 	}
 }
 
@@ -68,89 +68,15 @@ if (count($ret) <> 0){
 	<title>feegle | 感覚的に書籍を検索</title>
 	<meta name="description" content="feegle">
 <?php @include("common/jquery.html"); ?>
+	<script type="text/javascript" src="scripts/sns.js"></script>
 	<script type="text/javascript" src="scripts/flipsnap.js"></script>
+	<link rel="stylesheet" href="css/flipsnap5.css" />
+	<link rel="stylesheet" href="css/clearfix.css" />
 	<script>
 	$(function(){
 		Flipsnap('.flipsnap');
-		// SNSボタン
-		$('#facebook_like').socialbutton('facebook_like', {
-			button: 'button_count'
-		});
-		$('#facebook_share').socialbutton('facebook_share', {
-			text: 'feegle - 感覚的に書籍を検索できます。'
-		});
-		$('#twitter').socialbutton('twitter',{
-			button: 'none',
-			text: 'ツイートする',
-			lang: 'ja',
-			related: 'twitter'
-		});
-		$('#evernote').socialbutton('evernote', {
-			button: 'article-clipper-jp',
-			styling: 'full'
-		});
-		$('#hatena').socialbutton('hatena');
-		$('#pinterest').socialbutton('pinterest', {
-			media: 'http://itra.jp/images/logo_notrans.png'
-		});
-		$('#gree').socialbutton('gree_sf', {
-			button: 0
-		});
-		//$('#google_plusone').socialbutton('google_plusone', {
-		//	lang: 'ja',
-		//	size: 'medium'
-		//});
 	});
 	</script>
-	<!--Google +1ボタン-->
-	<script type="text/javascript" src="http://apis.google.com/js/plusone.js">
-	{lang: 'ja'}
-	</script>
-	
-	<style>
-	.viewport {
-	    width: 600px;
-	    overflow: hidden;
-	    margin: 0 auto;
-	}
-	.flipsnap {
-	    width: 1000px; /* 200px(item width) * 5(item count) */
-	}
-	.item {
-	    float: left;
-	    width: 190px;
-	    font-size: 50px;
-	    text-align: center;
-	    padding: 5px 0;
-	    background: #efefef;
-	    border: 1px solid #ffc753;
-	    color: #666666;
-	    cursor: pointer;
-	}
-	.clearfix:after {
-		content: ".";
-		display: block;
-		height: 0;
-		clear: both;
-		visibility: hidden;
-	}
-	.clearfix {
-		display: inline-block;
-	}
-	/* Hides from IE-mac \*/
-	* html .clearfix {
-		height: 1%;
-	}
-	.clearfix {
-		display: block;
-	}
-	/* End hide from IE-mac */
-	
-	.block div {
-		margin-right: 15px;
-		float: left;
-	}
-	</style>
 </head>
 <body>
 
@@ -173,15 +99,21 @@ if (count($ret) <> 0){
 		<!--Social Button-->
 		<div class="block clearfix">
 			<div id="facebook_like"></div>
-			<div id="facebook_share"></div>
 			<div id="twitter"></div>
 			<div id="evernote"></div>
 			<div id="hatena"></div>
-			<div id="pinterest"></div>
 			<div id="gree"></div>
-			<div style="width:60px;">
-				<g:plusone size="medium"></g:plusone>
-			</div>
+			<!-- +1 ボタン を表示したい位置に次のタグを貼り付けてください。 -->
+			<div class="g-plusone" data-size="medium"></div>
+			<!-- 最後の +1 ボタン タグの後に次のタグを貼り付けてください。 -->
+			<script type="text/javascript">
+			  window.___gcfg = {lang: 'ja'};
+			  (function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'https://apis.google.com/js/plusone.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
 		</div><!-- /block clearfix -->
 		<!--/Social Button-->
 	</div><!-- /content -->
