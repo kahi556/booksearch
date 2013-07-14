@@ -18,7 +18,6 @@ $arr_imageurl = array();
 $arr_title = array();
 $arr_author_name = array();
 $arr_book_review = array();
-$ARR_FEELING = array();
 $arr_keyword = array();
 $p_nickname = "";
 $p_review_posts_cnt = "";

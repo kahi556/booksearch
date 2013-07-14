@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>feegle｜会員情報更新</title>
+	<title>feegle｜会員情報登録確認</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 <?php @include("common/jquery.html"); ?>
@@ -14,18 +14,19 @@
 	<a href="" data-rel="back">戻る</a>
 	
 	<div data-role="content" data-theme="d">
-		<p>更新内容確認</p>
+		<p>登録内容確認</p>
 		<p>
 <?php echo $chk_msg ?>
 		</p>
 		<form id="loginform" method="post" action="" data-ajax="false">
 			<input type="hidden" name="user_id" value="<?php echo $p_user_id ?>">
 			<input type="hidden" name="password" value="<?php echo $p_password ?>">
+			<input type="hidden" name="password2" value="<?php echo $p_password2 ?>">
 			<input type="hidden" name="nickname" value="<?php echo $p_nickname ?>">
 			<input type="hidden" name="birth" value="<?php echo $p_birth ?>">
 			<input type="hidden" name="gender" value="<?php echo $p_gender ?>">
 			<input type="hidden" name="selectjob" value="<?php echo $p_selectjob ?>">
-			<input type="submit" name="regist" value="更新">
+			<input type="submit" name="regist" value="登録">
     	</form>
     </div><!--end content-->
 	
@@ -39,7 +40,7 @@
 	
 	<div data-role="content" data-theme="d">
 		<p>
-		会員情報更新が完了しました。<br>
+		会員情報登録が完了しました。<br>
 		ログイン後、サービスをご利用下さい。
 		</p>
 	</div><!-- /content -->
