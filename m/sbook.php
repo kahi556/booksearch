@@ -73,71 +73,73 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 include 'common/database.php';
 $obj = new comdb();
 
-//***********************************************
-// サンクス
-//***********************************************
-if ($p_wk == "th") {
-	//***********************************************
-	// トランザクション開始
-	//***********************************************
-	$obj->BeginTran();
-	
-	//***********************************************
-	// サンクス履歴登録
-	//***********************************************
-	$sql = "INSERT INTO fg_thanks_history_table";
-	$sql.= " (book_review_no,user_id,rdate) VALUES";
-	$sql.= " (\"".$p_brno."\",\"".$_SESSION["user_id"]."\",\"".$time."\")";
-	$ret = $obj->Execute($sql);
-	if (!$ret){
-		$err = true;
-		$msg_info.= "既に登録済です\n";
-	}
-	//***********************************************
-	// 書評更新（サンクス）
-	//***********************************************
-	$sql = "UPDATE fg_book_review_table SET";
-	$sql.= " thanks_cnt = thanks_cnt + 1";
-	$sql.= " WHERE book_review_no = \"".$p_brno."\"";
-	$ret = $obj->Execute($sql);
-	if (!$ret){
-		$err = true;
-		$msg_info.= ERR_UPD."[fg_book_review_table]\n";
-	}
-	//***********************************************
-	// ユーザー更新（サンクス）
-	//***********************************************
-	$sql = "UPDATE fg_user_table SET";
-	$sql.= " thanks_cnt = thanks_cnt + 1";
-	$sql.= " WHERE user_id = \"".$p_user_id."\"";
-	$ret = $obj->Execute($sql);
-	if (!$ret){
-		$err = true;
-		$msg_info.= ERR_UPD."[fg_user_table]\n";
-	}
-	
-	if ($err) {
-		$obj->RollBack();
-		$msg_info.= "Thanks!に失敗しました\n";
-	}else{
-		$obj->Commit();
-		$msg_info.= "Thanks!しました。\n";
-	}
-}
-
-
+////***********************************************
+//// サンクス
+////***********************************************
+//if ($p_wk == "th") {
+//	//***********************************************
+//	// トランザクション開始
+//	//***********************************************
+//	$obj->BeginTran();
+//	
+//	//***********************************************
+//	// サンクス履歴登録
+//	//***********************************************
+//	$sql = "INSERT INTO fg_thanks_history_table";
+//	$sql.= " (book_review_no,user_id,rdate) VALUES";
+//	$sql.= " (\"".$p_brno."\",\"".$_SESSION["user_id"]."\",\"".$time."\")";
+//	$ret = $obj->Execute($sql);
+//	if (!$ret){
+//		$err = true;
+//		$msg_info.= "既に登録済です\n";
+//	}
+//	//***********************************************
+//	// 書評更新（サンクス）
+//	//***********************************************
+//	$sql = "UPDATE fg_book_review_table SET";
+//	$sql.= " thanks_cnt = thanks_cnt + 1";
+//	$sql.= " WHERE book_review_no = \"".$p_brno."\"";
+//	$ret = $obj->Execute($sql);
+//	if (!$ret){
+//		$err = true;
+//		$msg_info.= ERR_UPD."[fg_book_review_table]\n";
+//	}
+//	//***********************************************
+//	// ユーザー更新（サンクス）
+//	//***********************************************
+//	$sql = "UPDATE fg_user_table SET";
+//	$sql.= " thanks_cnt = thanks_cnt + 1";
+//	$sql.= " WHERE user_id = \"".$p_user_id."\"";
+//	$ret = $obj->Execute($sql);
+//	if (!$ret){
+//		$err = true;
+//		$msg_info.= ERR_UPD."[fg_user_table]\n";
+//	}
+//	
+//	if ($err) {
+//		$obj->RollBack();
+//		$msg_info.= "Thanks!に失敗しました\n";
+//	}else{
+//		$obj->Commit();
+//		$msg_info.= "Thanks!しました。\n";
+//	}
+//}
 
 //***********************************************
 // 気分orキーワード検索
 //***********************************************
-if (($p_wk <> "th") && ($p_word <> "")) {
+//if (($p_wk <> "th") && ($p_word <> "")) {
+if ($p_word <> "") {
 	$sql = "SELECT brt.book_review_no as brtbook_review_no";
 	$sql.= ",brt.book_review,brt.book_id";
-	$sql.= ",brt.tag,brt.thanks_cnt,brt.feeling,brt.user_id";
+	$sql.= ",brt.tag,brt.thanks_cnt,brt.feeling";
+	$sql.= ",brt.user_id as brtuser_id";
 	$sql.= ",bt.book_name,bt.imageurl,bt.detailpageurl";
 	$sql.= ",at.author_name,ut.nickname";
 	$sql.= ",tht.book_review_no as thtbook_review_no";
 	$sql.= ",tht.delete_flg as thtdelete_flg";
+	$sql.= ",ft.follow_user_id as ftfollow_user_id";
+	$sql.= ",ft.delete_flg as ftdelete_flg";
 	$sql.= " FROM fg_book_review_table brt";
 	$sql.= " INNER JOIN fg_book_table bt ON bt.book_id = brt.book_id";
 	$sql.= " INNER JOIN fg_user_table ut ON ut.user_id = brt.user_id";
@@ -145,6 +147,11 @@ if (($p_wk <> "th") && ($p_word <> "")) {
 	$sql.= " LEFT JOIN fg_thanks_history_table tht";
 	$sql.= " ON tht.book_review_no = brt.book_review_no";
 	$sql.= " AND tht.user_id = \"".$_SESSION["user_id"]."\"";
+	$sql.= " AND brt.user_id <> \"".$_SESSION["user_id"]."\"";
+	$sql.= " LEFT JOIN fg_follow_table ft";
+	$sql.= " ON ft.follow_user_id = brt.user_id";
+	$sql.= " AND ft.follow_user_id <> \"".$_SESSION["user_id"]."\"";
+	$sql.= " AND ft.user_id = \"".$_SESSION["user_id"]."\"";
 	if ($p_wk == "f") {
 		// 気分検索
 		$sql.= " WHERE brt.feeling = \"".$p_word."\"";
@@ -224,23 +231,47 @@ if (($p_wk <> "th") && ($p_word <> "")) {
 			$html.= "					</td>\n";
 			$html.= "					<td>".$val["author_name"]."</td>\n";
 			$html.= "					<td>".$val["thanks_cnt"]."</td>\n";
-			$html.= "					<td>【 ".$wk_feeling_j." 】<br /><a rel=\"external\" href=\"./sbook.php?wk=f&wd=".$val["feeling"]."\"><img src=\"images/".$val["feeling"].".gif\"></a></td>\n";
+			$html.= "					<td>【 ".$wk_feeling_j." 】<br />";
+			$html.= "<a rel=\"external\" href=\"./sbook.php?wk=f&wd=".$val["feeling"]."\">";
+			$html.= "<img src=\"images/".$val["feeling"].".gif\"></a></td>\n";
 			$html.= "					<td>".$wk_mkeyword."</td>\n";
-			$html.= "					<td>".$val["nickname"]."</td>\n";
+			$html.= "					<td>".$val["nickname"]."\n";
+			if (isset($_SESSION["login"])) {
+				// ログイン後で、
+				// 自身がフォローしていなかった場合
+				if (($val["ftfollow_user_id"] == "") ||
+						($val["ftdelete_flg"] == 1)) {
+					// フォローリンククリック未、またはフォロー取り消し済
+					// フォローリンクを表示
+					$html.= "					<div id=\"follow\">";
+					$html.= "<a href=\"javascript:cFollow_y('".$val["brtuser_id"]."')\">";
+					$html.= "フォロー</a></div>\n";
+				}else{
+					// フォローリンククリック済
+					// フォロー取り消しリンクを表示
+					$html.= "					<div id=\"follow\">";
+					$html.= "<a href=\"javascript:cFollow_n('".$val["brtuser_id"]."')\">";
+					$html.= "フォロー取り消し</a></div>\n";
+				}
+			}
+			$html.= "					</td>\n";
 			$html.= "					<td>".$val["book_review"]."\n";
-			if ((isset($_SESSION["login"])) && 
-					($val["user_id"] <> $_SESSION["user_id"])) {
+			if (isset($_SESSION["login"])) {
 				// ログイン後で、
 				// 自身が投稿していなかった場合
 				if (($val["thtbook_review_no"] == "") ||
 						($val["thtdelete_flg"] == 1)) {
 					// Thanks!リンククリック未、またはThanks!取り消し済
 					// Thanks!リンクを表示
-					$html.= "					<div id=\"thanks".$val["brtbook_review_no"]."\"><a href=\"javascript:cThanks_y('".$val["brtbook_review_no"]."','".$val["user_id"]."')\">Thanks!</a></div>\n";
+					$html.= "					<div id=\"thanks".$val["brtbook_review_no"]."\">";
+					$html.= "<a href=\"javascript:cThanks_y('".$val["brtbook_review_no"]."'";
+					$html.= ",'".$val["brtuser_id"]."')\">Thanks!</a></div>\n";
 				}else{
 					// Thanks!リンククリック済
 					// Thanks!取り消しリンクを表示
-					$html.= "					<div id=\"thanks".$val["brtbook_review_no"]."\"><a href=\"javascript:cThanks_n('".$val["brtbook_review_no"]."','".$val["user_id"]."')\">Thanks!取り消し</a></div>\n";
+					$html.= "					<div id=\"thanks".$val["brtbook_review_no"]."\">";
+					$html.= "<a href=\"javascript:cThanks_n('".$val["brtbook_review_no"]."'";
+					$html.= ",'".$val["brtuser_id"]."')\">Thanks!取り消し</a></div>\n";
 				}
 			}
 			$html.= "					</td>\n";
