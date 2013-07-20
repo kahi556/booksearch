@@ -11,6 +11,8 @@ if (!isset($_SESSION['login'])) {
 	exit;
 }
 
+require("common/conf.php"); // 共通定義
+
 // 変数初期化
 $arr_linkurl = array();
 $arr_isbn = array();

@@ -5,6 +5,8 @@
 
 session_start();
 
+require("common/conf.php"); // 共通定義
+
 // ログイン状態のチェック(ログイン済ならログイン後トップページ)
 if (isset($_SESSION['login'])) {
 	header("Location: top.php");

@@ -286,6 +286,7 @@ if ($p_word <> "") {
 	}
 	include 'template/sbook2.html';
 	exit;
+	
 }else{
 	if ($p_word == "") {
 		// 気分画像編集

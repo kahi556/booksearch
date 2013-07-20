@@ -13,20 +13,22 @@
 <?php @include("common/header.html"); ?>
 	
 	<div data-role="content" data-theme="d">
-		<p><?php echo $msg_info ?></p>
+		<p>ログイン</p>
 		<form id="loginform" method="post" action="" class="ui-body ui-body-c"><br>
+			<?php echo $msg_info ?>
 			<div data-role="fieldcontain">
-				<label for="user_id">ログインID:</label>
-				<input type="text" name="user_id" id="user_id" autofocus required value="" maxlength="100" />
+				<label for="login_id">メールアドレス<br>（ログインID）</label>
+				<input type="text" name="login_id" id="login_id" autofocus required value="<?php echo $p_login_id ?>" maxlength="100" />
 			</div><!-- /fieldcontain -->
 			<div data-role="fieldcontain">
-				<label for="password">パスワード:</label>
-				<input type="password" name="password" id="password" pattern="^[0-9A-Za-z]+$" required value="" maxlength="16" />
+				<label for="password">パスワード</label>
+				<input type="password" name="password" id="password" pattern="^[0-9A-Za-z]+$" required value="" maxlength="24" />
 			</div><!-- /fieldcontain -->
 			<input type="hidden" name="link" value="<?php echo $p_link ?>" />
 			<input type="submit" name="login" class="button_small grbtn" id="login" value="ログイン" />
 		</form>
-		<input type="button" name="regist" class="button_small grbtn" id="regist" value="新規登録" onclick="location.href='registchk.php'">
+		<a href="repasswd.php" data-role="button">パスワードがわからない</a>
+		<a href="registchk.php" data-role="button">新規登録</a>
 	</div><!-- /content -->
 	
 <?php @include("common/footer.html"); ?>

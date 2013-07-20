@@ -17,16 +17,18 @@ session_start();
 $chk_msg = "";
 $msg_info = "";
 $wk_selectjob = "";
-$time = date("Y-m-d H:i:s"); // 日時取得
-$p_user_id = "";
+$p_login_id = "";
 $p_password = "";
-$p_user_id = "";
+$p_password2 = "";
+$p_login_id = "";
 $p_nickname = "";
 $p_birth = "";
 $p_gender = "";
 $p_selectjob = "";
 $p_consent = "";
 $p_new = "";
+$time = date("Y-m-d H:i:s"); // 日時取得
+$err_title = "会員仮登録";
 
 require("common/conf.php"); // 共通定義
 
@@ -40,8 +42,9 @@ $obj = new comdb();
 // 前画面からの戻り
 //***********************************************
 // セッション情報より取得
-if(isset($_SESSION["user_id"])){$p_user_id=htmlspecialchars($_SESSION["user_id"]);}
+if(isset($_SESSION["login_id"])){$p_login_id=htmlspecialchars($_SESSION["login_id"]);}
 if(isset($_SESSION["password"])){$p_password=htmlspecialchars($_SESSION["password"]);}
+if(isset($_SESSION["password2"])){$p_password2=htmlspecialchars($_SESSION["password2"]);}
 if(isset($_SESSION["nickname"])){$p_nickname=htmlspecialchars($_SESSION["nickname"]);}
 if(isset($_SESSION["birth"])){$p_birth=htmlspecialchars($_SESSION["birth"]);}
 if(isset($_SESSION["gender"])){$p_gender=htmlspecialchars($_SESSION["gender"]);}
@@ -49,8 +52,9 @@ if(isset($_SESSION["selectjob"])){$p_selectjob=htmlspecialchars($_SESSION["selec
 if(isset($_SESSION["consent"])){$p_consent=htmlspecialchars($_SESSION["consent"]);}
 if(isset($_SESSION["new"])){$p_new=htmlspecialchars($_SESSION["new"]);}
 // セッション情報クリア
-$_SESSION["user_id"] = "";
+$_SESSION["login_id"] = "";
 $_SESSION["password"] = "";
+$_SESSION["password2"] = "";
 $_SESSION["nickname"] = "";
 $_SESSION["birth"] = "";
 $_SESSION["gender"] = "";
@@ -63,8 +67,9 @@ $_SESSION["new"] = "";
 //***********************************************
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	// 特殊文字をHTMLエンティティに変換（セキュリティ対策）
-	if(isset($_POST["user_id"])){$p_user_id=htmlspecialchars($_POST["user_id"]);}
+	if(isset($_POST["login_id"])){$p_login_id=htmlspecialchars($_POST["login_id"]);}
 	if(isset($_POST["password"])){$p_password=htmlspecialchars($_POST["password"]);}
+	if(isset($_POST["password2"])){$p_password2=htmlspecialchars($_POST["password2"]);}
 	if(isset($_POST["nickname"])){$p_nickname=htmlspecialchars($_POST["nickname"]);}
 	if(isset($_POST["birth"])){$p_birth=htmlspecialchars($_POST["birth"]);}
 	if(isset($_POST["gender"])){$p_gender=htmlspecialchars($_POST["gender"]);}
@@ -72,8 +77,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if(isset($_POST["consent"])){$p_consent=htmlspecialchars($_POST["consent"]);}
 	if(isset($_POST["new"])){$p_new=htmlspecialchars($_POST["new"]);}
 	// 文字のエスケープ（セキュリティ対策）
-	$p_user_id=preg_replace("/;/"," ",addslashes($p_user_id));
+	$p_login_id=preg_replace("/;/"," ",addslashes($p_login_id));
 	$p_password=preg_replace("/;/"," ",addslashes($p_password));
+	$p_password2=preg_replace("/;/"," ",addslashes($p_password2));
 	$p_nickname=preg_replace("/;/"," ",addslashes($p_nickname));
 	$p_birth=preg_replace("/;/"," ",addslashes($p_birth));
 	$p_gender=preg_replace("/;/"," ",addslashes($p_gender));
@@ -84,11 +90,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	//***********************************************
 	// データチェック
 	//***********************************************
-	// メールアドレス（ユーザーID）[必須、半角英数チェック]
-	if ($p_user_id == "") {
-		$msg_info.= "メールアドレス（ユーザーID）は必須です。\n";
+	// メールアドレス（ログインID）[必須、半角英数チェック]
+	if ($p_login_id == "") {
+		$msg_info.= "メールアドレス（ログインID）は必須です。\n";
 		$err = true;
-	}elseif (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $p_user_id)) {
+	}elseif (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $p_login_id)) {
 		$msg_info.= "メールアドレスの形式にて入力して下さい。\n";
 		$err = true;
 	//}elseif ($p_email <> $p_email2) {
@@ -105,9 +111,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}elseif ((mb_strlen($p_password) < 5) || (mb_strlen($p_password) > 24)) {
 		$msg_info.= "パスワードは5文字以上24文字以下にて入力して下さい。\n";
 		$err = true;
-	//}elseif ($p_password <> $p_password) {
-	//	$msg_info.= "パスワードとパスワード(確認)が一致しません。\n";
-	//	$err = true;
+	}elseif ($p_password <> $p_password2) {
+		$msg_info.= "パスワードとパスワード(確認)が一致しません。\n";
+		$err = true;
 	}
 	// 愛称[必須チェック]
 	if ($p_nickname == "") {
@@ -118,18 +124,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if ($p_consent <> "Yes") {
 		$msg_info.= "「会員利用規約」の同意が必要です。\n";
 		$err = true;
-	}
-	if (!$err) {
-		// メールアドレス（ユーザーID）既存登録チェック
-		$sql = "SELECT user_id";
-		//$sql.= " FROM user_reg_table";
-		$sql.= " FROM user_table";
-		$sql.= " WHERE user_id = \"".$p_user_id."\"";
-		$ret = $obj->Fetch($sql);
-		if (count($ret) > 0){
-			$err = true;
-			$msg_info.= "メールアドレス（ユーザーID） [ ".$p_user_id." ] ".ERR_DUPL;
-		}
 	}
 	
 	if ($err) {
@@ -142,102 +136,108 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 	if ($_POST["regist"]) {
 		//***********************************************
-		// 会員登録
+		// 仮会員登録
 		//***********************************************
-		// ユーザ本登録
+		$wk_fileinfo = "common/txt/info.txt";
+		$wk_subject.= "【feegle】仮登録完了のお知らせ";
+		$rkey = md5($p_login_id.$time.TANE); // キー生成
+		$url_text = URL_SSL."/registid.php?rkey=".$rkey;
+		// メールテキストを取得後、URLを設定
+		$wk_body = str_replace("%url_text%", $url_text, file_get_contents($wk_fileinfo));
+		// 愛称を設定
+		$wk_body = str_replace("%name_kanji%", mb_convert_encoding($p_nickname, "sjis-win", "UTF-8"), $wk_body);
 		$arr_selectjob = explode(":", $p_selectjob);
-		$sql = "INSERT INTO fg_user_table";
-		$sql.= " (user_id,password,nickname,birth,gender";
-		$sql.= ",mjob_cd,ljob_cd,rdate) VALUES";
-		$sql.= "(\"".$p_user_id."\",\"".crypt(sha1($p_password),TANE)."\"";
+		// ユーザ仮登録
+		$sql = "INSERT INTO fg_user_reg_table";
+		$sql.= " (login_id,password,nickname,birth,gender";
+		$sql.= ",mjob_cd,ljob_cd,rkey,rdate) VALUES";
+		$sql.= "(\"".$p_login_id."\",\"".crypt(sha1($p_password),TANE)."\"";
 		$sql.= ",\"".$p_nickname."\",\"".$p_birth."\",\"".$p_gender."\"";
 		$sql.= ",\"".$arr_selectjob[0]."\",\"".$arr_selectjob[1]."\"";
-		$sql.= ",\"".$time."\")";
+		$sql.= ",\"".$rkey."\",\"".$time."\")";
 		$ret = $obj->Execute($sql);
 		if (!$ret){
-			//echo "sql=".$sql;
+			echo "sql=".$sql;
 			$err = true;
-			$msg_info.= ERR_REG."[user_table]\n";
+			$msg_info.= ERR_REG."[fg_user_reg_table]\n";
 		}
-		header("Location: #page4");
 		
-		////***********************************************
-		//// 仮会員登録
-		////***********************************************
-		//$wk_fileinfo = "common/txt/info.txt";
-		//$wk_subject.= "【Feegle】仮登録完了のお知らせ";
-		//$rkey = md5($p_user_id.$time.TANE); // キー生成
-		//$url_text = DOMAIN_SSL."/regist.php?rkey=".$rkey;
-		//// メールテキストを取得後、URLを設定
-		//$wk_body = str_replace("%url_text%", $url_text, file_get_contents($wk_fileinfo));
-		//// 愛称を設定
-		//$wk_body = str_replace("%name_kanji%", mb_convert_encoding($p_nickname, "sjis-win", "UTF-8"), $wk_body);
-		//$arr_selectjob = explode(":", $p_selectjob);
-		//// ユーザ仮登録
-		//$sql = "INSERT INTO fg_user_reg_table";
-		//$sql.= " (user_id,password,nickname,birth,gender";
-		//$sql.= ",mjob_cd,ljob_cd,rkey,rdate) VALUES";
-		//$sql.= "(\"".$p_user_id."\",\"".crypt(sha1($p_password),TANE)."\"";
-		//$sql.= ",\"".$p_nickname."\",\"".$p_birth."\",".$p_gender;
-		//$sql.= ",\"".$arr_selectjob[0]."\",\"".$arr_selectjob[1]."\"";
-		//$sql.= ",\"".$rkey."\",".$time.")";
-		//$ret = $obj->Execute($sql);
-		//if (!$ret){
-		//	//echo "sql=".$sql;
-		//	$err = true;
-		//	$msg_info.= ERR_REG."[user_reg_table]\n";
-		//}
-		//
-		//if (!$err) {
-		//	// メール送信ライブラリ取り込み
-		//	require("common/PHPMailer_5.2.1/class.phpmailer.php");
-		//	//***********************************************
-		//	// メール送信 JISに変換して送信
-		//	//***********************************************
-		//	$mail = new PHPMailer();
-		//	$mail->IsSMTP();
-		//	$mail->SMTPAuth   = SMTPAUTH;
-		//	$mail->SMTPSecure = SMTPSECURE;
-		//	$mail->Host       = SMTPHOST;
-		//	$mail->Port       = SMTPPORT;
-		//	$mail->Username   = YOUR_GMAIL_ADDRESS;
-		//	$mail->Password   = YOUR_GMAIL_PASS;
-		//	$mail->CharSet    = SMTPCHARSET;
-		//	$mail->Encoding   = SMTPENCODING;
-		//	$mail->From       = YOUR_GMAIL_ADDRESS;
-		//	$mail->FromName   = mb_encode_mimeheader("Feegle");
-		//	$mail->AddReplyTo(YOUR_GMAIL_REFADDRESS, mb_encode_mimeheader(mb_convert_encoding("Reply-To", "JIS", "UTF-8")));
-		//	$mail->Subject    = mb_convert_encoding($wk_subject, "JIS", "UTF-8");
-		//	$mail->Body       = mb_convert_encoding($wk_body, "JIS", "sjis-win");
-		//	$mail->AddAddress($p_user_id, mb_encode_mimeheader(mb_convert_encoding($p_user_id, "JIS", "UTF-8")));
-		//	//$mail->AddBcc(YOUR_GMAIL_REFADDRESS);
-		//	
-		//	$flag = $mail -> Send();
-		//	
-		//	if (!$flag) {
-		//		// メール送信エラー
-		//		$date = date("YmdHis"); // データ登録日時
-		//		$msg_info.= "登録確認メール送信時にエラーとなりました";
-		//		$message = mb_convert_encoding($msg_info, "sjis-win", "UTF-8")."\n";
-		//		$message.= mb_convert_encoding("メールアドレス:", "sjis-win", "UTF-8").$p_user_id."\n";
-		//		// ファイルを書き込み専用でオープンします。
-		//		$fno = fopen("common/mail_err/".$date."_err.txt", 'w');
-		//		// 文字列を書き出します。
-		//		fwrite($fno, $message);
-		//		// ファイルをクローズします。
-		//		fclose($fno); 
-		//		
-		//		// Mozilla系を混乱させないためExpiresヘッダを送信しない
-		//		session_cache_limiter('private_no_expire');
-		//	}
-		//}
-		//if ($err) {
-		//	require("registerr.tpl");// メール送信エラー画面テンプレート呼び出し
-		//}
+		if (!$err) {
+			// メール送信ライブラリ取り込み
+			require("common/PHPMailer_5.2.1/class.phpmailer.php");
+			//***********************************************
+			// メール送信 JISに変換して送信
+			//***********************************************
+			$mail = new PHPMailer();
+			$mail->IsSMTP();
+			$mail->SMTPAuth   = SMTPAUTH;
+			$mail->SMTPSecure = SMTPSECURE;
+			$mail->Host       = SMTPHOST;
+			$mail->Port       = SMTPPORT;
+			$mail->Username   = YOUR_GMAIL_ADDRESS;
+			$mail->Password   = YOUR_GMAIL_PASS;
+			$mail->CharSet    = SMTPCHARSET;
+			$mail->Encoding   = SMTPENCODING;
+			$mail->From       = YOUR_GMAIL_ADDRESS;
+			$mail->FromName   = mb_encode_mimeheader("feegle");
+			$mail->AddReplyTo(YOUR_GMAIL_REFADDRESS, mb_encode_mimeheader(mb_convert_encoding("Reply-To", "JIS", "UTF-8")));
+			$mail->Subject    = mb_convert_encoding($wk_subject, "JIS", "UTF-8");
+			$mail->Body       = mb_convert_encoding($wk_body, "JIS", "sjis-win");
+			$mail->AddAddress($p_login_id, mb_encode_mimeheader(mb_convert_encoding($p_login_id, "JIS", "UTF-8")));
+			//$mail->AddBcc(YOUR_GMAIL_REFADDRESS);
+			
+			$flag = $mail -> Send();
+			
+			if (!$flag) {
+				// メール送信エラー
+				$err = true;
+				$date = date("YmdHis"); // データ登録日時
+				$msg_info.= "登録確認メール送信時にエラーとなりました";
+				$message = mb_convert_encoding($msg_info, "sjis-win", "UTF-8")."\n";
+				$message.= mb_convert_encoding("メールアドレス:", "sjis-win", "UTF-8").$p_login_id."\n";
+				// ファイルを書き込み専用でオープンします。
+				$fno = fopen("common/mail_err/".$date."_err.txt", 'w');
+				// 文字列を書き出します。
+				fwrite($fno, $message);
+				// ファイルをクローズします。
+				fclose($fno); 
+				
+				// Mozilla系を混乱させないためExpiresヘッダを送信しない
+				session_cache_limiter('private_no_expire');
+			}
+		}
+		// 仮登録完了ページ
+		header("Location: #page3");
 		exit;
+		
+	}else{
+		// メールアドレス（ログインID）既存登録チェック
+		$sql = "SELECT ut.login_id";
+		$sql.= " FROM fg_user_table ut";
+		$sql.= " WHERE ut.login_id = \"".$p_login_id."\"";
+		$sql.= " UNION ";
+		$sql.= "SELECT urt.login_id";
+		$sql.= " FROM fg_user_reg_table urt";
+		$sql.= " WHERE urt.login_id = \"".$p_login_id."\"";
+		$ret = $obj->Fetch($sql);
+		if (count($ret) > 0){
+			$err = true;
+			foreach($ret as $key => $val){
+				if ($val["login_id"] <> "") {
+					$msg_info.= "メールアドレス（ログインID） [ ".$p_login_id." ] ".ERR_DUPL;
+				}
+			}
+		}
 	}
 	
-	$chk_msg.= "メールアドレス（ユーザーID）：".$p_user_id."<br>\n";
+	if ($err) {
+		// エラーあり
+		$msg_info = $ERR_S.$msg_info.$ERR_E;
+		$err_title = "新規登録";
+		require("template/err.html");// エラー画面テンプレート呼び出し
+	}
+	
+	$chk_msg.= "メールアドレス（ログインID）：".$p_login_id."<br>\n";
 	$chk_msg.= "パスワード：".$p_password."<br>\n";
 	$chk_msg.= "愛称：".$p_nickname."<br>\n";
 	$wk_birth = str_replace("-", "/", $p_birth);
@@ -254,7 +254,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	//***********************************************
 	// セッション情報保存
 	//***********************************************
-	$_SESSION["user_id"] = $p_user_id;
+	$_SESSION["login_id"] = $p_login_id;
 	$_SESSION["password"] = $p_password;
 	$_SESSION["nickname"] = $p_nickname;
 	$_SESSION["birth"] = $p_birth;
@@ -263,9 +263,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$_SESSION["consent"] = $p_consent;
 	$_SESSION["new"] = $p_new;
 	
-	//***********************************************
-	// 新規登録確認
-	//***********************************************
+	// 仮登録確認ページ
 	include 'template/registconf.html';
 	exit;
 }

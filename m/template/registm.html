@@ -2,20 +2,21 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>feegle　<?php echo $err_title ?>エラー</title>
+	<title>feegle | メールアドレス変更完了</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 <?php @include("common/jquery.html"); ?>
+</head>
 <body>
 
-<div data-role="page" id="page1" data-theme="c">
+<div data-role="page" id="page1" data-theme="c" data-add-back-btn="false">
 <?php @include("common/header.html"); ?>
 	
 	<div data-role="content" data-theme="d">
 		<p>
-      <?php echo $err_title ?>エラーが発生しました。
-    </p>
-		<p>【<?php echo $msg_info ?>】</p>
+    	メールアドレス変更が完了しました。<br>
+    	ログイン後、サービスをご利用下さい。
+		</p>
 	</div><!-- /content -->
 	
 <?php @include("common/footer.html"); ?>

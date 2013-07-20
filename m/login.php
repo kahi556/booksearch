@@ -5,19 +5,20 @@
 
 session_start();
 
+require("common/conf.php"); // 共通定義
+
 // ログイン状態のチェック(ログイン済ならログイン後トップページ)
 if (isset($_SESSION['login'])) {
-	header("Location: top.php");
+	header("Location: ".URL."/top.php");
 	exit;
 }
 
 // 変数初期化
 $p_m = "";
 $p_link = "";
+$p_login_id = "";
+$p_password = "";
 $msg_info = "";
-$viewUserId = "";
-
-require("common/conf.php"); // 共通定義
 
 //***********************************************
 // ログイン後の処理振り分け、セッション情報クリア
@@ -34,7 +35,7 @@ if (isset($_GET['m'])) {
 	//	$msg_info.= "本を検索するにはログインが必要です。<br>";
 	//	$_SESSION['link'] = "sbook.php";
 	}
-}elseif (isset($_POST['user_id'])) { // ユーザーID入力後
+}elseif (isset($_POST['login_id'])) { // ログインID入力後
 }else{
 	require("common/sess_clear.php"); // セッション情報クリア
 }
@@ -42,11 +43,11 @@ if (isset($_GET['m'])) {
 // エラーメッセージを格納する変数を初期化
 $errorMessage = "";
 
-if (isset($_POST['user_id'])) {
+if (isset($_POST['login_id'])) {
 	// ログインボタンを押した後
 	if(isset($_POST['link'])){$p_link=$_POST['link'];}
-	$viewUserId = htmlspecialchars($_POST['user_id'], ENT_QUOTES);
-	$viewPassword = crypt(sha1($_POST['password']),TANE);
+	$p_login_id = htmlspecialchars($_POST['login_id'], ENT_QUOTES);
+	$p_password = crypt(sha1($_POST['password']),TANE);
 	
 	//***********************************************
 	// DB接続
@@ -55,7 +56,7 @@ if (isset($_POST['user_id'])) {
 	$obj = new comdb();
 	
 	// 会員ログイン
-	$ret = $obj->Login($viewUserId, $viewPassword);
+	$ret = $obj->Login($p_login_id, $p_password);
 	if(!$ret){
 		$msg_info.= $obj->errmsg;
 		include 'template/login.html';
@@ -63,6 +64,7 @@ if (isset($_POST['user_id'])) {
 		
 	}else{
 		$errorMessage = "";
+		
 		//セッション保管
 		//session_regenerate_id(TRUE);
 		
@@ -85,7 +87,7 @@ if (isset($_POST['user_id'])) {
 			header('Location: '.$p_link);
 		}else{
 			//ログイン後トップページへ
-			header('Location: top.php');
+			header("Location: ".URL."/top.php");
 		}
 		exit;
 	}

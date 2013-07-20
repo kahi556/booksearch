@@ -35,6 +35,7 @@ $arr_keyword = array();
 $arr_selected = array();
 $arr_keyword_temp = array();
 $arr_feeling_temp = array();
+$err_title = "書評一覧表示";
 
 require("common/conf.php"); // 共通定義
 
@@ -51,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 }
 if ($p_book_id == "") {
 	$msg_info = "不正な処理です。";
-	require("err.html"); // エラー画面テンプレート呼び出し
+	require("template/err.html"); // エラー画面テンプレート呼び出し
 	exit;
 }
 
