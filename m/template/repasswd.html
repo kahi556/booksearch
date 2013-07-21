@@ -6,6 +6,17 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 <?php @include("common/jquery.html"); ?>
+	<script type="text/javascript">
+	<!--
+	// submitボタンの2度押し防止
+	function submit_check() {
+		document.getElementById("mailchk").disabled = true;
+		var form = document.passform;
+		form.action = 'repasswd.php';
+		form.submit();
+	} 
+	-->
+	</script>
 </head>
 <body>
 
@@ -24,7 +35,7 @@
 				<label for="birth">生年月日</label>
 				<input type="date" name="birth" id="birth" required value="<?php echo $p_birth ?>">
 			</div><!-- /fieldcontain -->
-			<input type="submit" name="mailchk" id="mailchk" class="button_small grbtn" value="パスワード再発行">
+			<input type="button" name="mailchk" id="mailchk" value="パスワード再発行" onclick="submit_check();return false">
 		</form>
 	</div><!-- /content -->
 	
