@@ -118,10 +118,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				session_cache_limiter('private_no_expire');
 			}
 		}
+	}
+	if ($err) {
+		require("template/err.html"); // エラー画面テンプレート呼び出し
+	}else{
 		// パスワード再発行完了ページ
 		header("Location: #page2");
-		exit;
 	}
+	exit;
 }
 
 include 'template/repasswd.html';
