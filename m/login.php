@@ -27,13 +27,13 @@ if (isset($_GET['m'])) {
 	$p_m = $_GET['m'];
 	if ($p_m == "wr") { // 書評を書く
 		$msg_info.= "書評を書くにはログインが必要です。<br>";
-		$p_link = "wreviewsch.php";
+		$p_link = "wreviewsch?";
 	//}elseif ($p_m == "os") { // おすすめ本登録
 	//	$msg_info.= "おすすめ本を登録するにはログインが必要です。<br>";
-	//	$p_link = "osusume.php";
+	//	$p_link = "osusume?";
 	//}elseif ($_GET['m'] == "sb") { // 本を検索
 	//	$msg_info.= "本を検索するにはログインが必要です。<br>";
-	//	$_SESSION['link'] = "sbook.php";
+	//	$_SESSION['link'] = "sbook?";
 	}
 }elseif (isset($_POST['login_id'])) { // ログインID入力後
 }else{
@@ -87,7 +87,7 @@ if (isset($_POST['login_id'])) {
 			header('Location: '.$p_link);
 		}else{
 			//ログイン後トップページへ
-			header("Location: ".URL."/top.php");
+			header("Location: ".URL."/top?");
 		}
 		exit;
 	}

@@ -7,7 +7,7 @@ session_start();
 
 // ログイン状態のチェック
 //if (!isset($_SESSION['login'])) {
-//	header("Location: login.php?m=sb");
+//	header("Location: login?m=sb");
 //	exit;
 //}
 
@@ -58,7 +58,7 @@ if ($p_book_id == "") {
 
 // ログイン状態のチェック(ログイン未で書評変更ならログインページ)
 if (!isset($_SESSION['login']) && ($p_wk == "mod")) {
-	header("Location: login.php");
+	header("Location: login?");
 	exit;
 }
 
@@ -83,6 +83,7 @@ if (isset($_SESSION['login'])) {
 	// ログイン中のみの条件
 	$sql.= " AND brt.user_id = \"".$_SESSION["user_id"]."\"";
 }
+
 $ret = $obj->Fetch($sql);
 if (count($ret) <> 0){
 	//$html.= "<div data-role=\"collapsible-set\" data-theme=\"d\" data-content-theme=\"d\">\n";
@@ -113,7 +114,7 @@ if (count($ret) <> 0){
 			// 重複気分がなかった場合
 			foreach($ARR_FEELING as $key1 => $val1){
 				if ($key1 == $val["feeling"]) {
-					$wk_feeling_image.= "【 ".$val1." 】<br /><a rel=\"external\" href=\"./sbook.php?wk=f&wd=".$val["feeling"]."\"><img src=\"images/".$val["feeling"].".gif\"></a><br />\n";						break;
+					$wk_feeling_image.= "【 ".$val1." 】<br /><a rel=\"external\" href=\"./sbook?wk=f&wd=".$val["feeling"]."\"><img src=\"images/".$val["feeling"].".gif\"></a><br />\n";						break;
 				}
 			}
 			$arr_feeling_temp[] = $val["feeling"];
@@ -123,7 +124,7 @@ if (count($ret) <> 0){
 		$wk_feeling = $val["feeling"];
 		foreach($ARR_FEELING as $key1 => $val1){
 			if ($key1 == $wk_feeling) {
-				$arr_feeling_image[$key].= "【 ".$val1." 】<br /><a rel=\"external\" href=\"./sbook.php?wk=f&wd=".$val["feeling"]."\"><img src=\"images/".$val["feeling"].".gif\"></a><br />\n";
+				$arr_feeling_image[$key].= "【 ".$val1." 】<br /><a rel=\"external\" href=\"./sbook?wk=f&wd=".$val["feeling"]."\"><img src=\"images/".$val["feeling"].".gif\"></a><br />\n";
 				break;
 			}
 		}
@@ -142,7 +143,7 @@ if (count($ret) <> 0){
 				}
 				if (!$flg_match) {
 					// 重複キーワードがなかった場合
-					$wk_link.= "<a rel=\"external\" href=\"./sbook.php?wk=w&wd=".urlencode($val1)."\">".$val1."</a> ";
+					$wk_link.= "<a rel=\"external\" href=\"./sbook?wk=w&wd=".urlencode($val1)."\">".$val1."</a> ";
 					$arr_keyword_temp[] = $val1;
 				}
 			}
@@ -151,7 +152,7 @@ if (count($ret) <> 0){
 		if ($val["tag"] <> "") {
 			$arr_keyword = explode(",", $val["tag"]);
 			foreach($arr_keyword as $key1 => $val1){
-				$arr_link[$key].= "<a rel=\"external\" href=\"./sbook.php?wk=w&wd=".urlencode($val1)."\">".$val1."</a> ";
+				$arr_link[$key].= "<a rel=\"external\" href=\"./sbook?wk=w&wd=".urlencode($val1)."\">".$val1."</a> ";
 			}
 		}
 	}
@@ -214,7 +215,7 @@ if (count($ret) <> 0){
 // ログイン状態のチェック(ログイン済なら内容変更ボタン表示)
 if (isset($_SESSION['login'])) {
 	$btn_mod.= "		";
-	$btn_mod.= "<a rel=\"external\" href=\"sreview.php?id=".$p_book_id."&wk=mod\" data-role=\"button\">内容変更</a>\n";
+	$btn_mod.= "<a rel=\"external\" href=\"sreview?id=".$p_book_id."&wk=mod\" data-role=\"button\">内容変更</a>\n";
 }
 
 if ($p_wk == "mod") {

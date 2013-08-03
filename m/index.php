@@ -9,7 +9,7 @@ require("common/conf.php"); // 共通定義
 
 // ログイン状態のチェック(ログイン済ならログイン後トップページ)
 if (isset($_SESSION['login'])) {
-	header("Location: top.php");
+	header("Location: top?");
 	exit;
 }
 
@@ -38,7 +38,7 @@ if (count($ret) <> 0){
 	foreach($ret as $key => $val){
 		$arr_isbn[] = $val["isbn"];
 		$html_image.= "			";
-		$html_image.= "<div class=\"item\"><a rel=\"external\" href=\"sreview.php?id=".$val["book_id"]."\">";
+		$html_image.= "<div class=\"item\"><a rel=\"external\" href=\"sreview?id=".$val["book_id"]."\">";
 		$html_image.= "			";
 		$html_image.= "<img src=\"".$val["imageurl"]."\"></a></div>\n";
 	}
@@ -97,7 +97,7 @@ if (count($ret) <> 0){
     		</div>
 		</div>
 		<br>
-		<!-- <a rel="external" href="osusume.php" data-role="button" class="">おすすめ本登録</a> -->
+		<!-- <a rel="external" href="osusume?" data-role="button" class="">おすすめ本登録</a> -->
 		<!--Social Button-->
 		<div class="block clearfix">
 			<div id="facebook_like"></div>

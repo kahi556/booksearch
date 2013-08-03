@@ -13,14 +13,14 @@ $p_feeling = "";
 $p_review = "";
 $p_tag = "";
 $wk_get_book_cnt = 0;
-$link_url = "wreviewsch.php?isbn=";
+$link_url = "wreviewsch?isbn=";
 $html = "";
 $message = "";
 $arr_selected = array();
 
 // ログイン状態のチェック
 if (!isset($_SESSION['login'])) {
-	header("Location: login.php?m=wr");
+	header("Location: login?m=wr");
 	exit;
 }
 

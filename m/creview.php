@@ -7,7 +7,7 @@ session_start();
 
 // ログイン状態のチェック
 //if (!isset($_SESSION['login'])) {
-//	header("Location: login.php?m=sb");
+//	header("Location: login?m=sb");
 //	exit;
 //}
 
@@ -48,7 +48,7 @@ if ($p_book_id == "") {
 
 // ログイン状態のチェック(ログイン未で書評変更ならログインページ)
 if (!isset($_SESSION['login']) && ($p_wk == "mod")) {
-	header("Location: login.php");
+	header("Location: login?");
 	exit;
 }
 
@@ -80,7 +80,7 @@ if (count($ret) <> 0){
 		if ($val["tag"] <> "") {
 			$arr_keyword = explode(",", $val["tag"]);
 			foreach($arr_keyword as $key1 => $val1){
-				$wk_keyword.= "<a rel=\"external\" href=\"./sbook.php?wk=w&wd=".urlencode($val1)."\">".$val1."</a> ";
+				$wk_keyword.= "<a rel=\"external\" href=\"./sbook?wk=w&wd=".urlencode($val1)."\">".$val1."</a> ";
 			}
 		}
 		// セッションに設定
@@ -95,14 +95,14 @@ if (count($ret) <> 0){
 		$_SESSION["detailpageurl"] = $val["detailpageurl"];
 		$_SESSION["nickname"] = $val["nickname"];
 		// イメージ
-		$_SESSION["feeling_image"] = "<a rel=\"external\" href=\"./sbook.php?wk=f&wd=".$val["feeling"]."\"><img src=\"images/".$val["feeling"].".gif\"></a>";
+		$_SESSION["feeling_image"] = "<a rel=\"external\" href=\"./sbook?wk=f&wd=".$val["feeling"]."\"><img src=\"images/".$val["feeling"].".gif\"></a>";
 	}
 }
 
 // ログイン状態のチェック(ログイン済なら内容変更ボタン表示)
 if (isset($_SESSION['login'])) {
 	$btn_mod.= "		";
-	$btn_mod.= "<a rel=\"external\" href=\"creview.php?id=".$p_book_id."&wk=mod\" data-role=\"button\">内容変更</a>\n";
+	$btn_mod.= "<a rel=\"external\" href=\"creview?id=".$p_book_id."&wk=mod\" data-role=\"button\">内容変更</a>\n";
 }
 
 if ($p_wk == "mod") {

@@ -17,7 +17,7 @@
 		var form = document.regform;
 		form.wk.value = "f";
 		form.feeling.value = feeling;
-		form.action = "wreviewsch.php";
+		form.action = "wreviewsch?";
 		form.submit();
 	}
 	//-->
@@ -32,7 +32,7 @@
 <?php echo $msg_info ?>
 	<div data-role="content" data-theme="d">
 		<p>書評を書く</p>
-		<form name="regform" id="regform" method="post" action="wreview.php" class="ui-body ui-body-c">
+		<form name="regform" id="regform" method="post" action="wreview?" class="ui-body ui-body-c">
 		<div class="ui-grid-a">
 			<div class="ui-block-a">
 				<p>書名: <?php echo $_SESSION["title"] ?></p>

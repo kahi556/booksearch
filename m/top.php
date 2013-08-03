@@ -7,7 +7,7 @@ session_start();
 
 // ログイン状態のチェック(ログイン未ならログインページ)
 if (!isset($_SESSION['login'])) {
-	header("Location: login.php");
+	header("Location: login?");
 	exit;
 }
 
@@ -98,12 +98,12 @@ if (count($ret) <> 0){
 				}
 				if (!$flg_match) {
 					// 重複キーワードがなかった場合
-					$wk_keyword.= "<a rel=\"external\" href=\"./sbook.php?wk=w&wd=".urlencode($val1)."#page2\">".$val1."</a> ";
+					$wk_keyword.= "<a rel=\"external\" href=\"./sbook?wk=w&wd=".urlencode($val1)."#page2\">".$val1."</a> ";
 					$arr_temp_keyword[] = $val1;
 				}
 			}
 		}
-		$html.="		<li><a rel=\"external\" href=\"creview.php?id=".$val["book_id"]."\">\n";
+		$html.="		<li><a rel=\"external\" href=\"creview?id=".$val["book_id"]."\">\n";
 		$html.="			<img src=\"".$val["imageurl"]."\" />\n";
 		$html.="			<h3>".$val["book_name"]."</h3> \n";
 		$html.="			<p>".$val["author_name"]."<br />";

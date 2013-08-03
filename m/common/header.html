@@ -3,22 +3,22 @@ if (isset($_SESSION['login'])) {
 	$linkpg = "			";
 	$linkpg.= "<li><a rel=\"external\" href=\"".URL."/\">ホーム</a></li>\n";
 	$linkpg.= "			";
-	$linkpg.= "<li><a rel=\"external\" href=\"".URL."/sbook.php\">本を検索</a></li>\n";
+	$linkpg.= "<li><a rel=\"external\" href=\"".URL."/sbook?\">本を検索</a></li>\n";
 	$linkpg.= "			";
-	$linkpg.= "<li><a rel=\"external\" href=\"".URL."/wreviewsch.php\">書評を書く</a></li>\n";
+	$linkpg.= "<li><a rel=\"external\" href=\"".URL."/wreviewsch?\">書評を書く</a></li>\n";
 	$linkpg.= "			";
-	$linkpg.= "<li><a rel=\"external\" href=\"".URL."/settei.php\">会員情報更新</a></li>\n";
+	$linkpg.= "<li><a rel=\"external\" href=\"".URL."/settei?\">会員情報更新</a></li>\n";
 	$linkpg.= "			";
-	$linkpg.= "<li><a rel=\"external\" href=\"".URL."/logout.php\">ログアウト</a></li>\n";
+	$linkpg.= "<li><a rel=\"external\" href=\"".URL."/logout?\">ログアウト</a></li>\n";
 }else{
 	$linkpg = "			";
 	$linkpg.= "<li><a rel=\"external\" href=\"".URL."/\">ホーム</a></li>\n";
 	$linkpg.= "			";
-	$linkpg.= "<li><a rel=\"external\" href=\"".URL."/sbook.php\">本を検索</a></li>\n";
+	$linkpg.= "<li><a rel=\"external\" href=\"".URL."/sbook?\">本を検索</a></li>\n";
 	$linkpg.= "			";
-	$linkpg.= "<li><a rel=\"external\" href=\"".URL_SSL."/login.php?m=wr\">書評を書く</a></li>\n";
+	$linkpg.= "<li><a rel=\"external\" href=\"".URL_SSL."/login?m=wr\">書評を書く</a></li>\n";
 	$linkpg.= "			";
-	$linkpg.= "<li><a rel=\"external\" href=\"".URL_SSL."/login.php\">ログイン</a></li>\n";
+	$linkpg.= "<li><a rel=\"external\" href=\"".URL_SSL."/login?\">ログイン</a></li>\n";
 }
 ?>
 	<div data-role="panel" id="mypanel" data-display="overlay" data-theme="c">

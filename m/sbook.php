@@ -184,7 +184,7 @@ if ($p_word <> "") {
 	//}
 	$ret = $obj->Fetch($sql);
 	if (count($ret) <> 0){
-		$html.= "<div data-role=\"collapsible-set\" data-theme=\"e\" data-content-theme=\"d\">\n";
+		$html.= "<div data-role=\"collapsible-set\" data-theme=\"c\" data-content-theme=\"d\">\n";
 		foreach($ret as $key => $val){
 			$wk_mkeyword = "";
 			if ($key == 0) {
@@ -197,7 +197,7 @@ if ($p_word <> "") {
 			if ($val["tag"] <> "") {
 				$arr_keyword = explode(",", $val["tag"]);
 				foreach($arr_keyword as $key1 => $val1){
-					$wk_mkeyword.= "<a rel=\"external\" href=\"./sbook.php?wk=w&wd=".urlencode($val1)."\">".$val1."</a> ";
+					$wk_mkeyword.= "<a rel=\"external\" href=\"./sbook?wk=w&wd=".urlencode($val1)."\">".$val1."</a> ";
 				}
 			}
 			
@@ -232,7 +232,7 @@ if ($p_word <> "") {
 			$html.= "					<td>".$val["author_name"]."</td>\n";
 			$html.= "					<td>".$val["thanks_cnt"]."</td>\n";
 			$html.= "					<td>【 ".$wk_feeling_j." 】<br />";
-			$html.= "<a rel=\"external\" href=\"./sbook.php?wk=f&wd=".$val["feeling"]."\">";
+			$html.= "<a rel=\"external\" href=\"./sbook?wk=f&wd=".$val["feeling"]."\">";
 			$html.= "<img src=\"images/".$val["feeling"].".gif\"></a></td>\n";
 			$html.= "					<td>".$wk_mkeyword."</td>\n";
 			$html.= "					<td>".$val["nickname"]."\n";
@@ -297,7 +297,7 @@ if ($p_word <> "") {
 		foreach ($ARR_FEELING as $key => $val) {
 			$html_image.= "					";
 			$html_image.= "<div class=\"item\">";
-			$html_image.= "<a rel=\"external\" href=\"sbook.php?wk=f&wd=".$key."\">\n";
+			$html_image.= "<a rel=\"external\" href=\"sbook?wk=f&wd=".$key."\">\n";
 			$html_image.= "					";
 			$html_image.= "<img src=\"images/".$key.".gif\"></a></div>\n";
 		}

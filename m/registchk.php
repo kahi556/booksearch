@@ -9,7 +9,7 @@ session_start();
 
 // ログイン状態のチェック(ログイン済ならログイン後トップページ)
 //if (isset($_SESSION['login'])) {
-//	header("Location: top.php");
+//	header("Location: top?");
 //	exit;
 //}
 
@@ -141,7 +141,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$wk_fileinfo = "common/txt/info.txt";
 		$wk_subject.= "【feegle】仮登録完了のお知らせ";
 		$rkey = md5($p_login_id.$time.TANE); // キー生成
-		$url_text = URL_SSL."/registid.php?rkey=".$rkey;
+		$url_text = URL_SSL."/registid?rkey=".$rkey;
 		// メールテキストを取得後、URLを設定
 		$wk_body = str_replace("%url_text%", $url_text, file_get_contents($wk_fileinfo));
 		// 愛称を設定

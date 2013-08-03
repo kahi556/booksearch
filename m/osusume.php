@@ -7,7 +7,7 @@ session_start();
 
 // ログイン状態のチェック
 if (!isset($_SESSION['login'])) {
-	header("Location: login.php?m=os");
+	header("Location: login?m=os");
 	exit;
 }
 
