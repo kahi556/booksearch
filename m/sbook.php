@@ -184,7 +184,7 @@ if ($p_word <> "") {
 	//}
 	$ret = $obj->Fetch($sql);
 	if (count($ret) <> 0){
-		$html.= "<div data-role=\"collapsible-set\" data-theme=\"c\" data-content-theme=\"d\">\n";
+		$html.= "<div data-role=\"collapsible-set\" data-theme=\"c\">\n";
 		foreach($ret as $key => $val){
 			$wk_mkeyword = "";
 			if ($key == 0) {
@@ -236,7 +236,8 @@ if ($p_word <> "") {
 			$html.= "<img src=\"images/".$val["feeling"].".gif\"></a></td>\n";
 			$html.= "					<td>".$wk_mkeyword."</td>\n";
 			$html.= "					<td>".$val["nickname"]."\n";
-			if (isset($_SESSION["login"])) {
+			if ((isset($_SESSION["login"])) &&
+				(($_SESSION["user_id"] <> $val["brtuser_id"]))) {
 				// ログイン後で、
 				// 自身がフォローしていなかった場合
 				if (($val["ftfollow_user_id"] == "") ||
@@ -256,7 +257,8 @@ if ($p_word <> "") {
 			}
 			$html.= "					</td>\n";
 			$html.= "					<td>".$val["book_review"]."\n";
-			if (isset($_SESSION["login"])) {
+			if ((isset($_SESSION["login"])) &&
+				(($_SESSION["user_id"] <> $val["brtuser_id"]))) {
 				// ログイン後で、
 				// 自身が投稿していなかった場合
 				if (($val["thtbook_review_no"] == "") ||
