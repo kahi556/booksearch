@@ -123,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		require("template/err.html"); // エラー画面テンプレート呼び出し
 	}else{
 		// パスワード再発行完了ページ
-		header("Location: #page2");
+		header("Location: repasswd#page2");
 	}
 	exit;
 }
