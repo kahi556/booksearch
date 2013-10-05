@@ -69,11 +69,11 @@ if (count($ret) <> 0){
 	<meta charset="utf-8">
 	<title>feegle | 感覚的に書籍を検索</title>
 	<meta name="description" content="feegle">
+	<link rel="stylesheet" href="css/flipsnap5.css" />
+	<link rel="stylesheet" href="css/clearfix.css" />
 <?php @include("common/jquery.html"); ?>
 	<script type="text/javascript" src="scripts/sns.js"></script>
 	<script type="text/javascript" src="scripts/flipsnap.js"></script>
-	<link rel="stylesheet" href="css/flipsnap5.css" />
-	<link rel="stylesheet" href="css/clearfix.css" />
 	<script>
 	$(function(){
 		Flipsnap('.flipsnap');
@@ -102,20 +102,20 @@ if (count($ret) <> 0){
 		<div class="block clearfix">
 			<div id="facebook_like"></div>
 			<div id="twitter"></div>
-			<div id="evernote"></div>
-			<div id="hatena"></div>
-			<div id="gree"></div>
+			<!-- <div id="evernote"></div> -->
+			<!-- <div id="hatena"></div> -->
+			<!-- <div id="gree"></div> -->
 			<!-- +1 ボタン を表示したい位置に次のタグを貼り付けてください。 -->
 			<div class="g-plusone" data-size="medium"></div>
 			<!-- 最後の +1 ボタン タグの後に次のタグを貼り付けてください。 -->
-			<script type="text/javascript">
+			<!-- <script type="text/javascript">
 			  window.___gcfg = {lang: 'ja'};
 			  (function() {
 			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
 			    po.src = 'https://apis.google.com/js/plusone.js';
 			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 			  })();
-			</script>
+			</script> -->
 		</div><!-- /block clearfix -->
 		<!--/Social Button-->
 	</div><!-- /content -->
